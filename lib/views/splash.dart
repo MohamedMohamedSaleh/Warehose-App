@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:warehouse/main.dart';
 import 'package:warehouse/views/auth/login/login_view.dart';
+import 'package:warehouse/views/pages/home_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -23,7 +25,6 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-
     moveTo();
   }
 
@@ -31,7 +32,10 @@ class _SplashViewState extends State<SplashView> {
     Timer(
       const Duration(seconds: 4),
       () {
-        Get.off(() => const LoginView(),
+        Get.off(
+            () => ((prefs.getString('token') ?? "").isEmpty)
+                ? const LoginView()
+                : const HomePage(),
             transition: Transition.zoom,
             duration: const Duration(milliseconds: 2000));
       },

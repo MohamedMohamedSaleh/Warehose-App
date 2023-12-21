@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
+import 'package:warehouse/main.dart';
+import 'package:warehouse/views/auth/login/login_model.dart';
 import 'package:warehouse/views/auth/widgets/custom_filled_button.dart';
 import 'package:warehouse/views/pages/home_view.dart';
 import '../login/login_controller.dart';
@@ -33,6 +35,14 @@ class _FormInputAppState extends State<FormInputApp> {
       },
     );
     if (message.isSuccess) {
+      final model = UserData.fromJson(message.response!.data);
+      prefs.setString('token', model.token);
+      prefs.setInt('id', model.id);
+      prefs.setString('username', model.username);
+      prefs.setString('name', model.name);
+      prefs.setString('department', model.department);
+      prefs.setString('expiration_date', model.expirationDate);
+      prefs.setString('role', model.role);
       showMessage(message: message.message, type: MessageType.success);
       Get.off(
         const HomePage(),
@@ -109,18 +119,23 @@ class _FormInputAppState extends State<FormInputApp> {
             width: double.infinity,
             child: SizedBox(
                 height: 50,
-                child:isLoading? const Center(child: CircularProgressIndicator(),) :CustomFilledButton(
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                    if (formKey.currentState!.validate()) {
-                      login();
-                    } else {
-                      autovalidateMode = AutovalidateMode.onUserInteraction;
-                      setState(() {});
-                    }
-                  },
-                )),
+                child: isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : CustomFilledButton(
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          if (formKey.currentState!.validate()) {
+                            login();
+                          } else {
+                            autovalidateMode =
+                                AutovalidateMode.onUserInteraction;
+                            setState(() {});
+                          }
+                        },
+                      )),
           ),
         ],
       ),

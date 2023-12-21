@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/views/splash.dart';
 
 import 'constants/my_colors.dart';
 
-void main() {
+late final SharedPreferences prefs;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       // navigation bar color
