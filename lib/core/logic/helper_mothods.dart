@@ -25,3 +25,12 @@ void showMessage(
     ),
   );
 }
+
+void navigateTo({required Widget toPage}) {
+  Navigator.push(
+    navigatorKey.currentContext!,
+    MaterialPageRoute(
+      builder: (context) => toPage,
+    ),
+  );
+}
