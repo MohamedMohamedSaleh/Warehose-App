@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:warehouse/core/logic/dio_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/main.dart';
 import 'package:warehouse/views/auth/login/login_model.dart';
-import 'package:warehouse/views/auth/widgets/custom_filled_button.dart';
 import 'package:warehouse/views/pages/home_view.dart';
-import '../login/login_controller.dart';
+import '../../../core/widgets/custom_filled_button.dart';
 import 'custom_textfield.dart';
 
 class FormInputApp extends StatefulWidget {
@@ -26,13 +26,14 @@ class _FormInputAppState extends State<FormInputApp> {
   void login() async {
     isLoading = true;
     setState(() {});
-    LoginController controller = LoginController();
-    var message = await controller.loginUser(
+    DioHelper controller = DioHelper();
+    var message = await controller.sendData(
       endPoint: 'MP_login',
       data: {
         'username': userNameController.text,
         'password': passwordController.text,
       },
+      isLogin: true,
     );
     if (message.isSuccess) {
       final model = UserData.fromJson(message.response!.data);
@@ -117,25 +118,24 @@ class _FormInputAppState extends State<FormInputApp> {
           ),
           SizedBox(
             width: double.infinity,
-            child: SizedBox(
-                height: 50,
-                child: isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : CustomFilledButton(
-                        onPressed: () {
-                          FocusScope.of(context).unfocus();
-                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                          if (formKey.currentState!.validate()) {
-                            login();
-                          } else {
-                            autovalidateMode =
-                                AutovalidateMode.onUserInteraction;
-                            setState(() {});
-                          }
-                        },
-                      )),
+            child: isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : CustomFilledButton(
+                  title: "Login",
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                      if (formKey.currentState!.validate()) {
+                        login();
+                      } else {
+                        autovalidateMode =
+                            AutovalidateMode.onUserInteraction;
+                        setState(() {});
+                      }
+                    },
+                  ),
           ),
         ],
       ),

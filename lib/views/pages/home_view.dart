@@ -37,32 +37,34 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: pages[currentIndex],
-        bottomNavigationBar: SafeArea(
-          child: BottomNavigationBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              selectedItemColor: Colors.white,
-              unselectedItemColor: const Color.fromARGB(140, 255, 255, 255),
-              currentIndex: currentIndex,
-              elevation: 10,
-
-              type: BottomNavigationBarType.fixed,
-              onTap: (value) {
-                currentIndex = value;
-                setState(() {});
-              },
-              items: List.generate(
-                pages.length,
-                (index) => BottomNavigationBarItem(
-                    icon: Image.asset(
-                      'assets/images/${icons[index]}.png',
-                      height: (currentIndex == index) ? 24: 22,
-                      color: (currentIndex == index)
-                          ? Colors.white
-                          : const Color.fromARGB(140, 255, 255, 255),
-                    ),
-                    label: leble[index]),
-              )),
-        ));
+      body: pages[currentIndex],
+      bottomNavigationBar: SafeArea(
+        child: BottomNavigationBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: const Color.fromARGB(140, 255, 255, 255),
+          currentIndex: currentIndex,
+          elevation: 10,
+          type: BottomNavigationBarType.fixed,
+          onTap: (value) {
+            currentIndex = value;
+            setState(() {});
+          },
+          items: List.generate(
+            pages.length,
+            (index) => BottomNavigationBarItem(
+              icon: Image.asset(
+                'assets/images/${icons[index]}.png',
+                height: (currentIndex == index) ? 24 : 22,
+                color: (currentIndex == index)
+                    ? Colors.white
+                    : const Color.fromARGB(140, 255, 255, 255),
+              ),
+              label: leble[index],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

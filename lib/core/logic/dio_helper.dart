@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 
-class LoginController {
+class DioHelper {
   final Dio _dio = Dio(BaseOptions(
     baseUrl: "https://6p7ompdw2b.execute-api.us-east-1.amazonaws.com/sta1/",
   ));
 
-  Future<ResponseData> loginUser({required String endPoint,  Map<String, dynamic>? data,}) async {
+  Future<ResponseData> sendData({required String endPoint,  Map<String, dynamic>? data, bool isLogin = false}) async {
     try {
       final response = await _dio.post(
         endPoint,
@@ -13,7 +13,7 @@ class LoginController {
       );
 
       return ResponseData(
-          message: "Login Successfull", isSuccess: true, response: response);
+          message:isLogin? "Login Successfull" : (response.data).toString(), isSuccess: true, response: response);
     } on DioException catch (ex) {
       return ResponseData(
           message: ex.response!.data, isSuccess: false, response: ex.response);
