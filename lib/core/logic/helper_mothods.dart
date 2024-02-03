@@ -17,6 +17,7 @@ void showMessage(
           : Colors.redAccent,
       behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 3),
+      
       content: Column(
         children: [
           Text(message),
@@ -26,11 +27,12 @@ void showMessage(
   );
 }
 
-void navigateTo({required Widget toPage}) {
-  Navigator.push(
+void navigateTo({required Widget toPage,bool dontRemove = true}) {
+  Navigator.pushAndRemoveUntil(
     navigatorKey.currentContext!,
     MaterialPageRoute(
       builder: (context) => toPage,
     ),
+   (route) => dontRemove,
   );
 }

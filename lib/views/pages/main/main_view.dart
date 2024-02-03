@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/main.dart';
 import 'package:warehouse/views/auth/login/login_view.dart';
 import 'package:warehouse/views/auth/widgets/custom_app_bar.dart';
@@ -42,9 +42,10 @@ class MainPage extends StatelessWidget {
               child: FilledButton(
                   onPressed: () {
                     prefs.clear();
-                    Get.off(const LoginView(),
-                        transition: Transition.zoom,
-                        duration: const Duration(milliseconds: 2000));
+                    navigateTo(
+                      toPage: const LoginView(),
+                      dontRemove: false,
+                    );
                   },
                   child: const Text(
                     "Logout",

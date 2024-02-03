@@ -1,10 +1,10 @@
 class ProductData {
-  late  String id;
-  late  String name;
-  late  String category;
-  late  String dimensions;
-  late  String weight;
-  late  String description;
+  late final String id;
+  late final String name;
+  late final String category;
+  late final String dimensions;
+  late final String weight;
+  late final String description;
 
   ProductData.fromJson(Map<String, dynamic> map) {
     id = map['ProductID'];
@@ -16,11 +16,13 @@ class ProductData {
   }
 }
 
-// Map<String, dynamic> productData = {
-//   "ProductID": "1233",
-//   "Name": "test scan Product",
-//   "Description": "Product Descriptionn",
-//   "Category": "Electronics",
-//   "Weight": "2.5",
-//   "Dimensions": "[10,5,5]"
-// };
+Map<String, dynamic> productData = {
+  "ProductID": "123453215",
+  "Name": "test scan Product",
+  "Description": "Product Descriptionn",
+  "Category": "Electronics",
+  "Weight": "2.5",
+  "Dimensions": "[10,5,5]"
+};
+
+

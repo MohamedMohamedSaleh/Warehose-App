@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/main.dart';
 import 'package:warehouse/views/auth/login/login_view.dart';
 import 'package:warehouse/views/pages/home_view.dart';
@@ -32,12 +32,12 @@ class _SplashViewState extends State<SplashView> {
     Timer(
       const Duration(seconds: 4),
       () {
-        Get.off(
-            () => ((prefs.getString('token') ?? "").isEmpty)
-                ? const LoginView()
-                : const HomePage(),
-            transition: Transition.zoom,
-            duration: const Duration(milliseconds: 2000));
+        navigateTo(
+          toPage: ((prefs.getString('token') ?? "").isEmpty)
+              ? const LoginView()
+              : const HomePage(),
+          dontRemove: false,
+        );
       },
     );
   }
@@ -62,12 +62,22 @@ class _SplashViewState extends State<SplashView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Welcome to Warehouse",
-                      style: TextStyle(
-                          fontSize: 26,
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      onTap: () {
+                        navigateTo(
+                          toPage: ((prefs.getString('token') ?? "").isEmpty)
+                              ? const LoginView()
+                              : const HomePage(),
+                          dontRemove: true,
+                        );
+                      },
+                      child: Text(
+                        "Welcome to Warehouse",
+                        style: TextStyle(
+                            fontSize: 26,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),

@@ -16,7 +16,7 @@ class DioHelper {
           message:isLogin? "Login Successfull" : (response.data).toString(), isSuccess: true, response: response);
     } on DioException catch (ex) {
       return ResponseData(
-          message: ex.response!.data, isSuccess: false, response: ex.response);
+          message: (ex.response!.data).toString(), isSuccess: false, response: ex.response);
     }
   }
 }

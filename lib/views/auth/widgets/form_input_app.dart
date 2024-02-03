@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:warehouse/core/logic/dio_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/main.dart';
@@ -35,6 +34,7 @@ class _FormInputAppState extends State<FormInputApp> {
       },
       isLogin: true,
     );
+
     if (message.isSuccess) {
       final model = UserData.fromJson(message.response!.data);
       prefs.setString('token', model.token);
@@ -45,10 +45,9 @@ class _FormInputAppState extends State<FormInputApp> {
       prefs.setString('expiration_date', model.expirationDate);
       prefs.setString('role', model.role);
       showMessage(message: message.message, type: MessageType.success);
-      Get.off(
-        const HomePage(),
-        transition: Transition.zoom,
-        duration: const Duration(milliseconds: 1000),
+      navigateTo(
+        toPage: const HomePage(),
+        dontRemove: false,
       );
     } else {
       showMessage(message: message.message);
@@ -68,9 +67,10 @@ class _FormInputAppState extends State<FormInputApp> {
           Text(
             "Username",
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).primaryColor),
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           const SizedBox(
             height: 5,
@@ -86,9 +86,10 @@ class _FormInputAppState extends State<FormInputApp> {
           Text(
             "Password",
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).primaryColor),
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           const SizedBox(
             height: 5,
@@ -123,15 +124,14 @@ class _FormInputAppState extends State<FormInputApp> {
                     child: CircularProgressIndicator(),
                   )
                 : CustomFilledButton(
-                  title: "Login",
+                    title: "Login",
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       ScaffoldMessenger.of(context).removeCurrentSnackBar();
                       if (formKey.currentState!.validate()) {
                         login();
                       } else {
-                        autovalidateMode =
-                            AutovalidateMode.onUserInteraction;
+                        autovalidateMode = AutovalidateMode.onUserInteraction;
                         setState(() {});
                       }
                     },
