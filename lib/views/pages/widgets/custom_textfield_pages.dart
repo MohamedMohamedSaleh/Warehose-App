@@ -9,7 +9,7 @@ class CustomTextFieldWithTitle extends StatefulWidget {
     this.isCategory = false,
     this.validator,
     this.titelText,
-    this.isText = true,
+    this.isText = true, this.isWeight = false,
   });
 
   final String labelText;
@@ -19,6 +19,7 @@ class CustomTextFieldWithTitle extends StatefulWidget {
   final String? Function(String?)? validator;
   final String? titelText;
   final bool isText;
+  final bool isWeight;
   @override
   State<CustomTextFieldWithTitle> createState() => _CustomTextFieldState();
 }
@@ -27,7 +28,9 @@ class _CustomTextFieldState extends State<CustomTextFieldWithTitle> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15,),
+      padding: const EdgeInsets.only(
+        bottom: 15,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,10 +43,12 @@ class _CustomTextFieldState extends State<CustomTextFieldWithTitle> {
                   ),
                 )
               : const SizedBox(),
-           const SizedBox(height: 2,),
+          const SizedBox(
+            height: 2,
+          ),
           TextFormField(
-             keyboardType:
-             widget.isText ? TextInputType.text : TextInputType.phone,
+            keyboardType:
+                widget.isText && !widget.isWeight ? TextInputType.text : TextInputType.phone,
             validator: widget.isCategory
                 ? widget.validator
                 : (value) {

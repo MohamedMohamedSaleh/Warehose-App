@@ -54,6 +54,7 @@ class _FormAddProductState extends State<FormAddProduct> {
                   controller: cubit.idController,
                 ),
                 CustomTextFieldWithTitle(
+                  isWeight: true,
                   titelText: "Weight",
                   labelText: "product weight",
                   controller: cubit.weightController,

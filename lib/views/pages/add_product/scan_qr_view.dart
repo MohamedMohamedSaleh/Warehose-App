@@ -52,14 +52,14 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                 actionsPadding: const EdgeInsets.only(bottom: 26, top: 8),
                 actionsAlignment: MainAxisAlignment.center,
                 shadowColor: Colors.white,
-                titlePadding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                titlePadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                 title: const Text(
-                  "Are You Sure To Exit!",
+                  "Are You Sure To Exit?",
                   style: TextStyle(
-                    color: mainColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold
-                  ),
+                      color: mainColor,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 actions: [
@@ -146,8 +146,8 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                     : SizedBox(
                                         width: double.infinity,
                                         child: CustomFilledButton(
-                                          onPressed: ()async {
-                                           await cubit.addProduct(
+                                          onPressed: () async {
+                                            await cubit.addProduct(
                                                 isTextfield: false);
                                             cubit.isScaned = false;
                                             cubit.result = null;
@@ -157,6 +157,17 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                           title: "Add Product",
                                         ),
                                       ),
+                                TextButton(
+                                  child: const Text(
+                                    "Clear Product Data",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  onPressed: () {
+                                    cubit.result = null;
+                                    cubit.isScaned = false;
+                                    setState(() {});
+                                  },
+                                ),
                               ],
                             ),
                           )
