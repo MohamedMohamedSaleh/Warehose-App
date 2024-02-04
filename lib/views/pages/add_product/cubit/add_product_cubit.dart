@@ -35,7 +35,7 @@ class AddProductCubit extends Cubit<AddProductStates> {
   final TextEditingController widthController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
 
-  void addProduct({required bool isTextfield}) async {
+  Future<void> addProduct({required bool isTextfield}) async {
     emit(AddProductLoadingState());
 
     final response = await DioHelper().sendData(
@@ -66,6 +66,7 @@ class AddProductCubit extends Cubit<AddProductStates> {
         longController.clear();
         heightController.clear();
         widthController.clear();
+
       }
 
       emit(AddProductSuccessState());

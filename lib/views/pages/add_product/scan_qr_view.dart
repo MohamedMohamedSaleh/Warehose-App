@@ -146,11 +146,12 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                     : SizedBox(
                                         width: double.infinity,
                                         child: CustomFilledButton(
-                                          onPressed: () {
-                                            cubit.addProduct(
+                                          onPressed: ()async {
+                                           await cubit.addProduct(
                                                 isTextfield: false);
                                             cubit.isScaned = false;
                                             cubit.result = null;
+                                            if (!context.mounted) return;
                                             Navigator.pop(context);
                                           },
                                           title: "Add Product",
