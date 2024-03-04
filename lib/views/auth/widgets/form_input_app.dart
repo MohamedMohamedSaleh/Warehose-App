@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/core/logic/dio_helper.dart';
-import 'package:warehouse/core/logic/helper_mothods.dart';
-import 'package:warehouse/main.dart';
-import 'package:warehouse/views/auth/login/login_model.dart';
-import 'package:warehouse/views/pages/home_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/views/auth/login/bloc/login_bloc.dart';
 import '../../../core/widgets/custom_filled_button.dart';
 import 'custom_textfield.dart';
 
@@ -15,52 +13,13 @@ class FormInputApp extends StatefulWidget {
 }
 
 class _FormInputAppState extends State<FormInputApp> {
-  final GlobalKey<FormState> formKey = GlobalKey();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  bool isLoading = false;
-
-  void login() async {
-    isLoading = true;
-    setState(() {});
-    DioHelper controller = DioHelper();
-    var message = await controller.sendData(
-      endPoint: 'MP_login',
-      data: {
-        'username': userNameController.text,
-        'password': passwordController.text,
-      },
-      isLogin: true,
-    );
-
-    if (message.isSuccess) {
-      final model = UserData.fromJson(message.response!.data);
-      prefs.setString('token', model.token);
-      prefs.setInt('id', model.id);
-      prefs.setString('username', model.username);
-      prefs.setString('name', model.name);
-      prefs.setString('department', model.department);
-      prefs.setString('expiration_date', model.expirationDate);
-      prefs.setString('role', model.role);
-      showMessage(message: message.message, type: MessageType.success);
-      navigateTo(
-        toPage: const HomePage(),
-        dontRemove: false,
-      );
-    } else {
-      showMessage(message: message.message);
-    }
-    isLoading = false;
-    setState(() {});
-  }
+  final bloc = KiwiContainer().resolve<LoginBloc>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
-      autovalidateMode: autovalidateMode,
+      key: bloc.formKey,
+      autovalidateMode: bloc.autovalidateMode,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -78,7 +37,7 @@ class _FormInputAppState extends State<FormInputApp> {
           CustomTextField(
             labelText: "Enter your username",
             prefixIcon: Icons.account_circle_rounded,
-            controller: userNameController,
+            controller: bloc.userNameController,
           ),
           const SizedBox(
             height: 10,
@@ -98,7 +57,7 @@ class _FormInputAppState extends State<FormInputApp> {
             labelText: "Enter your Password",
             prefixIcon: Icons.lock,
             isPassword: true,
-            controller: passwordController,
+            controller: bloc.passwordController,
           ),
           const SizedBox(
             height: 3,
@@ -117,25 +76,25 @@ class _FormInputAppState extends State<FormInputApp> {
           const SizedBox(
             height: 10,
           ),
-          SizedBox(
-            width: double.infinity,
-            child: isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : CustomFilledButton(
-                    title: "Login",
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                      if (formKey.currentState!.validate()) {
-                        login();
-                      } else {
-                        autovalidateMode = AutovalidateMode.onUserInteraction;
-                        setState(() {});
-                      }
-                    },
-                  ),
+          BlocBuilder(
+            bloc: bloc,
+            builder: (context, state) {
+              return SizedBox(
+                width: double.infinity,
+                child: state is LoginLoadingState
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : CustomFilledButton(
+                        title: "Login",
+                        onPressed: () {
+    FocusScope.of(context).unfocus();
+
+                          bloc.add(LoginEvent());
+                        },
+                      ),
+              );
+            },
           ),
         ],
       ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:warehouse/core/logic/cache_helper.dart';
 
 import '../../../../core/logic/dio_helper.dart';
 import '../../../../core/logic/helper_mothods.dart';
-import '../../../../main.dart';
 import '../models/qr_code_model.dart';
 
 part 'add_product_state.dart';
@@ -17,10 +17,9 @@ class AddProductCubit extends Cubit<AddProductStates> {
   Barcode? result;
   QRViewController? controller;
   late ProductData model;
-  final idUser = prefs.getInt('id');
-  final tokenUser = prefs.getString('token');
+  final idUser = CacheHelper.getUserId();
+  final tokenUser = CacheHelper.getUserToken();
   bool isScaned = false;
-
 
   String? category;
   final formKey = GlobalKey<FormState>();
@@ -38,7 +37,7 @@ class AddProductCubit extends Cubit<AddProductStates> {
   Future<void> addProduct({required bool isTextfield}) async {
     emit(AddProductLoadingState());
 
-    final response = await DioHelper().sendData(
+    final response = await DioHelper.sendData(
       endPoint: 'MP_AddProducts',
       data: {
         'token': tokenUser,
@@ -66,7 +65,6 @@ class AddProductCubit extends Cubit<AddProductStates> {
         longController.clear();
         heightController.clear();
         widthController.clear();
-
       }
 
       emit(AddProductSuccessState());

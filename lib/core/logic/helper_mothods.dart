@@ -6,6 +6,8 @@ enum MessageType { success, faild }
 
 void showMessage(
     {required String message, MessageType type = MessageType.faild}) {
+  ScaffoldMessenger.of(navigatorKey.currentContext!).removeCurrentSnackBar();
+
   ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
     SnackBar(
       shape: RoundedRectangleBorder(
@@ -17,7 +19,6 @@ void showMessage(
           : Colors.redAccent,
       behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 3),
-      
       content: Column(
         children: [
           Text(message),
@@ -27,12 +28,12 @@ void showMessage(
   );
 }
 
-void navigateTo({required Widget toPage,bool dontRemove = true}) {
+void navigateTo({required Widget toPage, bool dontRemove = true}) {
   Navigator.pushAndRemoveUntil(
     navigatorKey.currentContext!,
     MaterialPageRoute(
       builder: (context) => toPage,
     ),
-   (route) => dontRemove,
+    (route) => dontRemove,
   );
 }

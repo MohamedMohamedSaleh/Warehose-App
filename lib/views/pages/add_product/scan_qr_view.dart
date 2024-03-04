@@ -20,7 +20,6 @@ class ScanQRCodeView extends StatefulWidget {
 }
 
 class _ScanQRCodeViewState extends State<ScanQRCodeView> {
-  bool isD = false;
   late AddProductCubit cubit;
   @override
   void initState() {
@@ -137,7 +136,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
-                                  height: 16,
+                                  height: 12,
                                 ),
                                 state is AddProductLoadingState
                                     ? const Center(
@@ -159,8 +158,8 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                       ),
                                 TextButton(
                                   child: const Text(
-                                    "Clear Product Data",
-                                    style: TextStyle(color: Colors.red),
+                                    "Clean Product Data!",
+                                    style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w600),
                                   ),
                                   onPressed: () {
                                     cubit.result = null;
@@ -199,7 +198,6 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
           cubit.isScaned = true;
 
           setState(() {});
-//navigate
         }
       },
     );

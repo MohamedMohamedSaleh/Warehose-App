@@ -29,7 +29,7 @@ class _FormAddProductState extends State<FormAddProduct> {
       child: ZoomIn(
         duration: const Duration(milliseconds: 500),
         child: Scaffold(
-          // backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           appBar: const CustomAppBarAddProduct(),
           body: Form(
             key: cubit.formKey,

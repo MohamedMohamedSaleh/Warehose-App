@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:warehouse/core/kiwi.dart';
+import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/views/splash.dart';
 
 import 'constants/my_colors.dart';
 import 'views/pages/add_product/cubit/add_product_cubit.dart';
 
-late final SharedPreferences prefs;
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  prefs = await SharedPreferences.getInstance();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      // navigation bar color
       statusBarColor: getMaterialColor(),
       statusBarIconBrightness: Brightness.light,
     ),
   );
-
+  initKiwi();
+  WidgetsFlutterBinding.ensureInitialized();
+ await CacheHelper.init();
   runApp(const MyApp());
 }
 
@@ -51,6 +50,7 @@ class MyApp extends StatelessWidget {
               ),
               fontFamily: 'Merriweather',
               appBarTheme: AppBarTheme(
+                elevation: 0,
                 systemOverlayStyle: const SystemUiOverlayStyle(
                   statusBarIconBrightness:
                       Brightness.light, // For Android (dark icons)

@@ -1,8 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:warehouse/views/pages/account/account_view.dart';
 import 'package:warehouse/views/pages/add_product/add_product_view.dart';
 import 'package:warehouse/views/pages/main/main_view.dart';
-import 'package:warehouse/views/pages/notification/notification_view.dart';
+import 'package:warehouse/views/pages/settings_view/settings_view.dart';
 import 'package:warehouse/views/pages/take_product/take_product_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,21 +19,24 @@ class _HomePageState extends State<HomePage> {
     const MainPage(),
     const AddProductPage(),
     const TakeProductPage(),
-    const NotificationsPage(),
+    const SettingsPage(),
+    const AccountPage(),
   ];
 
   List<String> icons = [
     'main',
     'add_product',
     'take_product',
+    'settings',
     'account',
   ];
 
   List<String> leble = [
     'main',
-    'add product',
-    'take product',
-    'my account',
+    'add',
+    'take',
+    'settings',
+    'account',
   ];
 
   @override

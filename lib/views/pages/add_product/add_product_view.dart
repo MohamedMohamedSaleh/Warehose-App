@@ -61,7 +61,7 @@ class _ItemQRCodeSend extends StatelessWidget {
               height: 16,
             ),
             Text(
-              isTextField ? "Textfield To Add Product" : "Scan Code To Add Product",
+              isTextField ? "Use Textfield To Add Product" : "Scan QR Code To Add Product",
               style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white /* Theme.of(context).primaryColor */,

@@ -1,19 +1,22 @@
 class UserData {
+
   late final String username;
-  late final int id;
+  late final String id;
   late final String name;
   late final String department;
   late final String role;
   late final String token;
-  late final String expirationDate;
-
-  UserData.fromJson(Map<String, dynamic> json) {
+  late final String tokenExpire;
+  
+  UserData.fromJson(Map<String, dynamic> json){
     username = json['username'];
     id = json['id'];
     name = json['name'];
     department = json['department'];
     role = json['role'];
     token = json['token'];
-    expirationDate = json['expiration_date'];
+    tokenExpire = json['token_expire'];
   }
+
+
 }
