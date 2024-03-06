@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.51" height="19.51" viewBox="0 0 19.51 19.51">
+  <g id="COCO_Line_Arrow_-_Left" data-name="COCO/Line/Arrow - Left" transform="translate(-2.245 -2.245)">
+    <path id="Vector" d="M.353,5.95a7.511,7.511,0,0,1,5.6-5.6,13.354,13.354,0,0,1,6.1,0,7.511,7.511,0,0,1,5.6,5.6,13.354,13.354,0,0,1,0,6.1,7.511,7.511,0,0,1-5.6,5.6,13.354,13.354,0,0,1-6.1,0,7.511,7.511,0,0,1-5.6-5.6A13.354,13.354,0,0,1,.353,5.95Z" transform="translate(3 3)" fill="none" stroke="#b2bca8" stroke-width="1.5"/>
+    <path id="Vector-2" data-name="Vector" d="M0,2.5H7m0,0L4.5,0M7,2.5,4.5,5" transform="translate(15.5 14.5) rotate(180)" fill="none" stroke="#b2bca8" stroke-width="1.5"/>
+  </g>
+</svg>

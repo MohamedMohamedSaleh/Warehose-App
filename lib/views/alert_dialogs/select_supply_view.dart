@@ -6,16 +6,23 @@ import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/features/select_supply/select_supply_cubit.dart';
 
 class SelectSupplyView extends StatelessWidget {
-  const SelectSupplyView({super.key});
+  const SelectSupplyView(
+      {super.key, this.isLogin = true, this.title = 'Continue'});
+  final bool isLogin;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showMessage(
-            message: "select supplier cell is required!",
-            type: MessageType.faild);
-        return false;
+        if (isLogin) {
+          showMessage(
+              message: "select supplier cell is required!",
+              type: MessageType.faild);
+          return false;
+        } else {
+          return true;
+        }
       },
       child: BlocProvider(
         create: (context) => SelectSupplyCubit(),
@@ -24,8 +31,8 @@ class SelectSupplyView extends StatelessWidget {
           return ZoomIn(
             duration: const Duration(milliseconds: 500),
             child: AlertDialog(
-              shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               contentPadding: const EdgeInsets.symmetric(vertical: 0),
               titlePadding: const EdgeInsets.symmetric(horizontal: 16),
               title: const Padding(
@@ -60,7 +67,8 @@ class SelectSupplyView extends StatelessWidget {
                         Row(
                           children: [
                             Checkbox(
-                              side: BorderSide(color: mainColor.withOpacity(.3)),
+                              side:
+                                  BorderSide(color: mainColor.withOpacity(.3)),
                               activeColor: mainColor,
                               value: cubit.isSupp1,
                               onChanged: (value) {
@@ -69,7 +77,7 @@ class SelectSupplyView extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                cubit.isSupp1 = true;
+                                cubit.toSupp1();
                               },
                               child: const Text(
                                 'Supply 1',
@@ -84,7 +92,8 @@ class SelectSupplyView extends StatelessWidget {
                         Row(
                           children: [
                             Checkbox(
-                              side: BorderSide(color: mainColor.withOpacity(.3)),
+                              side:
+                                  BorderSide(color: mainColor.withOpacity(.3)),
                               value: !cubit.isSupp1,
                               onChanged: (value) {
                                 cubit.toSupp2();
@@ -94,7 +103,7 @@ class SelectSupplyView extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                cubit.isSupp1 = false;
+                                cubit.toSupp2();
                               },
                               child: const Text(
                                 'Supply 2',
@@ -119,7 +128,10 @@ class SelectSupplyView extends StatelessWidget {
                   builder: (context, state) {
                     if (state is SelectSupplyLoadState) {
                       return const Center(
-                        child: SizedBox(height: 35, width: 35, child: CircularProgressIndicator()),
+                        child: SizedBox(
+                            height: 35,
+                            width: 35,
+                            child: CircularProgressIndicator()),
                       );
                     } else {
                       return SizedBox(
@@ -128,11 +140,12 @@ class SelectSupplyView extends StatelessWidget {
                         child: FilledButton(
                           onPressed: () {
                             cubit.selectSupply(
+                              isLogin: isLogin,
                                 supid: cubit.isSupp1 ? "1" : "2");
                           },
-                          child: const Text(
-                            'Continue',
-                            style: TextStyle(
+                          child: Text(
+                            title,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),

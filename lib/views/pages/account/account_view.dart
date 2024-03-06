@@ -1,16 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
+import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
+import 'package:warehouse/views/pages/account/settings/settings_view.dart';
+
+import 'widgets/custom_item_acount.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: _CustomAppBarAccount(),
-      body: Center(
-        child: Text("MyAccountPage"),
+    return Scaffold(
+      body: ListView(
+        children: [
+          const _CustomAppBarAccount(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
+            child: Column(
+              children: [
+                const CustomItemMyAccount(
+                    title: 'Personal Info', icon: 'account'),
+                const SizedBox(
+                  height: 16,
+                ),
+                InkWell(
+                  onTap: () => navigateTo(toPage: const SettingsPage()),
+                  child: const CustomItemMyAccount(
+                      title: 'Settings', icon: 'settings'),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const CustomItemMyAccount(
+                  title: 'Logout',
+                  icon: 'logout',
+                  isLogout: true,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Warehouse',
           theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
               primarySwatch: getMaterialColor(),
               filledButtonTheme: FilledButtonThemeData(
                 style: FilledButton.styleFrom(

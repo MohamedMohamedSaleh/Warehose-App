@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
+import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/views/pages/add_product/form_add_product_view.dart';
 import 'package:warehouse/views/pages/add_product/scan_qr_view.dart';
-import 'package:warehouse/views/pages/add_product/widget/custom_app_bar.dart';
 
 class AddProductPage extends StatelessWidget {
   const AddProductPage({super.key});
@@ -11,7 +11,7 @@ class AddProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBarAddProduct(),
+      appBar: const CustomAppBar(title: 'Add Product',),
       body: ListView(
         children: const [
           _ItemQRCodeSend(

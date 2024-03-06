@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart'; // 316
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/core/widgets/custom_filled_button.dart';
 import 'package:warehouse/views/pages/add_product/cubit/add_product_cubit.dart';
-import 'package:warehouse/views/pages/add_product/widget/custom_app_bar.dart';
 import 'package:warehouse/views/pages/add_product/widget/custom_select_category.dart';
 import '../widgets/custom_textfield_pages.dart';
 
@@ -30,7 +30,7 @@ class _FormAddProductState extends State<FormAddProduct> {
         duration: const Duration(milliseconds: 500),
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: const CustomAppBarAddProduct(),
+          appBar: const CustomAppBar(title: 'Add Product',),
           body: Form(
             key: cubit.formKey,
             autovalidateMode: cubit.autovalidateMode,

@@ -23,9 +23,17 @@ class CacheHelper {
     return token != null || (token ?? "").isNotEmpty;
   }
 
+  static Future<void> setSupply({required String supply}) async{
+    _prefs.setString('supply', supply);
+  }
+  static String? getSupply() {
+    return _prefs.getString('supply');
+  }
   static String? getUserToken() {
     return _prefs.getString('token');
   }
+
+
   static String? getUsername() {
     return _prefs.getString('name');
   }

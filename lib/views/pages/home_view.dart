@@ -1,9 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/views/pages/account/account_view.dart';
 import 'package:warehouse/views/pages/add_product/add_product_view.dart';
 import 'package:warehouse/views/pages/main/main_view.dart';
-import 'package:warehouse/views/pages/settings_view/settings_view.dart';
+import 'package:warehouse/views/pages/orders/orders_view.dart';
 import 'package:warehouse/views/pages/take_product/take_product_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,23 +20,23 @@ class _HomePageState extends State<HomePage> {
     const MainPage(),
     const AddProductPage(),
     const TakeProductPage(),
-    const SettingsPage(),
+    const OrdersPage(),
     const AccountPage(),
   ];
 
   List<String> icons = [
-    'main',
-    'add_product',
-    'take_product',
-    'settings',
-    'account',
+    'main.png',
+    'add_product.png',
+    'take_product.png',
+    'svg/my_orders.svg',
+    'account.png',
   ];
 
   List<String> leble = [
     'main',
     'add',
     'take',
-    'settings',
+    'orders',
     'account',
   ];
 
@@ -65,8 +66,8 @@ class _HomePageState extends State<HomePage> {
                 items: List.generate(
                   pages.length,
                   (index) => BottomNavigationBarItem(
-                    icon: Image.asset(
-                      'assets/images/${icons[index]}.png',
+                    icon: AppImage(
+                      'assets/images/${icons[index]}',
                       height: (currentIndex == index) ? 24 : 22,
                       color: (currentIndex == index)
                           ? Colors.white

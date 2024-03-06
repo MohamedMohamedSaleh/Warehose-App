@@ -23,6 +23,8 @@ class AppImage extends StatelessWidget {
         height: height,
         width: width,
         fit: fit,
+        matchTextDirection: true,
+        
         // ignore: deprecated_member_use
         color: color,
       );

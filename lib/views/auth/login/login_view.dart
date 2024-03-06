@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:warehouse/constants/my_colors.dart';
-import 'package:warehouse/views/auth/widgets/custom_app_bar.dart';
 
+import '../../../core/widgets/custom_app_bar.dart';
 import '../widgets/form_input_app.dart';
 
 class LoginView extends StatelessWidget {
