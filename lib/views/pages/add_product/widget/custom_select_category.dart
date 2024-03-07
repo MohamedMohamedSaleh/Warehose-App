@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/views/pages/add_product/cubit/add_product_cubit.dart';
+import 'package:warehouse/features/add_product/bloc/add_product_bloc.dart';
 
 import '../../../sheets/category_sheet.dart';
 import '../../widgets/custom_textfield_pages.dart';
 
 class CustomSelectCategory extends StatefulWidget {
-  const CustomSelectCategory({super.key, required this.cubit});
-  final AddProductCubit cubit;
+  const CustomSelectCategory({super.key, required this.bloc});
+  final AddProductBloc bloc;
   
   @override
   State<CustomSelectCategory> createState() => _CustomSelectCategoryState();
@@ -24,11 +24,11 @@ class _CustomSelectCategoryState extends State<CustomSelectCategory> {
             onTap: () async {
               if (!context.mounted) return;
               FocusScope.of(context).unfocus();
-              widget.cubit.category = await showModalBottomSheet(
+              widget.bloc.category = await showModalBottomSheet(
                 context: context,
                 builder: (context) => const CategorySheet(),
               );
-              if ( widget.cubit.category != null) {
+              if ( widget.bloc.category != null) {
                 setState(() {});
               }
             },
@@ -38,23 +38,23 @@ class _CustomSelectCategoryState extends State<CustomSelectCategory> {
                 isText: true,
                 titelText: "Categoty",
                 validator: (value) {
-                  if ( widget.cubit.category?.isEmpty ?? true) {
+                  if ( widget.bloc.category?.isEmpty ?? true) {
                     return "field is required!";
                   } else {
                     return null;
                   }
                 },
                 isCategory: true,
-                labelText:  widget.cubit.category ?? "product type",
-                controller:  widget.cubit.categoryController,
+                labelText:  widget.bloc.category ?? "product type",
+                controller:  widget.bloc.categoryController,
               ),
             ),
           ),
         ),
-        ( widget.cubit.category != null)
+        ( widget.bloc.category != null)
             ? IconButton(
                 onPressed: () {
-                   widget.cubit.category = null;
+                   widget.bloc.category = null;
                   setState(() {});
                 },
                 icon: const Icon(

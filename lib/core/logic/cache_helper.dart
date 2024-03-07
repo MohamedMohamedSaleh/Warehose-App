@@ -20,7 +20,8 @@ class CacheHelper {
 
   static bool isAuth() {
     String? token = _prefs.getString('token');
-    return token != null || (token ?? "").isNotEmpty;
+    String? supply = _prefs.getString('supply');
+    return (token != null || (token ?? "").isNotEmpty) && (supply!=null || (supply ?? '').isNotEmpty);
   }
 
   static Future<void> setSupply({required String supply}) async{

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
-import 'package:warehouse/views/pages/account/settings/settings_view.dart';
+import 'package:warehouse/views/pages/account/screens/settings_view.dart';
 
 import 'widgets/custom_item_acount.dart';
 
@@ -26,8 +26,11 @@ class AccountPage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () => navigateTo(toPage: const SettingsPage()),
-                  child: const CustomItemMyAccount(
-                      title: 'Settings', icon: 'settings'),
+                  child: const Hero(
+                    tag: 'hero',
+                    child: CustomItemMyAccount(
+                        title: 'Settings', icon: 'settings'),
+                  ),
                 ),
                 const SizedBox(
                   height: 16,

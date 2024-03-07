@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/custom_filled_button.dart';
-import 'package:warehouse/views/pages/add_product/cubit/add_product_cubit.dart';
+import 'package:warehouse/features/add_product/bloc/add_product_bloc.dart';
 
-import 'models/qr_code_model.dart';
+import '../../../features/add_product/models/qr_code_model.dart';
 
 class ScanQRCodeView extends StatefulWidget {
   const ScanQRCodeView({
@@ -20,20 +21,19 @@ class ScanQRCodeView extends StatefulWidget {
 }
 
 class _ScanQRCodeViewState extends State<ScanQRCodeView> {
-  late AddProductCubit cubit;
+  final bloc = KiwiContainer().resolve<AddProductBloc>();
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of(context);
   }
 
   @override
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      cubit.controller!.pauseCamera();
+      bloc.controller!.pauseCamera();
     } else if (Platform.isIOS) {
-      cubit.controller!.resumeCamera();
+      bloc.controller!.resumeCamera();
     }
   }
 
@@ -41,7 +41,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (cubit.result != null) {
+        if (bloc.result != null) {
           bool exit = await showDialog(
             context: context,
             builder: (context) {
@@ -79,8 +79,8 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                   ),
                   FilledButton(
                     onPressed: () {
-                      cubit.result = null;
-                      cubit.isScaned = false;
+                      bloc.result = null;
+                      bloc.isScaned = false;
                       Navigator.of(context).pop(true);
                     },
                     child: const Text(
@@ -113,16 +113,17 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                   borderLength: 30,
                   borderColor: Colors.green,
                 ),
-                key: cubit.qrKey,
+                key: bloc.qrKey,
                 onQRViewCreated: onQRViewCreated,
               ),
             ),
             Expanded(
               flex: 2,
-              child: BlocBuilder<AddProductCubit, AddProductStates>(
+              child: BlocBuilder(
+                bloc: bloc,
                 builder: (context, state) {
                   return Center(
-                    child: cubit.result != null
+                    child: bloc.result != null
                         ? Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
@@ -145,13 +146,9 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                     : SizedBox(
                                         width: double.infinity,
                                         child: CustomFilledButton(
-                                          onPressed: () async {
-                                            await cubit.addProduct(
-                                                isTextfield: false);
-                                            cubit.isScaned = false;
-                                            cubit.result = null;
-                                            if (!context.mounted) return;
-                                            Navigator.pop(context);
+                                          onPressed: () {
+                                            bloc.add(AddProductEvent(isTextfield: false));
+                                           
                                           },
                                           title: "Add Product",
                                         ),
@@ -159,11 +156,14 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                 TextButton(
                                   child: const Text(
                                     "Clean Product Data!",
-                                    style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   onPressed: () {
-                                    cubit.result = null;
-                                    cubit.isScaned = false;
+                                    bloc.result = null;
+                                    bloc.isScaned = false;
                                     setState(() {});
                                   },
                                 ),
@@ -188,14 +188,14 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
   }
 
   void onQRViewCreated(QRViewController controller) {
-    cubit.controller = controller;
+    bloc.controller = controller;
     controller.scannedDataStream.listen(
       (scanData) {
-        if (!cubit.isScaned) {
-          cubit.result = scanData;
-          cubit.jsonData = jsonDecode(cubit.result!.code ?? "{}");
-          cubit.model = ProductData.fromJson(cubit.jsonData);
-          cubit.isScaned = true;
+        if (!bloc.isScaned) {
+          bloc.result = scanData;
+          bloc.jsonData = jsonDecode(bloc.result!.code ?? "{}");
+          bloc.model = ProductData.fromJson(bloc.jsonData);
+          bloc.isScaned = true;
 
           setState(() {});
         }
@@ -205,7 +205,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
 
   @override
   void dispose() {
-    cubit.controller?.dispose();
+    bloc.controller?.dispose();
     super.dispose();
   }
 }

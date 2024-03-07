@@ -1,4 +1,4 @@
-part of 'select_supply_cubit.dart';
+part of 'select_supply_bloc.dart';
 
 class SelectSupplyStates {}
 

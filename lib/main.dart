@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/views/splash.dart';
 
 import 'constants/my_colors.dart';
-import 'views/pages/add_product/cubit/add_product_cubit.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -27,47 +25,40 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (BuildContext context) => AddProductCubit(),
-        ),
-      ],
-      child: MaterialApp(
-          navigatorKey: navigatorKey,
-          debugShowCheckedModeBanner: false,
-          title: 'Warehouse',
-          theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
-              primarySwatch: getMaterialColor(),
-              filledButtonTheme: FilledButtonThemeData(
-                style: FilledButton.styleFrom(
-                  fixedSize: const Size(double.infinity, 50),
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+    return MaterialApp(
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        title: 'Warehouse',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+            primarySwatch: getMaterialColor(),
+            filledButtonTheme: FilledButtonThemeData(
+              style: FilledButton.styleFrom(
+                fixedSize: const Size(double.infinity, 50),
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              fontFamily: 'Merriweather',
-              appBarTheme: AppBarTheme(
-                elevation: 0,
-                systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarIconBrightness:
-                      Brightness.light, // For Android (dark icons)
-                  statusBarBrightness: Brightness.light, // For iOS (dark icons)
-                ),
-                centerTitle: true,
-                color: getMaterialColor(),
-                titleTextStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Merriweather',
-                ),
-              )),
-          home: const SplashView()),
-    );
+            ),
+            fontFamily: 'Merriweather',
+            appBarTheme: AppBarTheme(
+              elevation: 0,
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarIconBrightness:
+                    Brightness.light, // For Android (dark icons)
+                statusBarBrightness: Brightness.light, // For iOS (dark icons)
+              ),
+              centerTitle: true,
+              color: getMaterialColor(),
+              titleTextStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Merriweather',
+              ),
+            )),
+        home: const SplashView());
   }
 }
 

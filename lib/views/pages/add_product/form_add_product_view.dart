@@ -1,9 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart'; // 316
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/core/widgets/custom_filled_button.dart';
-import 'package:warehouse/views/pages/add_product/cubit/add_product_cubit.dart';
+import 'package:warehouse/features/add_product/bloc/add_product_bloc.dart';
 import 'package:warehouse/views/pages/add_product/widget/custom_select_category.dart';
 import '../widgets/custom_textfield_pages.dart';
 
@@ -15,11 +16,10 @@ class FormAddProduct extends StatefulWidget {
 }
 
 class _FormAddProductState extends State<FormAddProduct> {
-  late AddProductCubit cubit;
+  final bloc = KiwiContainer().resolve<AddProductBloc>();
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of(context);
   }
 
   @override
@@ -29,35 +29,36 @@ class _FormAddProductState extends State<FormAddProduct> {
       child: ZoomIn(
         duration: const Duration(milliseconds: 500),
         child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: const CustomAppBar(title: 'Add Product',),
+          appBar: const CustomAppBar(
+            title: 'Add Product',
+          ),
           body: Form(
-            key: cubit.formKey,
-            autovalidateMode: cubit.autovalidateMode,
+            key: bloc.formKey,
+            autovalidateMode: bloc.autovalidateMode,
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               children: [
                 CustomTextFieldWithTitle(
                   titelText: "Name",
                   labelText: "product name",
-                  controller: cubit.nameController,
+                  controller: bloc.nameController,
                 ),
                 CustomTextFieldWithTitle(
                   titelText: "Description",
                   labelText: "product description",
                   maxLins: 3,
-                  controller: cubit.descriptionController,
+                  controller: bloc.descriptionController,
                 ),
                 CustomTextFieldWithTitle(
                   titelText: "ID",
                   labelText: "product Id",
-                  controller: cubit.idController,
+                  controller: bloc.idController,
                 ),
                 CustomTextFieldWithTitle(
                   isWeight: true,
                   titelText: "Weight",
                   labelText: "product weight",
-                  controller: cubit.weightController,
+                  controller: bloc.weightController,
                 ),
                 const Text(
                   "Dimentions",
@@ -72,7 +73,7 @@ class _FormAddProductState extends State<FormAddProduct> {
                       child: CustomTextFieldWithTitle(
                         isText: false,
                         labelText: "long",
-                        controller: cubit.longController,
+                        controller: bloc.longController,
                       ),
                     ),
                     const Text(
@@ -83,7 +84,7 @@ class _FormAddProductState extends State<FormAddProduct> {
                       child: CustomTextFieldWithTitle(
                         isText: false,
                         labelText: "width",
-                        controller: cubit.widthController,
+                        controller: bloc.widthController,
                       ),
                     ),
                     const Text(
@@ -94,16 +95,17 @@ class _FormAddProductState extends State<FormAddProduct> {
                       child: CustomTextFieldWithTitle(
                         isText: false,
                         labelText: "height",
-                        controller: cubit.heightController,
+                        controller: bloc.heightController,
                       ),
                     ),
                   ],
                 ),
-                BlocBuilder<AddProductCubit, AddProductStates>(
+                BlocBuilder(
+                  bloc: bloc,
                   builder: (context, state) {
                     return Column(
                       children: [
-                        CustomSelectCategory(cubit: cubit),
+                        CustomSelectCategory(bloc: bloc),
                         const SizedBox(
                           height: 18,
                         ),
@@ -112,26 +114,27 @@ class _FormAddProductState extends State<FormAddProduct> {
                                 child: CircularProgressIndicator(),
                               )
                             : SizedBox(
-                              width: double.infinity,
-                              child: CustomFilledButton(
+                                width: double.infinity,
+                                child: CustomFilledButton(
                                   onPressed: () {
                                     FocusScope.of(context).unfocus();
                                     ScaffoldMessenger.of(context)
                                         .removeCurrentSnackBar();
-                                    if (cubit.formKey.currentState!.validate()) {
-                                      cubit.addProduct(isTextfield: true);
-                                      cubit.autovalidateMode =
+                                    if (bloc.formKey.currentState!
+                                        .validate()) {
+                                      bloc.add(AddProductEvent(isTextfield: true));
+                                      bloc.autovalidateMode =
                                           AutovalidateMode.disabled;
                                       setState(() {});
                                     } else {
-                                      cubit.autovalidateMode =
+                                      bloc.autovalidateMode =
                                           AutovalidateMode.onUserInteraction;
                                       setState(() {});
                                     }
                                   },
                                   title: "Add Product",
                                 ),
-                            ),
+                              ),
                       ],
                     );
                   },

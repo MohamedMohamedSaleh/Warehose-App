@@ -8,9 +8,12 @@ import '../../../../core/logic/helper_mothods.dart';
 import '../models/qr_code_model.dart';
 
 part 'add_product_state.dart';
+part 'add_product_events.dart';
 
-class AddProductCubit extends Cubit<AddProductStates> {
-  AddProductCubit() : super(AddProductStates());
+class AddProductBloc extends Bloc<AddProductEvents, AddProductStates> {
+  AddProductBloc() : super(AddProductStates()) {
+    on<AddProductEvent>(_addProduct);
+  }
 
   late Map<String, dynamic> jsonData;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -34,7 +37,8 @@ class AddProductCubit extends Cubit<AddProductStates> {
   final TextEditingController widthController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
 
-  Future<void> addProduct({required bool isTextfield}) async {
+  Future<void> _addProduct(
+      AddProductEvent event, Emitter<AddProductStates> emit) async {
     emit(AddProductLoadingState());
 
     final response = await DioHelper.sendData(
@@ -42,20 +46,20 @@ class AddProductCubit extends Cubit<AddProductStates> {
       data: {
         'token': tokenUser,
         'userid': idUser,
-        'ProductID': isTextfield ? idController.text : model.id,
-        'Name': isTextfield ? nameController.text : model.name,
+        'ProductID': event.isTextfield ? idController.text : model.id,
+        'Name': event.isTextfield ? nameController.text : model.name,
         'Description':
-            isTextfield ? descriptionController.text : model.description,
-        'Category': isTextfield ? category : model.category,
-        'Weight': isTextfield ? weightController.text : model.weight,
-        'Dimensions': isTextfield
+            event.isTextfield ? descriptionController.text : model.description,
+        'Category': event.isTextfield ? category : model.category,
+        'Weight': event.isTextfield ? weightController.text : model.weight,
+        'Dimensions': event.isTextfield
             ? "[${longController.text},${widthController.text},${heightController.text}]"
             : model.dimensions,
       },
     );
     if (response.isSuccess) {
       showMessage(message: response.message, type: MessageType.success);
-      if (isTextfield) {
+      if (event.isTextfield) {
         idController.clear();
         nameController.clear();
         descriptionController.clear();
@@ -74,5 +78,8 @@ class AddProductCubit extends Cubit<AddProductStates> {
         message: response.message,
       );
     }
+    isScaned = false;
+    result = null;
+    Navigator.pop(navigatorKey.currentContext!);
   }
 }

@@ -1,4 +1,4 @@
-part of 'add_product_cubit.dart';
+part of 'add_product_bloc.dart';
 
 class AddProductStates {}
 
