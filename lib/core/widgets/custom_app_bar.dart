@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             tag: 'hero',
             child: AppBar(
               iconTheme: const IconThemeData(color: mainColor, size: 22),
-              elevation: 2,
+              // elevation: 2,
               backgroundColor: Colors.white,
               title: Padding(
                 padding: const EdgeInsets.only(top: 14),
@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   title,
                   style: const TextStyle(
                       color: mainColor,
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
               ),

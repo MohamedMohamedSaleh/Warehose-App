@@ -16,6 +16,8 @@ class ProductData {
   }
 }
 
+
+
 Map<String, dynamic> productData = {
   "ProductID": "12345",
   "Name": "test scan Product",
