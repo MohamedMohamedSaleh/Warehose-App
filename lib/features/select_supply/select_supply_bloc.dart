@@ -36,7 +36,7 @@ class SelectSupplyBloc extends Bloc<SelectSupplyEvents, SelectSupplyStates> {
       ) async {
     emit(SelectSupplyLoadState());
     final response =
-        await DioHelper.sendData(endPoint: changeConfigration, data: {
+        await DioHelper.sendData(endPoint: EndPoint.changeConfigration, data: {
       "token": CacheHelper.getUserToken(),
       "userid": CacheHelper.getUserId(),
       "supid": event.supid,

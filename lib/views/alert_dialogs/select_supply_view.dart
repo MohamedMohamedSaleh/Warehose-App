@@ -34,6 +34,8 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
       child: ZoomIn(
         duration: const Duration(milliseconds: 500),
         child: AlertDialog(
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           contentPadding: const EdgeInsets.symmetric(vertical: 0),
@@ -71,6 +73,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                     Row(
                       children: [
                         Checkbox(
+                          checkColor: Colors.white,
                           side: BorderSide(color: mainColor.withOpacity(.3)),
                           activeColor: mainColor,
                           value: bloc.isSupp1,
@@ -95,6 +98,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                     Row(
                       children: [
                         Checkbox(
+                          checkColor: Colors.white,
                           side: BorderSide(color: mainColor.withOpacity(.3)),
                           value: !bloc.isSupp1,
                           onChanged: (value) {
@@ -139,7 +143,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                 } else {
                   return SizedBox(
                     height: 35,
-                    width: 100,
+                    width: 110,
                     child: FilledButton(
                       onPressed: () {
                         bloc.add(SelectSupplyEvent(
@@ -149,7 +153,9 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                       child: Text(
                         widget.title,
                         style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w500),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   );

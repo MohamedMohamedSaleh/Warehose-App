@@ -13,6 +13,7 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+        physics: const PageScrollPhysics(),
         children: [
           const _CustomAppBarAccount(),
           Padding(

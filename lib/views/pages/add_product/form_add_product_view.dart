@@ -36,7 +36,8 @@ class _FormAddProductState extends State<FormAddProduct> {
             key: bloc.formKey,
             autovalidateMode: bloc.autovalidateMode,
             child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               children: [
                 CustomTextFieldWithTitle(
                   titelText: "Name",
@@ -122,7 +123,8 @@ class _FormAddProductState extends State<FormAddProduct> {
                                         .removeCurrentSnackBar();
                                     if (bloc.formKey.currentState!
                                         .validate()) {
-                                      bloc.add(AddProductEvent(isTextfield: true));
+                                      bloc.add(
+                                          AddProductEvent(isTextfield: true));
                                       bloc.autovalidateMode =
                                           AutovalidateMode.disabled;
                                       setState(() {});

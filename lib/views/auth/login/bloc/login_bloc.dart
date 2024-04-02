@@ -29,16 +29,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
     if (formKey.currentState!.validate()) {
       emit(LoginLoadingState());
       var response = await DioHelper.sendData(
-        endPoint: logIn,
+        endPoint: EndPoint.logIn,
         data: {
           'username': userNameController.text,
           'password': passwordController.text,
+          'token':
+              "d0pzeAnWRhC37Kqd-3KIUc:APA91bGyw_qtBgmp08BWo1wyfFwCFKKURdYMd1u4oEKq39OLqD-0nKBcD4gWWa0hj6ElCS8OitwzgqI1D-pvREYG8LMkaA40h-e5zr4x76_cvRKtqUIeLCwynaqJWRd9mxprpQu7xp28",
         },
       );
 
       if (response.isSuccess) {
         emit(LoginSuccessState());
-       final model = UserData.fromJson(response.response!.data);
+        final model = UserData.fromJson(response.response!.data);
         token = model.token;
         id = model.id;
         CacheHelper.saveUserData(model: model);

@@ -8,19 +8,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.thereIsIcon = true,
     this.bottom,
     this.height = 55,
+    this.isAcount = false,
   });
   final String title;
   final bool thereIsIcon;
   final PreferredSizeWidget? bottom;
   final double height;
+  final bool isAcount;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
         children: [
           Hero(
-            tag: 'hero',
+            tag: isAcount ? 'hero' : 'not',
             child: AppBar(
+              forceMaterialTransparency: true,
               iconTheme: const IconThemeData(color: mainColor, size: 22),
               // elevation: 2,
               backgroundColor: Colors.white,

@@ -1,8 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:warehouse/core/logic/cache_helper.dart';
-import 'package:warehouse/core/logic/helper_mothods.dart';
-import 'package:warehouse/views/auth/login/login_view.dart';
+import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/views/auth/logout/logout_bloc.dart';
 
 import '../../../core/widgets/custom_app_bar.dart';
 
@@ -42,12 +41,7 @@ class MainPage extends StatelessWidget {
               width: 250,
               child: FilledButton(
                   onPressed: () {
-                    
-                    CacheHelper.clearUserData();
-                    navigateTo(
-                      toPage: const LoginView(),
-                      dontRemove: false,
-                    );
+                    KiwiContainer().resolve<LogoutBloc>().add(LogoutEvent());
                   },
                   child: const Text(
                     "Logout",

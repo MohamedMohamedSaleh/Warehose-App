@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:warehouse/constants/my_colors.dart';
 
 class CustomTabBar extends StatefulWidget implements PreferredSizeWidget {
   const CustomTabBar({
-    super.key,
+    super.key, required this.controller,
   });
+  final TabController controller;
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
@@ -26,8 +28,9 @@ class _CustomTabBarState extends State<CustomTabBar> {
               ),
               borderRadius: BorderRadius.circular(10)),
           child: TabBar(
-            padding: const EdgeInsets.all(6),
-            indicatorPadding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+            controller: widget.controller,
+            padding: const EdgeInsets.only(bottom: 6, top: 6),
+            indicatorPadding: const EdgeInsets.fromLTRB(-45, 0, -45, 0),
             unselectedLabelStyle:
                 const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             unselectedLabelColor: const Color(0xffA2A1A4),
@@ -36,8 +39,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
             labelColor: Colors.white,
             indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).primaryColor),
+                borderRadius: BorderRadius.circular(12), color: mainColor),
             tabs: const [
               Tab(
                 height: 40,

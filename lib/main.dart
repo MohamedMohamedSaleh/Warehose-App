@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:warehouse/core/kiwi.dart';
@@ -6,7 +8,17 @@ import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/views/splash.dart';
 
 import 'constants/my_colors.dart';
+import 'firebase_options.dart';
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  // await Firebase.initializeApp();
+if(message.notification != null){
 
+  print("Handling a background message: ${message.notification!.body}");
+  print("Handling a background message: ${message.notification!.title}");
+}
+}
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -16,12 +28,40 @@ void main() async {
   );
   initKiwi();
   WidgetsFlutterBinding.ensureInitialized();
- await CacheHelper.init();
+FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await CacheHelper.init();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String? myToken;
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getToken();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification != null) {
+        print(message.notification!.title);
+        print(message.notification!.body);
+        showMessage(
+            message: message.notification!.title!, type: MessageType.success);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +70,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Warehouse',
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-            primarySwatch: getMaterialColor(),
+            colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: getMaterialColor(),
+                backgroundColor: Colors.white),
+            scaffoldBackgroundColor: Colors.white,
             filledButtonTheme: FilledButtonThemeData(
               style: FilledButton.styleFrom(
                 fixedSize: const Size(double.infinity, 50),
@@ -80,3 +122,5 @@ MaterialColor getMaterialColor() {
     },
   );
 }
+
+// d0pzeAnWRhC37Kqd-3KIUc:APA91bGyw_qtBgmp08BWo1wyfFwCFKKURdYMd1u4oEKq39OLqD-0nKBcD4gWWa0hj6ElCS8OitwzgqI1D-pvREYG8LMkaA40h-e5zr4x76_cvRKtqUIeLCwynaqJWRd9mxprpQu7xp28

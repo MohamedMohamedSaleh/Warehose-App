@@ -1,15 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:warehouse/constants/my_colors.dart';
+import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/views/pages/account/account_view.dart';
 import 'package:warehouse/views/pages/add_product/add_product_view.dart';
 import 'package:warehouse/views/pages/main/main_view.dart';
+import 'package:warehouse/views/pages/notifications_view.dart';
 import 'package:warehouse/views/pages/orders/orders_view.dart';
 import 'package:warehouse/views/pages/take_product/take_product_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -76,6 +78,24 @@ class _HomePageState extends State<HomePage> {
                     label: leble[index],
                   ),
                 ),
+              ),
+            ),
+          ),
+          // there are error when i navigate from tab bar screens
+          floatingActionButton: Badge(
+            isLabelVisible: false,
+            largeSize: 10,
+            smallSize: 10,
+            backgroundColor: Colors.blue,
+            alignment: Alignment.topLeft,
+            child: SizedBox(
+              height: 45,
+              width: 45,
+              child: FloatingActionButton(
+                onPressed: () {
+                  navigateTo(toPage: const NotificationsView());
+                },
+                child: AppImage('assets/images/notifications.png', height: 26, color: Colors.white,),
               ),
             ),
           ),

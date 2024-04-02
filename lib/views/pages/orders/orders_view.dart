@@ -4,8 +4,31 @@ import 'package:warehouse/views/pages/orders/widgets/custom_tab_bar.dart';
 
 import '../../../core/widgets/custom_app_bar.dart';
 
-class OrdersPage extends StatelessWidget {
+class OrdersPage extends StatefulWidget {
   const OrdersPage({super.key});
+
+  @override
+  State<OrdersPage> createState() => _OrdersPageState();
+}
+
+class _OrdersPageState extends State<OrdersPage>
+    with SingleTickerProviderStateMixin {
+  late TabController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = TabController(length: 2, vsync: this);
+    controller.index = 0;
+    setState(() {
+      
+    });
+  }
+
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -13,26 +36,28 @@ class OrdersPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: const CustomAppBar(
+          appBar: CustomAppBar(
             title: 'Orders',
-            bottom: CustomTabBar(),
+            bottom: CustomTabBar(
+              controller: controller,
+            ),
             height: 120,
           ),
-          body: TabBarView(children: [
+          body: TabBarView(controller: controller, children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => const CustomItemOrder(),
-                itemCount: 15,
+                itemCount: 5,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) => CustomItemOrder(),
-                itemCount: 15,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) => const CustomItemOrder(),
+                itemCount: 5,
               ),
             ),
           ])),
