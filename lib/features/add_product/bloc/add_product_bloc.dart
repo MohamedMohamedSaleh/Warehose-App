@@ -18,7 +18,7 @@ class AddProductBloc extends Bloc<AddProductEvents, AddProductStates> {
   late Map<String, dynamic> jsonData;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
-  MobileScannerController? cameraController;
+  MobileScannerController cameraController= MobileScannerController();
   late ProductData model;
   final idUser = CacheHelper.getUserId();
   final tokenUser = CacheHelper.getUserToken();

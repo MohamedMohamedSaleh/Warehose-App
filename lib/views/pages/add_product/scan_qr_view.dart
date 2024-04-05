@@ -125,6 +125,59 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                       ),
                     ),
                   ),
+                  Positioned(
+                      bottom: 16,
+                      right: 115,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () =>
+                                bloc.cameraController.toggleTorch(),
+                            icon: ValueListenableBuilder(
+                              valueListenable: bloc.cameraController.torchState,
+                              builder: (context, value, child) {
+                                switch (value) {
+                                  case TorchState.off:
+                                    return const Icon(
+                                      Icons.flash_off,
+                                      color: Colors.grey,
+                                    );
+                                  case TorchState.on:
+                                    return const Icon(
+                                      Icons.flash_on,
+                                      color: Colors.yellow,
+                                    );
+                                }
+                              },
+                            ),
+                            iconSize: 30,
+                          ),
+                          IconButton(
+                            onPressed: () =>
+                                bloc.cameraController.switchCamera(),
+                            icon: ValueListenableBuilder(
+                              valueListenable:
+                                  bloc.cameraController.cameraFacingState,
+                              builder: (context, value, child) {
+                                switch (value) {
+                                  case CameraFacing.front:
+                                    return const Icon(
+                                      Icons.photo_camera_front_outlined,
+                                      color: mainColor,
+                                    );
+                                  case CameraFacing.back:
+                                    return const Icon(
+                                      Icons.photo_camera_back_outlined,
+                                      color: Colors.grey,
+                                    );
+                                }
+                              },
+                            ),
+                            iconSize: 30,
+                          ),
+                        ],
+                      ))
                 ],
               ),
             ),
