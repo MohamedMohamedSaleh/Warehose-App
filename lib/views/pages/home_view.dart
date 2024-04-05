@@ -94,7 +94,11 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   navigateTo(toPage: const NotificationsView());
                 },
-                child: AppImage('assets/images/notifications.png', height: 26, color: Colors.white,),
+                child: const AppImage(
+                  'assets/images/notifications.png',
+                  height: 26,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

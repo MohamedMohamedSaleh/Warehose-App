@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 
 import '../../../../core/logic/dio_helper.dart';
@@ -16,8 +17,8 @@ class AddProductBloc extends Bloc<AddProductEvents, AddProductStates> {
 
   late Map<String, dynamic> jsonData;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  // Barcode? result;
-  // QRViewController? controller;
+  Barcode? result;
+  MobileScannerController? cameraController;
   late ProductData model;
   final idUser = CacheHelper.getUserId();
   final tokenUser = CacheHelper.getUserToken();
@@ -35,7 +36,10 @@ class AddProductBloc extends Bloc<AddProductEvents, AddProductStates> {
   final TextEditingController heightController = TextEditingController();
   final TextEditingController widthController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
-    Future<void> _addProduct(
+
+
+
+  Future<void> _addProduct(
       AddProductEvent event, Emitter<AddProductStates> emit) async {
     emit(AddProductLoadingState());
 
@@ -44,14 +48,15 @@ class AddProductBloc extends Bloc<AddProductEvents, AddProductStates> {
       data: {
         'token': tokenUser,
         'userid': idUser,
-        'ProductID': idController.text ,
-        'Name':  nameController.text ,
+        'ProductID': event.isTextfield ? idController.text : model.id,
+        'Name': event.isTextfield ? nameController.text : model.name,
         'Description':
-             descriptionController.text,
-        'Category':  category ,
-        'Weight':  weightController.text,
-        'Dimensions': 
-             "[${longController.text},${widthController.text},${heightController.text}]",
+            event.isTextfield ? descriptionController.text : model.description,
+        'Category': event.isTextfield ? category : model.category,
+        'Weight': event.isTextfield ? weightController.text : model.weight,
+        'Dimensions': event.isTextfield
+            ? "[${longController.text},${widthController.text},${heightController.text}]"
+            : model.dimensions,
       },
     );
     if (response.isSuccess) {
@@ -76,53 +81,7 @@ class AddProductBloc extends Bloc<AddProductEvents, AddProductStates> {
       );
     }
     isScaned = false;
-    // result = null;
+    result = null;
     Navigator.pop(navigatorKey.currentContext!);
   }
-
-  // Future<void> _addProduct(
-  //     AddProductEvent event, Emitter<AddProductStates> emit) async {
-  //   emit(AddProductLoadingState());
-
-  //   final response = await DioHelper.sendData(
-  //     endPoint: 'MP_AddProducts',
-  //     data: {
-  //       'token': tokenUser,
-  //       'userid': idUser,
-  //       'ProductID': event.isTextfield ? idController.text : model.id,
-  //       'Name': event.isTextfield ? nameController.text : model.name,
-  //       'Description':
-  //           event.isTextfield ? descriptionController.text : model.description,
-  //       'Category': event.isTextfield ? category : model.category,
-  //       'Weight': event.isTextfield ? weightController.text : model.weight,
-  //       'Dimensions': event.isTextfield
-  //           ? "[${longController.text},${widthController.text},${heightController.text}]"
-  //           : model.dimensions,
-  //     },
-  //   );
-  //   if (response.isSuccess) {
-  //     showMessage(message: response.message, type: MessageType.success);
-  //     if (event.isTextfield) {
-  //       idController.clear();
-  //       nameController.clear();
-  //       descriptionController.clear();
-  //       categoryController.clear();
-  //       weightController.clear();
-  //       category = null;
-  //       longController.clear();
-  //       heightController.clear();
-  //       widthController.clear();
-  //     }
-
-  //     emit(AddProductSuccessState());
-  //   } else {
-  //     emit(AddProductFailedState());
-  //     showMessage(
-  //       message: response.message,
-  //     );
-  //   }
-  //   isScaned = false;
-  //   result = null;
-  //   Navigator.pop(navigatorKey.currentContext!);
-  // }
 }
