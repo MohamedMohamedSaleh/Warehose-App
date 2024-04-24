@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
@@ -11,6 +12,8 @@ import 'package:warehouse/views/pages/take_product/take_product_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -40,6 +43,22 @@ class _HomePageState extends State<HomePage> {
     'orders',
     'account',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    onMessageOpenedApp();
+  }
+
+
+
+  void onMessageOpenedApp() {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if(message.notification != null){
+      navigateTo(toPage: const NotificationsView());
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

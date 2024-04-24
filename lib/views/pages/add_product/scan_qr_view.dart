@@ -125,9 +125,10 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                       ),
                     ),
                   ),
-                  Positioned(
-                      bottom: 16,
-                      right: 115,
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -177,7 +178,9 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                             iconSize: 30,
                           ),
                         ],
-                      ))
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
