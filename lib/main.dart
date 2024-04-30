@@ -2,9 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
+import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
 import 'package:warehouse/views/splash.dart';
 
 import 'constants/my_colors.dart';
@@ -12,15 +14,9 @@ import 'firebase_options.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  // await Firebase.initializeApp();
-if(message.notification != null){
+  if (message.notification != null) {}
+}
 
-  print("Handling a background message: ${message.notification!.body}");
-  print("Handling a background message: ${message.notification!.title}");
-}
-}
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -30,7 +26,7 @@ void main() async {
   );
   initKiwi();
   WidgetsFlutterBinding.ensureInitialized();
-FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -55,14 +51,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     getToken();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (message.notification != null) {
-        print(message.notification!.title);
-        print(message.notification!.body);
-        showMessage(
-            message: message.notification!.title!, type: MessageType.success);
-      }
-    });
+    KiwiContainer().resolve<NotificationsCubit>().getNoti();
   }
 
   @override

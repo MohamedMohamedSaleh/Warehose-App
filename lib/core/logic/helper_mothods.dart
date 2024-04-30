@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:warehouse/constants/my_colors.dart';
+import 'package:warehouse/views/pages/notifications_view.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 enum MessageType { success, faild }
 
 void showMessage(
-    {required String message, MessageType type = MessageType.faild}) {
+    {required String message,
+    MessageType type = MessageType.faild,
+    bool isAction = false}) {
   ScaffoldMessenger.of(navigatorKey.currentContext!).removeCurrentSnackBar();
 
   ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
@@ -15,7 +19,7 @@ void showMessage(
       ),
       margin: const EdgeInsets.all(20),
       backgroundColor: type == MessageType.success
-          ? Theme.of(navigatorKey.currentContext!).primaryColor
+          ? mainColor.withOpacity(.8)
           : Colors.redAccent,
       behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 3),
@@ -24,6 +28,15 @@ void showMessage(
           Text(message),
         ],
       ),
+      action: isAction
+          ? SnackBarAction(
+              backgroundColor: Colors.white,
+              textColor: mainColor,
+              label: 'Go',
+              onPressed: () {
+                navigateTo(toPage: const NotificationsView());
+              })
+          : null,
     ),
   );
 }

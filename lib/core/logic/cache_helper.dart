@@ -1,5 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:warehouse/features/notiffications/model.dart';
 import 'package:warehouse/views/auth/login/login_model.dart';
+import 'dart:convert';
+
+
+List<NotificationData> list = [];
 
 class CacheHelper {
   static late final SharedPreferences _prefs;
@@ -21,19 +26,41 @@ class CacheHelper {
   static bool isAuth() {
     String? token = _prefs.getString('token');
     String? supply = _prefs.getString('supply');
-    return (token != null || (token ?? "").isNotEmpty) && (supply!=null || (supply ?? '').isNotEmpty);
+    return (token != null || (token ?? "").isNotEmpty) &&
+        (supply != null || (supply ?? '').isNotEmpty);
   }
 
-  static Future<void> setSupply({required String supply}) async{
+  static Future<void> setNotification(List<NotificationData> list) async {
+    List<String> encodeList =
+        list.map((notificate) => jsonEncode(notificate.toJson())).toList();
+    await _prefs.setStringList('noti', encodeList);
+  }
+
+  static List<NotificationData>? getNotifications() {
+    List<String>? noti = _prefs.getStringList('noti');
+    final List<NotificationData> notification;
+    if (noti != null) {
+      notification = noti
+          .map(
+              (notificate) => NotificationData.fromJson(jsonDecode(notificate)))
+          .toList();
+      return notification;
+    } else {
+      return null;
+    }
+  }
+
+  static Future<void> setSupply({required String supply}) async {
     _prefs.setString('supply', supply);
   }
+
   static String? getSupply() {
     return _prefs.getString('supply');
   }
+
   static String? getUserToken() {
     return _prefs.getString('token');
   }
-
 
   static String? getUsername() {
     return _prefs.getString('name');

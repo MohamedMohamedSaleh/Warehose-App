@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:animate_do/animate_do.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
+import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
 import 'package:warehouse/views/auth/login/login_view.dart';
 import 'package:warehouse/views/pages/home_view.dart';
 import 'package:warehouse/views/pages/notifications_view.dart';
@@ -37,6 +39,9 @@ class _SplashViewState extends State<SplashView> {
     if (initialMessage != null) {
       navigateTo(toPage: const HomePage(), dontRemove: false);
       navigateTo(toPage: const NotificationsView());
+      KiwiContainer().resolve<NotificationsCubit>().addNoti(
+          title: initialMessage.notification!.title!,
+          body: initialMessage.notification!.body!);
     } else {
       moveTo();
     }

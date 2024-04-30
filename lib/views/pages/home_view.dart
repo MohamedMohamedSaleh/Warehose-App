@@ -1,8 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
+import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
 import 'package:warehouse/views/pages/account/account_view.dart';
 import 'package:warehouse/views/pages/add_product/add_product_view.dart';
 import 'package:warehouse/views/pages/main/main_view.dart';
@@ -13,12 +16,13 @@ import 'package:warehouse/views/pages/take_product/take_product_view.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final bloc = KiwiContainer().resolve<NotificationsCubit>();
+
   int currentIndex = 0;
   List<Widget> pages = [
     const MainPage(),
@@ -50,14 +54,17 @@ class _HomePageState extends State<HomePage> {
     onMessageOpenedApp();
   }
 
-
-
   void onMessageOpenedApp() {
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      if(message.notification != null){
-      navigateTo(toPage: const NotificationsView());
-      }
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) {
+              KiwiContainer().resolve<NotificationsCubit>().addNoti(
+          title: message.notification!.title!,
+          body: message.notification!.body!);
+        if (message.notification != null) {
+          navigateTo(toPage: const NotificationsView());
+        }
+      },
+    );
   }
 
   @override
@@ -100,26 +107,57 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           // there are error when i navigate from tab bar screens
-          floatingActionButton: Badge(
-            isLabelVisible: false,
-            largeSize: 10,
-            smallSize: 10,
-            backgroundColor: Colors.blue,
-            alignment: Alignment.topLeft,
-            child: SizedBox(
-              height: 45,
-              width: 45,
-              child: FloatingActionButton(
-                onPressed: () {
-                  navigateTo(toPage: const NotificationsView());
-                },
-                child: const AppImage(
-                  'assets/images/notifications.png',
-                  height: 26,
-                  color: Colors.white,
+          floatingActionButton: BlocBuilder(
+            bloc: bloc,
+            builder: (context, state) {
+              if (state is GetNotificationSuccessState || state is OpenedNotificationSuccessState) {
+                return Badge(
+                  isLabelVisible: !bloc.isOpen,
+                  largeSize: 15,
+                  smallSize: 15,
+                  label: Text(bloc.numNoti.toString()),
+                  backgroundColor: Colors.red,
+                  alignment: Alignment.topLeft,
+                  child: SizedBox(
+                    height: 45,
+                    width: 45,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        navigateTo(toPage: const NotificationsView());
+                      },
+                      child: const AppImage(
+                        'assets/images/notifications.png',
+                        height: 26,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return Badge(
+                isLabelVisible: !bloc.isOpen,
+                largeSize: 15,
+                smallSize: 15,
+                label: Text(bloc.numNoti.toString()),
+                backgroundColor: Colors.red,
+                alignment: Alignment.topLeft,
+                child: SizedBox(
+                  height: 45,
+                  width: 45,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      navigateTo(toPage: const NotificationsView());
+                      
+                    },
+                    child: const AppImage(
+                      'assets/images/notifications.png',
+                      height: 26,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),
