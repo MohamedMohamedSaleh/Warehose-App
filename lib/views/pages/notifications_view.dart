@@ -18,6 +18,7 @@ class NotificationsView extends StatefulWidget {
 
 class _NotificationsViewState extends State<NotificationsView> {
   final bloc = KiwiContainer().resolve<NotificationsCubit>()..openedNoti();
+  
   @override
   Widget build(BuildContext context) {
     bloc.openedNoti();
@@ -127,13 +128,13 @@ class _ItemState extends State<_Item> {
                           width: 24,
                           color: const Color(0xffFF0000).withOpacity(.1),
                           onTap: () {
-                            bloc.deleteNoti(index: widget.index);
+                            bloc.deleteNoti(index:bloc.noti.length- widget.index -1);
                           },
                           child: BlocBuilder(
                             bloc: bloc,
                             builder: (context, state) {
                               if (state is DeleteNotificationLoadingsState &&
-                                  state.index == widget.index) {
+                                  state.index == bloc.noti.length- widget.index -1) {
                                 return const Center(
                                   child: SizedBox(
                                     height: 16,

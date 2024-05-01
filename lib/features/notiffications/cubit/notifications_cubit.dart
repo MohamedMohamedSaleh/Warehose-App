@@ -21,10 +21,8 @@ class NotificationsCubit extends Cubit<NotificationsStates> {
   }
 
   void addNoti({required String title, required String body}) {
-    print(noti.length);
     noti.add(NotificationData(title: title, body: body));
     CacheHelper.setNotification(noti);
-    print(noti.length);
     isOpen = false;
     numNoti++;
     emit(GetNotificationSuccessState());
@@ -50,11 +48,11 @@ class NotificationsCubit extends Cubit<NotificationsStates> {
 
   Future<void> deleteNoti({required int index}) async {
     emit(DeleteNotificationLoadingsState(index: index));
-    noti.removeAt(index);
-    CacheHelper.setNotification(noti);
     await Future.delayed(
       const Duration(seconds: 1),
     );
+    noti.removeAt(index);
+    CacheHelper.setNotification(noti);
     emit(DeleteNotificationSuccessState());
   }
 }

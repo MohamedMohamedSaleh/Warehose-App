@@ -12,9 +12,11 @@ import 'package:warehouse/views/splash.dart';
 import 'constants/my_colors.dart';
 import 'firebase_options.dart';
 
+
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  if (message.notification != null) {}
+  if (message.notification != null) { }
 }
 
 void main() async {
@@ -50,6 +52,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
     getToken();
     KiwiContainer().resolve<NotificationsCubit>().getNoti();
   }
