@@ -20,15 +20,14 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
   final bloc = KiwiContainer().resolve<SelectSupplyBloc>();
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (widget.isLogin) {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
           showMessage(
-              message: "select supplier cell is required!",
-              type: MessageType.faild);
-          return false;
-        } else {
-          return true;
+            message: "select supplier cell is required!",
+            type: MessageType.faild,
+          );
         }
       },
       child: ZoomIn(

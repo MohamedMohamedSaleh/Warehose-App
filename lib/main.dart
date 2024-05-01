@@ -7,16 +7,15 @@ import 'package:warehouse/core/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
+import 'package:warehouse/firebase_api.dart';
 import 'package:warehouse/views/splash.dart';
 
 import 'constants/my_colors.dart';
 import 'firebase_options.dart';
 
-
-
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  if (message.notification != null) { }
+  if (message.notification != null) {}
 }
 
 void main() async {
@@ -26,12 +25,13 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  initKiwi();
   WidgetsFlutterBinding.ensureInitialized();
+  initKiwi();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseApi.initNOti();
   await CacheHelper.init();
   runApp(const MyApp());
 }

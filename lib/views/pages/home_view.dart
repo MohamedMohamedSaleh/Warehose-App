@@ -69,48 +69,83 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Colors.white,
-      child: ZoomIn(
-        duration: const Duration(milliseconds: 1500),
-        child: Scaffold(
-          body: pages[currentIndex],
-          bottomNavigationBar: SafeArea(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(18), topRight: Radius.circular(18)),
-              child: BottomNavigationBar(
-                backgroundColor: Theme.of(context).primaryColor,
-                selectedItemColor: Colors.white,
-                unselectedItemColor: const Color.fromARGB(140, 255, 255, 255),
-                currentIndex: currentIndex,
-                elevation: 10,
-                type: BottomNavigationBarType.fixed,
-                onTap: (value) {
-                  currentIndex = value;
-                  setState(() {});
-                },
-                items: List.generate(
-                  pages.length,
-                  (index) => BottomNavigationBarItem(
-                    icon: AppImage(
-                      'assets/images/${icons[index]}',
-                      height: (currentIndex == index) ? 24 : 22,
-                      color: (currentIndex == index)
-                          ? Colors.white
-                          : const Color.fromARGB(140, 255, 255, 255),
+    return PopScope(
+            onPopInvoked: (didPop) async {
+        if (currentIndex != 0) {
+          currentIndex = 0;
+          setState(() {});
+        } else {
+          if (!didPop) {
+            Navigator.pop(context);
+          }
+        }
+      },
+      canPop: false,
+      child: ColoredBox(
+        color: Colors.white,
+        child: ZoomIn(
+          duration: const Duration(milliseconds: 1500),
+          child: Scaffold(
+            body: pages[currentIndex],
+            bottomNavigationBar: SafeArea(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(18), topRight: Radius.circular(18)),
+                child: BottomNavigationBar(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  selectedItemColor: Colors.white,
+                  unselectedItemColor: const Color.fromARGB(140, 255, 255, 255),
+                  currentIndex: currentIndex,
+                  elevation: 10,
+                  type: BottomNavigationBarType.fixed,
+                  onTap: (value) {
+                    currentIndex = value;
+                    setState(() {});
+                  },
+                  items: List.generate(
+                    pages.length,
+                    (index) => BottomNavigationBarItem(
+                      icon: AppImage(
+                        'assets/images/${icons[index]}',
+                        height: (currentIndex == index) ? 24 : 22,
+                        color: (currentIndex == index)
+                            ? Colors.white
+                            : const Color.fromARGB(140, 255, 255, 255),
+                      ),
+                      label: leble[index],
                     ),
-                    label: leble[index],
                   ),
                 ),
               ),
             ),
-          ),
-          // there are error when i navigate from tab bar screens
-          floatingActionButton: BlocBuilder(
-            bloc: bloc,
-            builder: (context, state) {
-              if (state is GetNotificationSuccessState || state is OpenedNotificationSuccessState) {
+            // there are error when i navigate from tab bar screens
+            floatingActionButton: BlocBuilder(
+              bloc: bloc,
+              builder: (context, state) {
+                if (state is GetNotificationSuccessState || state is OpenedNotificationSuccessState) {
+                  return Badge(
+                    isLabelVisible: !bloc.isOpen,
+                    largeSize: 15,
+                    smallSize: 15,
+                    label: Text(bloc.numNoti.toString()),
+                    backgroundColor: Colors.red,
+                    alignment: Alignment.topLeft,
+                    child: SizedBox(
+                      height: 45,
+                      width: 45,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          navigateTo(toPage: const NotificationsView());
+                        },
+                        child: const AppImage(
+                          'assets/images/notifications.png',
+                          height: 26,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  );
+                }
                 return Badge(
                   isLabelVisible: !bloc.isOpen,
                   largeSize: 15,
@@ -124,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                     child: FloatingActionButton(
                       onPressed: () {
                         navigateTo(toPage: const NotificationsView());
+                        
                       },
                       child: const AppImage(
                         'assets/images/notifications.png',
@@ -133,31 +169,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 );
-              }
-              return Badge(
-                isLabelVisible: !bloc.isOpen,
-                largeSize: 15,
-                smallSize: 15,
-                label: Text(bloc.numNoti.toString()),
-                backgroundColor: Colors.red,
-                alignment: Alignment.topLeft,
-                child: SizedBox(
-                  height: 45,
-                  width: 45,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      navigateTo(toPage: const NotificationsView());
-                      
-                    },
-                    child: const AppImage(
-                      'assets/images/notifications.png',
-                      height: 26,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              );
-            },
+              },
+            ),
           ),
         ),
       ),

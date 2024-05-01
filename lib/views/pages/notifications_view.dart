@@ -18,7 +18,7 @@ class NotificationsView extends StatefulWidget {
 
 class _NotificationsViewState extends State<NotificationsView> {
   final bloc = KiwiContainer().resolve<NotificationsCubit>()..openedNoti();
-  
+
   @override
   Widget build(BuildContext context) {
     bloc.openedNoti();
@@ -122,33 +122,43 @@ class _ItemState extends State<_Item> {
                         const Spacer(
                           flex: 2,
                         ),
-                        CustomIcon(
-                          isBack: false,
-                          height: 24,
-                          width: 24,
-                          color: const Color(0xffFF0000).withOpacity(.1),
-                          onTap: () {
-                            bloc.deleteNoti(index:bloc.noti.length- widget.index -1);
+                        BlocBuilder(
+                          bloc: bloc,
+                          builder: (context, state) {
+                            return CustomIcon(
+                              isBack: false,
+                              height: 24,
+                              width: 24,
+                              color: const Color(0xffFF0000).withOpacity(.1),
+                              onTap: () async {
+                                if(state is! DeleteNotificationLoadingsState){
+                                await bloc.deleteNoti(
+                                    index: bloc.noti.length - widget.index - 1);
+                                }
+                              },
+                              child: BlocBuilder(
+                                bloc: bloc,
+                                builder: (context, state) {
+                                  if (state
+                                          is DeleteNotificationLoadingsState &&
+                                      state.index ==
+                                          bloc.noti.length - widget.index - 1) {
+                                    return const Center(
+                                      child: SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2.5,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return const AppImage(
+                                      'assets/images/svg/Trash.svg');
+                                },
+                              ),
+                            );
                           },
-                          child: BlocBuilder(
-                            bloc: bloc,
-                            builder: (context, state) {
-                              if (state is DeleteNotificationLoadingsState &&
-                                  state.index == bloc.noti.length- widget.index -1) {
-                                return const Center(
-                                  child: SizedBox(
-                                    height: 16,
-                                    width: 16,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2.5,
-                                    ),
-                                  ),
-                                );
-                              }
-                              return const AppImage(
-                                  'assets/images/svg/Trash.svg');
-                            },
-                          ),
                         ),
                       ],
                     ),

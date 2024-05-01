@@ -9,6 +9,7 @@ import 'package:warehouse/core/widgets/custom_filled_button.dart';
 import 'package:warehouse/features/add_product/bloc/add_product_bloc.dart';
 
 import '../../../features/add_product/models/qr_code_model.dart';
+import '../../alert_dialogs/custom_alert_exit_scan.dart';
 import 'widget/qr_scanner_overlay_shape.dart';
 
 class ScanQRCodeView extends StatefulWidget {
@@ -29,66 +30,25 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (bloc.result != null) {
-          bool exit = await showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                actionsPadding: const EdgeInsets.only(bottom: 26, top: 8),
-                actionsAlignment: MainAxisAlignment.center,
-                shadowColor: Colors.white,
-                titlePadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                title: const Text(
-                  "Are You Sure To Exit?",
-                  style: TextStyle(
-                      color: mainColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                actions: [
-                  FilledButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    },
-                    child: const Text(
-                      "No",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  FilledButton(
-                    onPressed: () {
-                      bloc.result = null;
-                      bloc.isScaned = false;
-                      Navigator.of(context).pop(true);
-                    },
-                    child: const Text(
-                      "Yes",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              );
-            },
-          );
-
-          return exit;
-        } else {
-          return true;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (!didPop) {
+          if (bloc.result != null) {
+            bool? exit = await showDialog(
+              context: context,
+              builder: (context) {
+                return CustomAlertExitScanCode(bloc: bloc);
+              },
+            );
+    
+            if (exit??false) {
+              if (!context.mounted) return;
+              Navigator.pop(context);
+            }
+          }else{
+            Navigator.pop(context);
+          }
         }
       },
       child: Scaffold(
@@ -136,7 +96,8 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                             onPressed: () =>
                                 bloc.cameraController.toggleTorch(),
                             icon: ValueListenableBuilder(
-                              valueListenable: bloc.cameraController.torchState,
+                              valueListenable:
+                                  bloc.cameraController.torchState,
                               builder: (context, value, child) {
                                 switch (value) {
                                   case TorchState.off:
@@ -192,7 +153,8 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                   return Center(
                     child: bloc.result != null
                         ? Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -252,15 +214,5 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
         ),
       ),
     );
-  }
-
-  void _qrCodeScan(BarcodeCapture barcodes) {
-    if (!bloc.isScaned) {
-      bloc.result = barcodes.barcodes.first;
-      bloc.jsonData = jsonDecode(bloc.result!.rawValue ?? "{}");
-      bloc.model = ProductData.fromJson(bloc.jsonData);
-      bloc.isScaned = true;
-      setState(() {});
-    }
   }
 }
