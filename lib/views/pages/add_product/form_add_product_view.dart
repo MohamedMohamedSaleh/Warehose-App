@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/core/widgets/custom_filled_button.dart';
-import 'package:warehouse/features/add_product/bloc/add_product_bloc.dart';
+import 'package:warehouse/features/products/add_product/bloc/add_product_bloc.dart';
 import 'package:warehouse/views/pages/add_product/widget/custom_select_category.dart';
 import '../widgets/custom_textfield_pages.dart';
 

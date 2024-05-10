@@ -23,12 +23,16 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        if (!didPop) {
-          showMessage(
-            message: "select supplier cell is required!",
-            type: MessageType.faild,
-          );
+          if (!didPop) {
+        if (widget.isLogin) {
+            showMessage(
+              message: "select supplier cell is required!",
+              type: MessageType.faild,
+            );
+          }else {
+          Navigator.pop(context);
         }
+        } 
       },
       child: ZoomIn(
         duration: const Duration(milliseconds: 500),

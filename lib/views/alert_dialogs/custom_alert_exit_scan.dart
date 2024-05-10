@@ -3,7 +3,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/my_colors.dart';
-import '../../features/add_product/bloc/add_product_bloc.dart';
+import '../../features/products/add_product/bloc/add_product_bloc.dart';
 
 class CustomAlertExitScanCode extends StatelessWidget {
   const CustomAlertExitScanCode({

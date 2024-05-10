@@ -29,12 +29,14 @@ class LogoutBloc extends Bloc<LogoutEvents, LogoutStates> {
 
     if (response.isSuccess) {
       emit(LogoutSuccess());
-      CacheHelper.clearUserData();
+      CacheHelper.deletUserData();
       showMessage(message: "Logout Successful", type: MessageType.success);
       navigateTo(toPage: const LoginView(), dontRemove: false);
     } else {
       emit(LogoutFailed());
+      CacheHelper.deletUserData();
       showMessage(message: response.message);
+      navigateTo(toPage: const LoginView(), dontRemove: false);
     }
   }
 }

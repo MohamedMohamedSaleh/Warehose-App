@@ -6,9 +6,9 @@ import 'package:kiwi/kiwi.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/custom_filled_button.dart';
-import 'package:warehouse/features/add_product/bloc/add_product_bloc.dart';
+import 'package:warehouse/features/products/add_product/bloc/add_product_bloc.dart';
 
-import '../../../features/add_product/models/qr_code_model.dart';
+import '../../../features/products/add_product/models/qr_code_model.dart';
 import '../../alert_dialogs/custom_alert_exit_scan.dart';
 import 'widget/qr_scanner_overlay_shape.dart';
 
@@ -41,12 +41,12 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                 return CustomAlertExitScanCode(bloc: bloc);
               },
             );
-    
-            if (exit??false) {
+
+            if (exit ?? false) {
               if (!context.mounted) return;
               Navigator.pop(context);
             }
-          }else{
+          } else {
             Navigator.pop(context);
           }
         }
@@ -96,8 +96,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                             onPressed: () =>
                                 bloc.cameraController.toggleTorch(),
                             icon: ValueListenableBuilder(
-                              valueListenable:
-                                  bloc.cameraController.torchState,
+                              valueListenable: bloc.cameraController.torchState,
                               builder: (context, value, child) {
                                 switch (value) {
                                   case TorchState.off:
@@ -153,8 +152,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                   return Center(
                     child: bloc.result != null
                         ? Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

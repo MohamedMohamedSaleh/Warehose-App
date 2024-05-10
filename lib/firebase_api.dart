@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
-import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
+import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/views/pages/notifications_view.dart';
 
 class FirebaseApi {

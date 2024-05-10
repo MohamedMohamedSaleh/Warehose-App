@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/constants/my_colors.dart';
+import 'package:warehouse/features/orders/orders_bloc.dart';
 import 'package:warehouse/views/pages/orders/widgets/custom_item_order.dart';
 import 'package:warehouse/views/pages/orders/widgets/custom_tab_bar.dart';
 
@@ -19,16 +23,15 @@ class _OrdersPageState extends State<OrdersPage>
     super.initState();
     controller = TabController(length: 2, vsync: this);
     controller.index = 0;
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
-  // @override
-  // void dispose() {
-  //   controller.dispose();
-  //   super.dispose();
-  // }
+  final bloc = KiwiContainer().resolve<OrdersBloc>()..add(GetOrdersEvent());
+  @override
+  void dispose() {
+    super.dispose();
+    bloc.close();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,21 +47,69 @@ class _OrdersPageState extends State<OrdersPage>
             height: 120,
           ),
           body: TabBarView(controller: controller, children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => const CustomItemOrder(),
-                itemCount: 5,
-              ),
+            BlocBuilder(
+              bloc: bloc,
+              builder: (context, state) {
+                if (state is GetOrdersLoading || state is OrdersInitial) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (bloc.putList.isEmpty) {
+                  //TODO: this is handle empty list
+                  return const Center(
+                    child: Text(
+                      'no Data',
+                      style: TextStyle(
+                          color: mainColor,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) => CustomItemOrder(
+                        model: bloc.putList[index],
+                      ),
+                      itemCount: bloc.putList.length,
+                    ),
+                  );
+                }
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => const CustomItemOrder(),
-                itemCount: 5,
-              ),
+            BlocBuilder(
+              bloc: bloc,
+              builder: (context, state) {
+                if (state is GetOrdersLoading || state is OrdersInitial) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (bloc.requestList.isEmpty) {
+                  //TODO: this is handle empty list
+                  return const Center(
+                    child: Text(
+                      'no Data',
+                      style: TextStyle(
+                          color: mainColor,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) => CustomItemOrder(
+                        model: bloc.requestList[index],
+                      ),
+                      itemCount: bloc.requestList.length,
+                    ),
+                  );
+                }
+              },
             ),
           ])),
     );

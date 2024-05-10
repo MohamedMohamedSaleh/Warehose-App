@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/features/add_product/bloc/add_product_bloc.dart';
+import 'package:warehouse/features/products/add_product/bloc/add_product_bloc.dart';
 
 import '../../../sheets/category_sheet.dart';
 import '../../widgets/custom_textfield_pages.dart';

@@ -4,7 +4,7 @@ import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
-import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
+import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/views/pages/widgets/custom_icon.dart';
 
 import '../../features/notiffications/model.dart';

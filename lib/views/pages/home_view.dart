@@ -1,17 +1,18 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
-import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
+import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/views/pages/account/account_view.dart';
 import 'package:warehouse/views/pages/add_product/add_product_view.dart';
 import 'package:warehouse/views/pages/main/main_view.dart';
 import 'package:warehouse/views/pages/notifications_view.dart';
 import 'package:warehouse/views/pages/orders/orders_view.dart';
-import 'package:warehouse/views/pages/take_product/take_product_view.dart';
+import 'package:warehouse/views/pages/request_product/request_product_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> pages = [
     const MainPage(),
     const AddProductPage(),
-    const TakeProductPage(),
+    const RequestProductPage(),
     const OrdersPage(),
     const AccountPage(),
   ];
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   List<String> leble = [
     'main',
     'add',
-    'take',
+    'Request',
     'orders',
     'account',
   ];
@@ -57,9 +58,9 @@ class _HomePageState extends State<HomePage> {
   void onMessageOpenedApp() {
     FirebaseMessaging.onMessageOpenedApp.listen(
       (RemoteMessage message) {
-              KiwiContainer().resolve<NotificationsCubit>().addNoti(
-          title: message.notification!.title!,
-          body: message.notification!.body!);
+        KiwiContainer().resolve<NotificationsCubit>().addNoti(
+            title: message.notification!.title!,
+            body: message.notification!.body!);
         if (message.notification != null) {
           navigateTo(toPage: const NotificationsView());
         }
@@ -70,13 +71,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-            onPopInvoked: (didPop) async {
-        if (currentIndex != 0) {
-          currentIndex = 0;
-          setState(() {});
-        } else {
-          if (!didPop) {
-            Navigator.pop(context);
+      onPopInvoked: (didPop) async {
+        if (!didPop) {
+          if (currentIndex != 0) {
+            currentIndex = 0;
+            setState(() {});
+          } else {
+            SystemNavigator.pop();
           }
         }
       },
@@ -90,7 +91,8 @@ class _HomePageState extends State<HomePage> {
             bottomNavigationBar: SafeArea(
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(18), topRight: Radius.circular(18)),
+                    topLeft: Radius.circular(18),
+                    topRight: Radius.circular(18)),
                 child: BottomNavigationBar(
                   backgroundColor: Theme.of(context).primaryColor,
                   selectedItemColor: Colors.white,
@@ -100,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                   type: BottomNavigationBarType.fixed,
                   onTap: (value) {
                     currentIndex = value;
+                    if (!mounted) return;
                     setState(() {});
                   },
                   items: List.generate(
@@ -122,7 +125,8 @@ class _HomePageState extends State<HomePage> {
             floatingActionButton: BlocBuilder(
               bloc: bloc,
               builder: (context, state) {
-                if (state is GetNotificationSuccessState || state is OpenedNotificationSuccessState) {
+                if (state is GetNotificationSuccessState ||
+                    state is OpenedNotificationSuccessState) {
                   return Badge(
                     isLabelVisible: !bloc.isOpen,
                     largeSize: 15,
@@ -159,7 +163,6 @@ class _HomePageState extends State<HomePage> {
                     child: FloatingActionButton(
                       onPressed: () {
                         navigateTo(toPage: const NotificationsView());
-                        
                       },
                       child: const AppImage(
                         'assets/images/notifications.png',

@@ -67,14 +67,14 @@ class _FormInputAppState extends State<FormInputApp> {
             child: Text(
               "Forget Password?",
               style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 11,
                   fontWeight: FontWeight.w400,
                   color: Colors.blue),
               textAlign: TextAlign.end,
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 16,
           ),
           BlocBuilder(
             bloc: bloc,
@@ -83,13 +83,14 @@ class _FormInputAppState extends State<FormInputApp> {
                 width: double.infinity,
                 child: state is LoginLoadingState
                     ? const Center(
-                        child: CircularProgressIndicator(),
+                        child: SizedBox(
+                         
+                            child: CircularProgressIndicator()),
                       )
                     : CustomFilledButton(
                         title: "Login",
                         onPressed: () {
-    FocusScope.of(context).unfocus();
-
+                          FocusScope.of(context).unfocus();
                           bloc.add(LoginEvent());
                         },
                       ),

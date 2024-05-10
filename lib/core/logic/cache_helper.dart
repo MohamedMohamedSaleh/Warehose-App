@@ -4,7 +4,6 @@ import 'package:warehouse/views/auth/login/login_model.dart';
 import 'dart:convert';
 
 
-List<NotificationData> list = [];
 
 class CacheHelper {
   static late final SharedPreferences _prefs;
@@ -14,13 +13,23 @@ class CacheHelper {
   }
 
   static Future<void> saveUserData({required UserData model}) async {
-   await _prefs.setString('token', model.token);
-   await _prefs.setString('id', model.id);
-   await _prefs.setString('username', model.username);
-   await _prefs.setString('name', model.name);
-   await _prefs.setString('department', model.department);
-   await _prefs.setString('token_expire', model.tokenExpire);
-   await _prefs.setString('role', model.role);
+    await _prefs.setString('token', model.token);
+    await _prefs.setString('id', model.id);
+    await _prefs.setString('username', model.username);
+    await _prefs.setString('name', model.name);
+    await _prefs.setString('department', model.department);
+    await _prefs.setString('token_expire', model.tokenExpire);
+    await _prefs.setString('role', model.role);
+  }
+
+  static Future<void> deletUserData() async {
+    await _prefs.remove('token');
+    await _prefs.remove('id');
+    await _prefs.remove('username');
+    await _prefs.remove('name');
+    await _prefs.remove('department');
+    await _prefs.remove('token_expire');
+    await _prefs.remove('role');
   }
 
   static bool isAuth() {
@@ -49,10 +58,11 @@ class CacheHelper {
       return null;
     }
   }
-  
+
   static Future<void> setSupply({required String supply}) async {
     _prefs.setString('supply', supply);
   }
+
   static Future<void> setNumNoti({int num = 0}) async {
     _prefs.setInt('num_nuti', num);
   }
@@ -60,6 +70,7 @@ class CacheHelper {
   static int? getNumNoti() {
     return _prefs.getInt('num_nuti');
   }
+
   static String? getSupply() {
     return _prefs.getString('supply');
   }

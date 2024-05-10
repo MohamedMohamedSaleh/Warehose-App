@@ -43,6 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
         final model = UserData.fromJson(response.response!.data);
         token = model.token;
         id = model.id;
+        print(token);
         CacheHelper.saveUserData(model: model);
         showMessage(
             message: "You must Select a Supplier Cell ",

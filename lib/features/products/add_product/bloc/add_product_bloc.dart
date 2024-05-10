@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 
-import '../../../../core/logic/dio_helper.dart';
-import '../../../../core/logic/helper_mothods.dart';
+import '../../../../../core/logic/dio_helper.dart';
+import '../../../../../core/logic/helper_mothods.dart';
 import '../models/qr_code_model.dart';
 
 part 'add_product_state.dart';
@@ -57,6 +57,7 @@ class AddProductBloc extends Bloc<AddProductEvents, AddProductStates> {
         'Dimensions': event.isTextfield
             ? "[${longController.text},${widthController.text},${heightController.text}]"
             : model.dimensions,
+        "propic": event.isTextfield? '': model.image,
       },
     );
     if (response.isSuccess) {

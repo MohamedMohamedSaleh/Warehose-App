@@ -6,7 +6,7 @@ import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
-import 'package:warehouse/features/notiffications/cubit/notifications_cubit.dart';
+import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/firebase_api.dart';
 import 'package:warehouse/views/splash.dart';
 
@@ -36,6 +36,8 @@ void main() async {
   runApp(const MyApp());
 }
 
+//token app =>    7412ca7e-6f89-47fa-a8ca-c182e7ad78df
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -52,7 +54,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
     getToken();
     KiwiContainer().resolve<NotificationsCubit>().getNoti();
   }
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: Colors.white,
             filledButtonTheme: FilledButtonThemeData(
               style: FilledButton.styleFrom(
-                fixedSize: const Size(double.infinity, 50),
+                fixedSize: const Size(double.infinity, 45),
                 elevation: 6,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:warehouse/constants/my_colors.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -34,6 +35,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           return null;
         }
       },
+
       controller: widget.controller,
       obscureText: isHiden && widget.isPassword,
       cursorHeight: 15,
@@ -41,13 +43,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
         fontSize: 15,
       ),
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         prefixIcon: Icon(
           widget.prefixIcon,
+          color: mainColor,
+          size: 20,
         ),
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
                   isHiden ? Icons.visibility : Icons.visibility_off,
+                  color: mainColor,
+                  size: 20,
                 ),
                 onPressed: () {
                   isHiden = !isHiden;
@@ -57,12 +64,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
             : null,
         fillColor: const Color(0xfff1f1f5),
         filled: true,
+        labelStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
         labelText: widget.labelText,
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(11),
             borderSide: const BorderSide(color: Color(0xffe5e6f2), width: 2)),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(11),
         ),
       ),
     );

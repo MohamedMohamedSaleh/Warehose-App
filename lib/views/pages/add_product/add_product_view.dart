@@ -11,7 +11,9 @@ class AddProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(title: 'Add Product',),
+      appBar: const CustomAppBar(
+        title: 'Add Product',
+      ),
       body: ListView(
         children: const [
           _ItemQRCodeSend(
@@ -61,7 +63,9 @@ class _ItemQRCodeSend extends StatelessWidget {
               height: 16,
             ),
             Text(
-              isTextField ? "Use Textfield To Add Product" : "Scan QR Code To Add Product",
+              isTextField
+                  ? "Use Textfield To Add Product"
+                  : "Scan QR Code To Add Product",
               style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white /* Theme.of(context).primaryColor */,

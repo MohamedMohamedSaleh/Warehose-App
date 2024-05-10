@@ -43,11 +43,11 @@ class _CustomTabBarState extends State<CustomTabBar> {
             tabs: const [
               Tab(
                 height: 40,
-                child: Text('add'),
+                child: Text('Add'),
               ),
               Tab(
                 height: 40,
-                child: Text('take'),
+                child: Text('Request'),
               ),
             ],
           ),
