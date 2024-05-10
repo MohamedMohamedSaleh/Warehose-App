@@ -22,20 +22,17 @@ class ShowRequestProductBloc
     if (event.isLoading) {
       emit(ShowProductLoadingState());
     }
-    print('loading');
     final response =
         await DioHelper.getData(endPoint: EndPoint.showProduct, data: {
       'token': CacheHelper.getUserToken(),
       'userid': CacheHelper.getUserId(),
     });
     if (response.isSuccess) {
-      print('success');
       final model = ProductsData.fromJson(response.response!.data);
       list = model.list;
-      print(list.length);
       emit(ShowProductSuccessState());
     } else {
-      print('failed');
+      showMessage(message: response.message);
 
       emit(ShowProductFailedState());
     }

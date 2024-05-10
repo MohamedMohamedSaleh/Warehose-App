@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 
 class DioHelper {
- static final Dio _dio = Dio(BaseOptions(
+  static final Dio _dio = Dio(BaseOptions(
     baseUrl: "https://5d8pkv7x4f.execute-api.us-east-1.amazonaws.com/sta1/",
   ));
 
- static Future<ResponseData> sendData(
+  static Future<ResponseData> sendData(
       {required String endPoint,
       Map<String, dynamic>? data,
       bool isLogin = false}) async {
@@ -21,32 +21,22 @@ class DioHelper {
           response: response);
     } on DioException catch (ex) {
       return ResponseData(
-          message: (ex.response).toString(),
-          isSuccess: false,
-          response: ex.response);
+          message: ex.response!.data, isSuccess: false, response: ex.response);
     }
   }
 
-
- static Future<ResponseData> getData({
+  static Future<ResponseData> getData({
     required String endPoint,
     Map<String, dynamic>? data,
   }) async {
     try {
       var response = await _dio.get(endPoint, data: data);
-      return ResponseData(
-          message: '',
-          isSuccess: true,
-          response: response);
+      return ResponseData(message: '', isSuccess: true, response: response);
     } on DioException catch (ex) {
       return ResponseData(
-          message:  '',
-          isSuccess: false,
-          response: ex.response);
+          message: ex.response!.data, isSuccess: false, response: ex.response);
     }
   }
-
-
 }
 
 class ResponseData {

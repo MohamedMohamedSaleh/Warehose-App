@@ -26,8 +26,7 @@ class OrdersBloc extends Bloc<OrdersEvents, OrdersStates> {
 
     if (response.isSuccess) {
       final model = OrdersData.fromJson(response.response!.data);
-      // putList = model.orders;
-      // final list = model.orders;
+
       for (var element in model.orders) {
         if (element.type == "put") {
           putList.add(element);
@@ -35,17 +34,11 @@ class OrdersBloc extends Bloc<OrdersEvents, OrdersStates> {
           requestList.add(element);
         }
       }
-      // model.orders.map((e) {
-      //   if (e.type == "put") {
-      //     putList.add(e);
-      //   } else {
-      //     requestList.add(e);
-      //   }
-      // });
+
       emit(GetOrdersSuccess());
     } else {
       emit(GetOrdersFailed());
-      showMessage(message: "response.message");
+      showMessage(message: response.message);
     }
   }
 }

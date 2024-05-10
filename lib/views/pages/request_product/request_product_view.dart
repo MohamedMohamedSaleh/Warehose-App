@@ -8,6 +8,8 @@ import 'package:warehouse/features/products/models/products_model.dart';
 import 'package:warehouse/features/products/show_request_product/show_request_product_bloc.dart';
 import 'package:warehouse/training/fake_list.dart';
 
+import '../widgets/shimmer_loading.dart';
+
 class RequestProductPage extends StatefulWidget {
   const RequestProductPage({super.key});
 
@@ -33,8 +35,9 @@ class _RequestProductPageState extends State<RequestProductPage> {
         builder: (context, state) {
           if (state is ShowProductLoadingState ||
               state is ShowRequestProductInitial) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Padding(
+              padding: EdgeInsets.only(top: 16),
+              child: ShimmerLoadingProduct(),
             );
           } else if (bloc.list.isEmpty) {
             return const Center(
