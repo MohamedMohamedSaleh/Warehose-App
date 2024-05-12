@@ -9,6 +9,7 @@ import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/firebase_api.dart';
 import 'package:warehouse/views/splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'constants/my_colors.dart';
 import 'firebase_options.dart';
@@ -60,42 +61,46 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        navigatorKey: navigatorKey,
-        debugShowCheckedModeBanner: false,
-        title: 'Warehouse',
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: getMaterialColor(),
-                backgroundColor: Colors.white),
-            scaffoldBackgroundColor: Colors.white,
-            filledButtonTheme: FilledButtonThemeData(
-              style: FilledButton.styleFrom(
-                fixedSize: const Size(double.infinity, 45),
-                elevation: 6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+    return ScreenUtilInit(
+      designSize: const Size(330, 700),
+      builder: (context, child) => MaterialApp(
+          navigatorKey: navigatorKey,
+          debugShowCheckedModeBanner: false,
+          title: 'Warehouse',
+          theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch: getMaterialColor(),
+                  backgroundColor: Colors.white),
+              scaffoldBackgroundColor: Colors.white,
+              filledButtonTheme: FilledButtonThemeData(
+                style: FilledButton.styleFrom(
+                  fixedSize: const Size(double.infinity, 45),
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                 ),
               ),
-            ),
-            fontFamily: 'Merriweather',
-            appBarTheme: AppBarTheme(
-              elevation: 0,
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarIconBrightness:
-                    Brightness.light, // For Android (dark icons)
-                statusBarBrightness: Brightness.light, // For iOS (dark icons)
-              ),
-              centerTitle: true,
-              color: getMaterialColor(),
-              titleTextStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Merriweather',
-              ),
-            )),
-        home: const SplashView());
+              fontFamily: 'Merriweather',
+              appBarTheme: AppBarTheme(
+                elevation: 0,
+                systemOverlayStyle: const SystemUiOverlayStyle(
+                  statusBarIconBrightness:
+                      Brightness.light, // For Android (dark icons)
+                  statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                ),
+                centerTitle: true,
+                color: getMaterialColor(),
+                titleTextStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Merriweather',
+                ),
+              )),
+          home: child),
+      child: const SplashView(),
+    );
   }
 }
 

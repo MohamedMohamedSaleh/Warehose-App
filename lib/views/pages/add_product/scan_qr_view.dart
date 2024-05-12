@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:warehouse/constants/my_colors.dart';
@@ -78,9 +79,9 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                         shape: QrScannerOverlayShape(
                           borderColor: Colors.green,
                           borderRadius: 0,
-                          borderLength: 25,
+                          borderLength: 25.w,
                           borderWidth: 2,
-                          cutOutSize: 250,
+                          cutOutSize: 250.w,
                         ),
                       ),
                     ),
@@ -88,7 +89,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16).w,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -152,7 +153,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                   return Center(
                     child: bloc.result != null
                         ? Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -160,11 +161,11 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                   "Scan QR Code Successfully",
                                   style: TextStyle(
                                       color: Theme.of(context).primaryColor,
-                                      fontSize: 20,
+                                      fontSize: 20.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox(
-                                  height: 12,
+                                SizedBox(
+                                  height: 12.h,
                                 ),
                                 state is AddProductLoadingState
                                     ? const Center(
@@ -181,11 +182,11 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                         ),
                                       ),
                                 TextButton(
-                                  child: const Text(
+                                  child: Text(
                                     "Clean Product Data!",
                                     style: TextStyle(
                                         color: Colors.red,
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   onPressed: () {
@@ -201,7 +202,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                             "Scan a Code",
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor,
-                                fontSize: 24,
+                                fontSize: 24.sp,
                                 fontWeight: FontWeight.bold),
                           ),
                   );

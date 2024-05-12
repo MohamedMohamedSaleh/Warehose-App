@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart'; // 316
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/core/widgets/custom_filled_button.dart';
@@ -37,7 +38,7 @@ class _FormAddProductState extends State<FormAddProduct> {
             autovalidateMode: bloc.autovalidateMode,
             child: ListView(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 20).r,
               children: [
                 CustomTextFieldWithTitle(
                   titelText: "Name",
@@ -61,10 +62,10 @@ class _FormAddProductState extends State<FormAddProduct> {
                   labelText: "product weight",
                   controller: bloc.weightController,
                 ),
-                const Text(
+                Text(
                   "Dimentions",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -77,9 +78,9 @@ class _FormAddProductState extends State<FormAddProduct> {
                         controller: bloc.longController,
                       ),
                     ),
-                    const Text(
+                    Text(
                       "*",
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
                     Expanded(
                       child: CustomTextFieldWithTitle(
@@ -88,9 +89,9 @@ class _FormAddProductState extends State<FormAddProduct> {
                         controller: bloc.widthController,
                       ),
                     ),
-                    const Text(
+                    Text(
                       "*",
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30.sp),
                     ),
                     Expanded(
                       child: CustomTextFieldWithTitle(
@@ -107,8 +108,8 @@ class _FormAddProductState extends State<FormAddProduct> {
                     return Column(
                       children: [
                         CustomSelectCategory(bloc: bloc),
-                        const SizedBox(
-                          height: 18,
+                        SizedBox(
+                          height: 18.h,
                         ),
                         state is AddProductLoadingState
                             ? const Center(
@@ -121,8 +122,7 @@ class _FormAddProductState extends State<FormAddProduct> {
                                     FocusScope.of(context).unfocus();
                                     ScaffoldMessenger.of(context)
                                         .removeCurrentSnackBar();
-                                    if (bloc.formKey.currentState!
-                                        .validate()) {
+                                    if (bloc.formKey.currentState!.validate()) {
                                       bloc.add(
                                           AddProductEvent(isTextfield: true));
                                       bloc.autovalidateMode =

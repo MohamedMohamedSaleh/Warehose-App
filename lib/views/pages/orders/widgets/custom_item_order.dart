@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/features/orders/model.dart';
 
@@ -14,7 +15,7 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 4, left: 4, bottom: 10),
+      padding: const EdgeInsets.only(right: 4, left: 4, bottom: 10).r,
       child: DecoratedBox(
         decoration: BoxDecoration(
             color: Colors.white,
@@ -25,8 +26,8 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: ExpansionTile(
-            childrenPadding: const EdgeInsets.symmetric(horizontal: 16),
-            tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+            childrenPadding: EdgeInsets.symmetric(horizontal: 16.w),
+            tilePadding: EdgeInsets.symmetric(horizontal: 16.w),
             title: Row(
               children: [
                 Text(
@@ -45,11 +46,11 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                               : Colors.red.withOpacity(.8)),
                   child: Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                     //TODO: STATUS
                     child: Text(
                       widget.model.orderStatus,
-                      style: const TextStyle(color: Colors.black, fontSize: 14),
+                      style: TextStyle(color: Colors.black, fontSize: 14.sp),
                     ),
                   ),
                 ),
@@ -63,7 +64,7 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                     children: [
                       Text('Product:', style: _textStyle1),
                       SizedBox(
-                        width: 130,
+                        width: 130.w,
                         child: Text(
                           ' ${widget.model.name}',
                           style:
@@ -81,8 +82,8 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 12,
+                  SizedBox(
+                    height: 12.h,
                   ),
                   Row(
                     children: [
@@ -97,8 +98,8 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                               fontWeight: FontWeight.w500)),
                     ],
                   ),
-                  const SizedBox(
-                    height: 12,
+                  SizedBox(
+                    height: 12.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -114,8 +115,8 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                               fontWeight: FontWeight.w500)),
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
+                  SizedBox(
+                    height: 16.h,
                   ),
                 ],
               ),
@@ -127,5 +128,5 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
   }
 }
 
-TextStyle _textStyle1 = const TextStyle(
-    color: mainColor, fontSize: 16, fontWeight: FontWeight.bold);
+TextStyle _textStyle1 =
+    TextStyle(color: mainColor, fontSize: 16.sp, fontWeight: FontWeight.bold);

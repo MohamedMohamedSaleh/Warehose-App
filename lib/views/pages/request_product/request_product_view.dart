@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
@@ -35,30 +36,31 @@ class _RequestProductPageState extends State<RequestProductPage> {
         builder: (context, state) {
           if (state is ShowProductLoadingState ||
               state is ShowRequestProductInitial) {
-            return const Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: ShimmerLoadingProduct(),
+            return Padding(
+              padding: EdgeInsets.only(top: 16.h),
+              child: const ShimmerLoadingProduct(),
             );
           } else if (bloc.list.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
                 'No Data',
                 style: TextStyle(
                     color: mainColor,
-                    fontSize: 26,
+                    fontSize: 26.sp,
                     fontWeight: FontWeight.bold),
               ),
             );
           }
           return GridView.builder(
             padding:
-                const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 16),
+                const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 16)
+                    .r,
             itemCount: bloc.list.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              childAspectRatio: 150 / 250,
-              mainAxisSpacing: 12,
+              crossAxisSpacing: 12.w,
+              childAspectRatio: 150.w / 240.h,
+              mainAxisSpacing: 12.w,
             ),
             itemBuilder: (context, index) => _ItemProducts(
               bloc: bloc,
@@ -89,23 +91,23 @@ class _ItemProductsState extends State<_ItemProducts> {
     return DecoratedBox(
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(11),
+          borderRadius: BorderRadius.circular(11).w,
           boxShadow: [
             BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.04))
           ]),
       child: Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(6.0).w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(11)),
+              borderRadius: const BorderRadius.all(Radius.circular(11)).w,
               //TODO: this is image
               child: AppImage(
                 widget.url,
                 fit: BoxFit.contain,
-                height: 100,
+                height: 100.h,
                 width: double.infinity,
               ),
             ),
@@ -115,8 +117,8 @@ class _ItemProductsState extends State<_ItemProducts> {
             //TODO: this is name
             Text(
               widget.model.name * 2,
-              style: const TextStyle(
-                fontSize: 13,
+              style: TextStyle(
+                fontSize: 13.sp,
                 fontWeight: FontWeight.bold,
                 color: mainColor,
               ),
@@ -130,22 +132,22 @@ class _ItemProductsState extends State<_ItemProducts> {
 
             Text(
               widget.model.description * 20,
-              style: const TextStyle(
-                fontSize: 11,
+              style: TextStyle(
+                fontSize: 11.sp,
                 fontWeight: FontWeight.w400,
                 color: mainColor,
               ),
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
             ),
-            const SizedBox(
-              height: 5,
+            SizedBox(
+              height: 5.h,
             ),
             //TODO: this is cell id
             Text(
               "Cell Id: ${widget.model.cellid}",
-              style: const TextStyle(
-                fontSize: 11,
+              style: TextStyle(
+                fontSize: 11.sp,
                 fontWeight: FontWeight.w700,
                 color: mainColor,
               ),
@@ -153,13 +155,13 @@ class _ItemProductsState extends State<_ItemProducts> {
               maxLines: 1,
             ),
 
-            const SizedBox(
-              height: 7,
+            SizedBox(
+              height: 7.h,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: SizedBox(
-                height: 35,
+                height: 35.h,
                 width: double.infinity,
                 child: FilledButton(
                   onPressed: () {
@@ -169,10 +171,10 @@ class _ItemProductsState extends State<_ItemProducts> {
                   style: FilledButton.styleFrom(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
-                    fixedSize: const Size(double.infinity, 45),
+                    fixedSize: Size(double.infinity, 45.h),
                     elevation: 6,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(9),
+                      borderRadius: BorderRadius.circular(9).w,
                     ),
                   ),
                   child: BlocBuilder(
@@ -180,17 +182,18 @@ class _ItemProductsState extends State<_ItemProducts> {
                     builder: (context, state) {
                       if (state is RequestProductLoadingState &&
                           state.id == widget.model.productid) {
-                        return const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: LinearProgressIndicator(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius:
+                                BorderRadius.all(const Radius.circular(5).w),
                           ),
                         );
                       }
-                      return const Text(
+                      return Text(
                         'Request Product',
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                         ),

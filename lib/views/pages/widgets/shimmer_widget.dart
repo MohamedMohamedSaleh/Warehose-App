@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:warehouse/constants/my_colors.dart';
-
-
 
 class ShimmerWidget extends StatelessWidget {
   final double width;
@@ -31,8 +30,8 @@ class ShimmerWidget extends StatelessWidget {
       baseColor: color == null ? mainColor.withOpacity(.5) : color!,
       highlightColor: mainColor.withOpacity(.30),
       child: Container(
-        height: height,
-        width: width,
+        height: height.h,
+        width: width.w,
         decoration: ShapeDecoration(
           shape: shapeBorder,
           color: color == null ? mainColor.withOpacity(.5) : color!,

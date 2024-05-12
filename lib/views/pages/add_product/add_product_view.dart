@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/views/pages/add_product/form_add_product_view.dart';
@@ -41,11 +43,10 @@ class _ItemQRCodeSend extends StatelessWidget {
             : navigateTo(toPage: const ScanQRCodeView());
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 26),
-        padding: const EdgeInsets.symmetric(vertical: 22),
+        margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 26).r,
+        padding: EdgeInsets.symmetric(vertical: 22.h),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Theme.of(context).primaryColor),
+            borderRadius: BorderRadius.circular(20).w, color: mainColor),
         child: Column(
           children: [
             ClipRRect(
@@ -55,19 +56,19 @@ class _ItemQRCodeSend extends StatelessWidget {
                     ? "assets/images/text_field.jpg"
                     : "assets/images/scan_code.png",
                 fit: BoxFit.fill,
-                height: 150,
-                width: 150,
+                height: 150.w,
+                width: 150.w,
               ),
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: 16.h,
             ),
             Text(
               isTextField
                   ? "Use Textfield To Add Product"
                   : "Scan QR Code To Add Product",
-              style: const TextStyle(
-                  fontSize: 16,
+              style: TextStyle(
+                  fontSize: 16.sp,
                   color: Colors.white /* Theme.of(context).primaryColor */,
                   fontWeight: FontWeight.bold),
             ),

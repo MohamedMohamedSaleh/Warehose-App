@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
@@ -17,13 +18,13 @@ class AccountPage extends StatelessWidget {
         children: [
           const _CustomAppBarAccount(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22).r,
             child: Column(
               children: [
                 const CustomItemMyAccount(
                     title: 'Personal Info', icon: 'account'),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 16.h,
                 ),
                 InkWell(
                   onTap: () => navigateTo(toPage: const SettingsPage()),
@@ -33,8 +34,8 @@ class AccountPage extends StatelessWidget {
                         title: 'Settings', icon: 'settings'),
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 16.h,
                 ),
                 const CustomItemMyAccount(
                   title: 'Logout',
@@ -66,8 +67,9 @@ class _CustomAppBarAccountState extends State<_CustomAppBarAccount> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(40), bottomRight: Radius.circular(40)),
+        borderRadius: BorderRadius.only(
+            bottomLeft: const Radius.circular(40).w,
+            bottomRight: const Radius.circular(40).w),
         child: Stack(
           children: [
             AppBar(
@@ -77,36 +79,36 @@ class _CustomAppBarAccountState extends State<_CustomAppBarAccount> {
               centerTitle: true,
               title: Column(
                 children: [
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: 25.h,
                   ),
-                  const Text(
+                  Text(
                     'my account',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 16,
+                  SizedBox(
+                    height: 16.h,
                   ),
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: const AppImage(
+                    borderRadius: BorderRadius.circular(15).w,
+                    child: AppImage(
                       'assets/images/man.jpg',
-                      height: 70,
-                      width: 70,
+                      height: 70.w,
+                      width: 70.w,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 10.h,
                   ),
                   Text(
                     "${CacheHelper.getUsername()}",
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ],

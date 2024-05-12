@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:warehouse/constants/my_colors.dart';
 
 class CategorySheet extends StatefulWidget {
   const CategorySheet({super.key});
@@ -23,19 +25,17 @@ class _CategorySheetState extends State<CategorySheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16).r,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             "choose type of product",
             style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
+                color: mainColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 20.h,
           ),
           Expanded(
             child: ListView.builder(
@@ -57,16 +57,16 @@ class _Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.only(bottom: 15.h),
       child: InkWell(
         onTap: () {
           Navigator.pop(context, type);
         },
         child: Container(
-          height: 40,
+          height: 40.h,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(15).w,
             color: Theme.of(context).primaryColor.withOpacity(.4),
           ),
           child: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'shimmer_widget.dart';
 
@@ -10,15 +11,15 @@ class ShimmerLoadingProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 150 / 250,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        childAspectRatio: 150.w / 250.h,
         crossAxisCount: 2,
-        mainAxisSpacing: 20,
-        crossAxisSpacing: 20,
+        mainAxisSpacing: 0,
+        crossAxisSpacing: 16,
       ),
       itemCount: 10,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
       ),
       itemBuilder: (context, index) {
         return _productShimmerWidget(isMain: isMain);
@@ -27,76 +28,77 @@ class ShimmerLoadingProduct extends StatelessWidget {
   }
 
   Widget _productShimmerWidget({required bool isMain}) => Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: EdgeInsets.only(bottom: 16.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ShimmerWidget.rectangular(
-              height: 90,
+            ShimmerWidget.rectangular(
+              height: 100.h,
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(13),
+                  const Radius.circular(13).w,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 6,
+            SizedBox(
+              height: 6.h,
             ),
-            const ShimmerWidget.rectangular(
-              height: 18,
-              width: 100,
+            ShimmerWidget.rectangular(
+              height: 18.h,
+              width: 100.w,
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(4),
+                  const Radius.circular(4).w,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 6,
+            SizedBox(
+              height: 6.h,
             ),
-            const ShimmerWidget.rectangular(
-              height: 10,
+            ShimmerWidget.rectangular(
+              height: 10.h,
               width: double.infinity,
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(4),
+                  const Radius.circular(4).w,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 3,
+            SizedBox(
+              height: 3.h,
             ),
-            const ShimmerWidget.rectangular(
-              height: 10,
+            ShimmerWidget.rectangular(
+              height: 10.h,
               width: double.infinity,
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(4),
+                  const Radius.circular(4).w,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 6,
+            SizedBox(
+              height: 6.h,
             ),
-            const ShimmerWidget.rectangular(
-              height: 16,
-              width: 70,
+            ShimmerWidget.rectangular(
+              height: 16.h,
+              width: 70.w,
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(4),
+                  const Radius.circular(4).w,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 6,
+            SizedBox(
+              height: 6.h,
             ),
             isMain
-                ? const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: ShimmerWidget.rectangular(
-                      height: 26,
+                      height: 26.h,
                       shapeBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                        borderRadius:
+                            BorderRadius.all(const Radius.circular(7).w),
                       ),
                     ),
                   )

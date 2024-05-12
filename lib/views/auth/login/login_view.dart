@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:warehouse/constants/my_colors.dart';
 
 import '../../../core/widgets/custom_app_bar.dart';
@@ -20,49 +21,50 @@ class LoginView extends StatelessWidget {
           ),
           body: Padding(
             padding:
-                const EdgeInsets.only(top: 16, left: 20, right: 20, bottom: 16),
+                const EdgeInsets.only(top: 16, left: 20, right: 20, bottom: 16)
+                    .r,
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  const SizedBox(
-                    height: 16,
+                  SizedBox(
+                    height: 16.h,
                   ),
                   Image.asset(
                     "assets/images/test2.png",
-                    height: 100,
+                    height: 100.h,
                   ),
-                  const SizedBox(
-                    height: 16,
+                  SizedBox(
+                    height: 16.h,
                   ),
                   Text(
                     "Login",
                     style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 30.sp,
                         fontWeight: FontWeight.w700,
                         color: Theme.of(context).primaryColor),
                   ),
                   const SizedBox(
                     height: 3,
                   ),
-                  const Text(
+                  Text(
                     "Login to continue using the app",
                     style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black54),
                   ),
-                  const SizedBox(
-                    height: 18,
+                  SizedBox(
+                    height: 18.h,
                   ),
                   const FormInputApp(),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 10.h,
                   ),
-                  const Row(
+                  Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           color: Color.fromARGB(255, 202, 201, 201),
                           thickness: 1,
@@ -70,18 +72,18 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Text(
                           "Or",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w400,
                             color: seColor,
                           ),
                           textAlign: TextAlign.end,
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           color: Color.fromARGB(255, 202, 201, 201),
                           thickness: 1,
@@ -90,23 +92,23 @@ class LoginView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 10.h,
                   ),
                   Center(
                     child: Container(
-                      height: 40,
-                      width: 100,
+                      height: 40.h,
+                      width: 100.w,
                       decoration: BoxDecoration(
                         color: const Color(0xfff1f1f5),
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(25).w,
                         border: Border.all(
                           color: const Color(0xffe5e6f2), // Outline color
                           width: 2.0, // Outline width
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        padding: EdgeInsets.symmetric(vertical: 4.h),
                         child: Image.asset(
                           "assets/images/google_logo.png",
                           color: seColor,
@@ -114,20 +116,20 @@ class LoginView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 10.h,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "Don't have an account? ",
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400),
+                            fontSize: 15.sp, fontWeight: FontWeight.w400),
                       ),
                       Text(
                         "Register",
-                        style: TextStyle(color: seColor, fontSize: 15),
+                        style: TextStyle(color: seColor, fontSize: 15.sp),
                       ),
                     ],
                   )

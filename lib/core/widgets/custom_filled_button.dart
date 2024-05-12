@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomFilledButton extends StatelessWidget {
   const CustomFilledButton({
@@ -20,18 +21,18 @@ class CustomFilledButton extends StatelessWidget {
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: FilledButton(
         style: FilledButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
-          fixedSize: const Size(double.infinity, 45),
+          padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 8.h),
+          fixedSize: Size(double.infinity, 45.h),
           elevation: 6,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radias),
+            borderRadius: BorderRadius.circular(radias).w,
           ),
         ),
         onPressed: onPressed,
         child: Text(
           title,
           style: TextStyle(
-              fontSize: fontSize,
+              fontSize: fontSize.sp,
               fontWeight: FontWeight.w600,
               color: Colors.white),
         ),

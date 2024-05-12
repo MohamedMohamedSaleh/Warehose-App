@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
@@ -38,7 +39,7 @@ class _NotificationsViewState extends State<NotificationsView> {
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           padding:
-              const EdgeInsets.only(top: 22, bottom: 15, left: 16, right: 24),
+              const EdgeInsets.only(top: 22, bottom: 15, left: 16, right: 24).r,
           itemBuilder: (context, index) => _Item(
             model: bloc.noti.reversed.toList()[index],
             index: index,
@@ -64,8 +65,8 @@ class _ItemState extends State<_Item> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 28,
+      padding: EdgeInsets.only(
+        bottom: 28.h,
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -76,29 +77,29 @@ class _ItemState extends State<_Item> {
               color: Colors.black.withOpacity(.04),
             ),
           ],
-          borderRadius: BorderRadius.circular(11),
+          borderRadius: BorderRadius.circular(11).w,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0).w,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 33,
-                width: 33,
+                height: 33.w,
+                width: 33.w,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(9).w,
                     color: const Color(0xff4C8613).withAlpha(13)),
-                child: const Padding(
-                  padding: EdgeInsets.all(6),
-                  child: AppImage(
+                child: Padding(
+                  padding: const EdgeInsets.all(6).w,
+                  child: const AppImage(
                     'assets/images/svg/my_orders.svg',
                     color: mainColor,
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 10,
+              SizedBox(
+                width: 10.w,
               ),
               Expanded(
                 child: Column(
@@ -111,8 +112,8 @@ class _ItemState extends State<_Item> {
                           fit: FlexFit.tight,
                           child: Text(
                             widget.model.title,
-                            style: const TextStyle(
-                              fontSize: 13,
+                            style: TextStyle(
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w600,
                             ),
                             maxLines: 2,
@@ -127,13 +128,14 @@ class _ItemState extends State<_Item> {
                           builder: (context, state) {
                             return CustomIcon(
                               isBack: false,
-                              height: 24,
-                              width: 24,
+                              height: 24.w,
+                              width: 24.w,
                               color: const Color(0xffFF0000).withOpacity(.1),
                               onTap: () async {
-                                if(state is! DeleteNotificationLoadingsState){
-                                await bloc.deleteNoti(
-                                    index: bloc.noti.length - widget.index - 1);
+                                if (state is! DeleteNotificationLoadingsState) {
+                                  await bloc.deleteNoti(
+                                      index:
+                                          bloc.noti.length - widget.index - 1);
                                 }
                               },
                               child: BlocBuilder(
@@ -143,11 +145,11 @@ class _ItemState extends State<_Item> {
                                           is DeleteNotificationLoadingsState &&
                                       state.index ==
                                           bloc.noti.length - widget.index - 1) {
-                                    return const Center(
+                                    return Center(
                                       child: SizedBox(
-                                        height: 16,
-                                        width: 16,
-                                        child: CircularProgressIndicator(
+                                        height: 16.w,
+                                        width: 16.w,
+                                        child: const CircularProgressIndicator(
                                           strokeWidth: 2.5,
                                         ),
                                       ),
@@ -162,15 +164,15 @@ class _ItemState extends State<_Item> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 6,
+                    SizedBox(
+                      height: 6.h,
                     ),
                     Text(
                       widget.model.body,
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style: TextStyle(
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff989898),
+                        color: const Color(0xff989898),
                       ),
                     ),
                   ],

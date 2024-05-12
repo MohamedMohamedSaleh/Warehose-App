@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/views/auth/login/bloc/login_bloc.dart';
 import '../../../core/widgets/custom_filled_button.dart';
 import 'custom_textfield.dart';
@@ -26,32 +28,32 @@ class _FormInputAppState extends State<FormInputApp> {
           Text(
             "Username",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w600,
-              color: Theme.of(context).primaryColor,
+              color: mainColor,
             ),
           ),
-          const SizedBox(
-            height: 5,
+          SizedBox(
+            height: 5.h,
           ),
           CustomTextField(
             labelText: "Enter your username",
             prefixIcon: Icons.account_circle_rounded,
             controller: bloc.userNameController,
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           Text(
             "Password",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w600,
-              color: Theme.of(context).primaryColor,
+              color: mainColor,
             ),
           ),
-          const SizedBox(
-            height: 5,
+          SizedBox(
+            height: 5.h,
           ),
           CustomTextField(
             labelText: "Enter your Password",
@@ -62,19 +64,19 @@ class _FormInputAppState extends State<FormInputApp> {
           const SizedBox(
             height: 3,
           ),
-          const SizedBox(
+          SizedBox(
             width: double.infinity,
             child: Text(
               "Forget Password?",
               style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 11.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.blue),
               textAlign: TextAlign.end,
             ),
           ),
-          const SizedBox(
-            height: 16,
+          SizedBox(
+            height: 16.h,
           ),
           BlocBuilder(
             bloc: bloc,
@@ -83,9 +85,7 @@ class _FormInputAppState extends State<FormInputApp> {
                 width: double.infinity,
                 child: state is LoginLoadingState
                     ? const Center(
-                        child: SizedBox(
-                         
-                            child: CircularProgressIndicator()),
+                        child: SizedBox(child: CircularProgressIndicator()),
                       )
                     : CustomFilledButton(
                         title: "Login",

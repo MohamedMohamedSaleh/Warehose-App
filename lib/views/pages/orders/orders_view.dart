@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/features/orders/orders_bloc.dart';
@@ -44,7 +45,7 @@ class _OrdersPageState extends State<OrdersPage>
             bottom: CustomTabBar(
               controller: controller,
             ),
-            height: 120,
+            height: 120.h,
           ),
           body: TabBarView(controller: controller, children: [
             BlocBuilder(
@@ -56,18 +57,18 @@ class _OrdersPageState extends State<OrdersPage>
                   );
                 } else if (bloc.putList.isEmpty) {
                   //TODO: this is handle empty list
-                  return const Center(
+                  return Center(
                     child: Text(
                       'no Data',
                       style: TextStyle(
                           color: mainColor,
-                          fontSize: 26,
+                          fontSize: 26.sp,
                           fontWeight: FontWeight.bold),
                     ),
                   );
                 } else {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0).w,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => CustomItemOrder(
@@ -88,18 +89,18 @@ class _OrdersPageState extends State<OrdersPage>
                   );
                 } else if (bloc.requestList.isEmpty) {
                   //TODO: this is handle empty list
-                  return const Center(
+                  return Center(
                     child: Text(
                       'no Data',
                       style: TextStyle(
                           color: mainColor,
-                          fontSize: 26,
+                          fontSize: 26.sp,
                           fontWeight: FontWeight.bold),
                     ),
                   );
                 } else {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0).w,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => CustomItemOrder(

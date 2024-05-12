@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:animate_do/animate_do.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
@@ -82,7 +83,7 @@ class _SplashViewState extends State<SplashView> {
                     Text(
                       "Welcome to Warehouse",
                       style: TextStyle(
-                          fontSize: 26,
+                          fontSize: 26.sp,
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold),
                     ),
@@ -106,7 +107,7 @@ class _SplashViewState extends State<SplashView> {
                 duration: const Duration(seconds: 1),
                 child: Image.asset(
                   'assets/images/robot.png',
-                  height: 225,
+                  height: 225.h,
                   alignment: Alignment.center,
                 ),
               ),

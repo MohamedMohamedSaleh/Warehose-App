@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomIcon extends StatelessWidget {
   const CustomIcon({
@@ -32,11 +33,11 @@ class CustomIcon extends StatelessWidget {
           : onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(isBack ? 9 : 7),
+          borderRadius: BorderRadius.circular(isBack ? 9 : 7).w,
           color: color ?? const Color(0xff4C8613).withOpacity(0.13),
         ),
-        height: height,
-        width: width,
+        height: height.h,
+        width: width.w,
         child: child,
       ),
     );

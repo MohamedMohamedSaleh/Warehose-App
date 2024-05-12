@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:warehouse/constants/my_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -28,12 +29,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               // elevation: 2,
               backgroundColor: Colors.white,
               title: Padding(
-                padding: const EdgeInsets.only(top: 14),
+                padding: EdgeInsets.only(top: 14.h),
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: mainColor,
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -46,5 +47,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height);
+  Size get preferredSize => Size.fromHeight(height.h);
 }

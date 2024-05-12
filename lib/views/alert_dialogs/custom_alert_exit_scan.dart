@@ -1,6 +1,6 @@
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/my_colors.dart';
 import '../../features/products/add_product/bloc/add_product_bloc.dart';
@@ -19,16 +19,16 @@ class CustomAlertExitScanCode extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       child: AlertDialog(
         backgroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        actionsPadding: const EdgeInsets.only(bottom: 26, top: 8),
+        shape: RoundedRectangleBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(20)).w),
+        actionsPadding: EdgeInsets.only(bottom: 26.h, top: 8.h),
         actionsAlignment: MainAxisAlignment.center,
         shadowColor: Colors.white,
-        titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        title: const Text(
+        titlePadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+        title: Text(
           "Are You Sure To Exit?",
           style: TextStyle(
-              color: mainColor, fontSize: 22, fontWeight: FontWeight.bold),
+              color: mainColor, fontSize: 22.sp, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         actions: [
@@ -36,16 +36,16 @@ class CustomAlertExitScanCode extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop(false);
             },
-            child: const Text(
+            child: Text(
               "No",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
             ),
           ),
-          const SizedBox(
-            width: 12,
+          SizedBox(
+            width: 12.w,
           ),
           FilledButton(
             onPressed: () {
@@ -53,11 +53,11 @@ class CustomAlertExitScanCode extends StatelessWidget {
               bloc.isScaned = false;
               Navigator.of(context).pop(true);
             },
-            child: const Text(
+            child: Text(
               "Yes",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
             ),
           ),

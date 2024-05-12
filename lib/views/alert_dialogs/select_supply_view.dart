@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
@@ -23,16 +24,16 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-          if (!didPop) {
-        if (widget.isLogin) {
+        if (!didPop) {
+          if (widget.isLogin) {
             showMessage(
               message: "select supplier cell is required!",
               type: MessageType.faild,
             );
-          }else {
-          Navigator.pop(context);
+          } else {
+            Navigator.pop(context);
+          }
         }
-        } 
       },
       child: ZoomIn(
         duration: const Duration(milliseconds: 500),
@@ -40,24 +41,24 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15).w),
           contentPadding: const EdgeInsets.symmetric(vertical: 0),
-          titlePadding: const EdgeInsets.symmetric(horizontal: 16),
-          title: const Padding(
-            padding: EdgeInsets.only(top: 16, right: 16, bottom: 5),
+          titlePadding: EdgeInsets.symmetric(horizontal: 16.w),
+          title: Padding(
+            padding: EdgeInsets.only(top: 16.h, right: 16.w, bottom: 5.h),
             child: Row(
               children: [
                 Text(
                   "Select Supplier Cell",
                   style: TextStyle(
                       color: mainColor,
-                      fontSize: 17,
+                      fontSize: 17.sp,
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  width: 14,
+                  width: 14.w,
                 ),
-                Icon(
+                const Icon(
                   Icons.check_box,
                   color: mainColor,
                   size: 24,
@@ -69,7 +70,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
             bloc: bloc,
             builder: (context, state) {
               return SizedBox(
-                height: 100,
+                height: 100.h,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -88,11 +89,11 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                           onTap: () {
                             bloc.add(SelectSupp1Event());
                           },
-                          child: const Text(
+                          child: Text(
                             'Supply 1',
                             style: TextStyle(
                                 color: mainColor,
-                                fontSize: 15,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -114,11 +115,11 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                           onTap: () {
                             bloc.add(SelectSupp2Event());
                           },
-                          child: const Text(
+                          child: Text(
                             'Supply 2',
                             style: TextStyle(
                                 color: mainColor,
-                                fontSize: 15,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -129,7 +130,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
               );
             },
           ),
-          actionsPadding: const EdgeInsets.only(top: 10, bottom: 16),
+          actionsPadding: const EdgeInsets.only(top: 10, bottom: 16).h,
           actionsAlignment: MainAxisAlignment.center,
           actions: [
             // Center(child: CircularProgressIndicator(),),
@@ -137,16 +138,16 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
               bloc: bloc,
               builder: (context, state) {
                 if (state is SelectSupplyLoadState) {
-                  return const Center(
+                  return Center(
                     child: SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: CircularProgressIndicator()),
+                        height: 35.w,
+                        width: 35.w,
+                        child: const CircularProgressIndicator()),
                   );
                 } else {
                   return SizedBox(
-                    height: 35,
-                    width: 110,
+                    height: 35.h,
+                    width: 110.w,
                     child: FilledButton(
                       onPressed: () {
                         bloc.add(SelectSupplyEvent(

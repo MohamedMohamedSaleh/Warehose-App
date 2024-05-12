@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 
@@ -21,34 +22,36 @@ class CustomItemMyAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(11),
+        borderRadius: BorderRadius.circular(11).w,
         color: Colors.white,
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(.03), blurRadius: 11),
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+        padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 14.w),
         child: Row(
           children: [
             isAcount
                 ? AppImage(
                     'assets/images/$icon.png',
-                    height: 18,
-                    width: 18,
+                    height: 18.w,
+                    width: 18.w,
                     fit: BoxFit.scaleDown,
                     color: !isLogout
                         ? Colors.black.withOpacity(.5)
                         : Colors.black.withOpacity(.35),
                   )
                 : mainIcon!,
-            const SizedBox(
-              width: 8,
+            SizedBox(
+              width: 8.w,
             ),
             Text(
               title,
-              style: const TextStyle(
-                  fontSize: 14, color: mainColor, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  color: mainColor,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               width: 3,
@@ -71,8 +74,8 @@ class CustomItemMyAccount extends StatelessWidget {
                 !isLogout
                     ? 'assets/images/svg/line_arrow_acount.svg'
                     : 'assets/images/svg/line_arrow_acount.svg',
-                height: 18,
-                width: 18,
+                height: 18.w,
+                width: 18.w,
                 fit: BoxFit.scaleDown,
               ),
             ),

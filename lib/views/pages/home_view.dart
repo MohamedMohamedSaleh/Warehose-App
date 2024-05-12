@@ -3,7 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
@@ -90,11 +92,11 @@ class _HomePageState extends State<HomePage> {
             body: pages[currentIndex],
             bottomNavigationBar: SafeArea(
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(18),
-                    topRight: Radius.circular(18)),
+                borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(18).w,
+                    topRight: const Radius.circular(18).w),
                 child: BottomNavigationBar(
-                  backgroundColor: Theme.of(context).primaryColor,
+                  backgroundColor: mainColor,
                   selectedItemColor: Colors.white,
                   unselectedItemColor: const Color.fromARGB(140, 255, 255, 255),
                   currentIndex: currentIndex,
@@ -110,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     (index) => BottomNavigationBarItem(
                       icon: AppImage(
                         'assets/images/${icons[index]}',
-                        height: (currentIndex == index) ? 24 : 22,
+                        height: (currentIndex == index) ? 24.h : 22.h,
                         color: (currentIndex == index)
                             ? Colors.white
                             : const Color.fromARGB(140, 255, 255, 255),
@@ -135,15 +137,15 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.red,
                     alignment: Alignment.topLeft,
                     child: SizedBox(
-                      height: 45,
-                      width: 45,
+                      height: 45.w,
+                      width: 45.w,
                       child: FloatingActionButton(
                         onPressed: () {
                           navigateTo(toPage: const NotificationsView());
                         },
-                        child: const AppImage(
+                        child: AppImage(
                           'assets/images/notifications.png',
-                          height: 26,
+                          height: 26.h,
                           color: Colors.white,
                         ),
                       ),
@@ -158,15 +160,15 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.red,
                   alignment: Alignment.topLeft,
                   child: SizedBox(
-                    height: 45,
-                    width: 45,
+                    height: 45.w,
+                    width: 45.w,
                     child: FloatingActionButton(
                       onPressed: () {
                         navigateTo(toPage: const NotificationsView());
                       },
-                      child: const AppImage(
+                      child: AppImage(
                         'assets/images/notifications.png',
-                        height: 26,
+                        height: 26.h,
                         color: Colors.white,
                       ),
                     ),

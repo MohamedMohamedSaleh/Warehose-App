@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFieldWithTitle extends StatefulWidget {
   const CustomTextFieldWithTitle({
@@ -28,8 +29,8 @@ class _CustomTextFieldState extends State<CustomTextFieldWithTitle> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 15,
+      padding:  EdgeInsets.only(
+        bottom: 15.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,8 +38,8 @@ class _CustomTextFieldState extends State<CustomTextFieldWithTitle> {
           widget.isText
               ? Text(
                   widget.titelText ?? "",
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style:  TextStyle(
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 )
@@ -60,9 +61,9 @@ class _CustomTextFieldState extends State<CustomTextFieldWithTitle> {
                   },
             controller: widget.controller,
             maxLines: widget.maxLins,
-            cursorHeight: 20,
-            style: const TextStyle(
-              fontSize: 15,
+            cursorHeight: 20.h,
+            style:  TextStyle(
+              fontSize: 15.sp,
             ),
             decoration: InputDecoration(
               fillColor: const Color(0xfff1f1f5),
@@ -74,11 +75,11 @@ class _CustomTextFieldState extends State<CustomTextFieldWithTitle> {
                     )
                   : null,
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(15).w,
                   borderSide:
                       const BorderSide(color: Color(0xffe5e6f2), width: 2)),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(15).w,
               ),
             ),
           ),
