@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     (index) => BottomNavigationBarItem(
                       icon: AppImage(
                         'assets/images/${icons[index]}',
-                        height: (currentIndex == index) ? 24.h : 22.h,
+                        height: (currentIndex == index) ? 24 : 22,
                         color: (currentIndex == index)
                             ? Colors.white
                             : const Color.fromARGB(140, 255, 255, 255),
@@ -143,10 +143,13 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           navigateTo(toPage: const NotificationsView());
                         },
-                        child: AppImage(
-                          'assets/images/notifications.png',
-                          height: 26.h,
-                          color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0).w,
+                          child: const AppImage(
+                            'assets/images/notifications.png',
+                            // height: 26.w,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -168,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: AppImage(
                         'assets/images/notifications.png',
-                        height: 26.h,
+                        height: 26.w,
                         color: Colors.white,
                       ),
                     ),

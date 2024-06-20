@@ -30,6 +30,7 @@ class CacheHelper {
     await _prefs.remove('department');
     await _prefs.remove('token_expire');
     await _prefs.remove('role');
+    await _prefs.remove('supply');
   }
 
   static bool isAuth() {

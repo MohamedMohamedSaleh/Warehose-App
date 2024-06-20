@@ -7,5 +7,6 @@ static String changeConfigration = "MP_Change_Configration";
 static String getOrders = "MP_Send_Order";
 static String showProduct = "MP_DisplayProduct";
 static String requestProduct = "MP_RequestProduct";
+static String monitoring = "MP_monitoring";
 }
 

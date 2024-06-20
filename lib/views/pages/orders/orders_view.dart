@@ -45,7 +45,7 @@ class _OrdersPageState extends State<OrdersPage>
             bottom: CustomTabBar(
               controller: controller,
             ),
-            height: 120.h,
+            height: 120,
           ),
           body: TabBarView(controller: controller, children: [
             BlocBuilder(

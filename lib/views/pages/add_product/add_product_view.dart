@@ -43,7 +43,7 @@ class _ItemQRCodeSend extends StatelessWidget {
             : navigateTo(toPage: const ScanQRCodeView());
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 26).r,
+        margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 26),
         padding: EdgeInsets.symmetric(vertical: 22.h),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20).w, color: mainColor),

@@ -34,7 +34,7 @@ class DioHelper {
       return ResponseData(message: '', isSuccess: true, response: response);
     } on DioException catch (ex) {
       return ResponseData(
-          message: ex.response!.data, isSuccess: false, response: ex.response);
+          message: ex.response!.data.toString() , isSuccess: false, response: ex.response);
     }
   }
 }

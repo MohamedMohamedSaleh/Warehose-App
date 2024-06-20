@@ -70,13 +70,17 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
             bloc: bloc,
             builder: (context, state) {
               return SizedBox(
-                height: 100.h,
+                height: 100,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
                         Checkbox(
+                          visualDensity: const VisualDensity(
+                            // horizontal: -4,
+                            vertical: -2,
+                          ),
                           checkColor: Colors.white,
                           side: BorderSide(color: mainColor.withOpacity(.3)),
                           activeColor: mainColor,
@@ -102,6 +106,10 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                     Row(
                       children: [
                         Checkbox(
+                          visualDensity: const VisualDensity(
+                            // horizontal: -4,
+                            vertical: -2,
+                          ),
                           checkColor: Colors.white,
                           side: BorderSide(color: mainColor.withOpacity(.3)),
                           value: !bloc.isSupp1,
@@ -130,7 +138,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
               );
             },
           ),
-          actionsPadding: const EdgeInsets.only(top: 10, bottom: 16).h,
+          actionsPadding: const EdgeInsets.only(top: 5, bottom: 16).h,
           actionsAlignment: MainAxisAlignment.center,
           actions: [
             // Center(child: CircularProgressIndicator(),),
@@ -146,7 +154,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                   );
                 } else {
                   return SizedBox(
-                    height: 35.h,
+                    height: 35.w,
                     width: 110.w,
                     child: FilledButton(
                       onPressed: () {
@@ -156,7 +164,8 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                       },
                       child: Text(
                         widget.title,
-                        style: const TextStyle(
+                        style: TextStyle(
+                          fontSize: 14.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),

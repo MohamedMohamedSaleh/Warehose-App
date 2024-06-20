@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/views/pages/account/screens/settings_view.dart';
 
+import '../../auth/logout/logout_bloc.dart';
 import 'widgets/custom_item_acount.dart';
 
 class AccountPage extends StatelessWidget {
@@ -37,10 +39,15 @@ class AccountPage extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                const CustomItemMyAccount(
-                  title: 'Logout',
-                  icon: 'logout',
-                  isLogout: true,
+                GestureDetector(
+                  onTap: () {
+                     KiwiContainer().resolve<LogoutBloc>().add(LogoutEvent());
+                  },
+                  child: const CustomItemMyAccount(
+                    title: 'Logout',
+                    icon: 'logout',
+                    isLogout: true,
+                  ),
                 ),
               ],
             ),

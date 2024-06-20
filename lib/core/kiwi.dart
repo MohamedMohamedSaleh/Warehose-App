@@ -1,4 +1,5 @@
 import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/features/monitoring/bloc/monitoring_bloc.dart';
 import 'package:warehouse/features/orders/orders_bloc.dart';
 import 'package:warehouse/features/products/add_product/bloc/add_product_bloc.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
@@ -16,5 +17,6 @@ void initKiwi() {
   container.registerFactory((container) => ShowRequestProductBloc());
   container.registerFactory((container) => OrdersBloc());
   container.registerFactory((container) => LogoutBloc());
+  container.registerSingleton((container) => MonitoringBloc());
   container.registerSingleton((container) => NotificationsCubit());
 }
