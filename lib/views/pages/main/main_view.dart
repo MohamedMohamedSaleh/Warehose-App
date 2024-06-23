@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/features/monitoring/bloc/monitoring_bloc.dart';
+import 'package:warehouse/views/pages/widgets/shimmer_widget.dart';
 
 import '../../../core/widgets/custom_app_bar.dart';
 
@@ -34,13 +36,62 @@ class _MainPageState extends State<MainPage> {
     timer!.cancel();
   }
 
+  Color selectedColor({
+    required List<dynamic> robot1Path1,
+    required List<dynamic> robot1Path2,
+    required List<dynamic> robot2Path1,
+    required List<dynamic> robot2Path2,
+    required List<List<int>> list,
+    required int i,
+    required int j,
+  }) {
+    Color? myColor = Colors.grey[100];
+    if (list[i][j] == 0) {
+      myColor = Colors.grey[100];
+      // paths of robots
+      for (int k = 0; k < robot1Path1.length; k++) {
+        // print();
+        if (robot1Path1[k].first == i && robot1Path1[k].last == j) {
+          myColor = Colors.yellow;
+        }
+      }
+      for (int k = 0; k < robot1Path2.length; k++) {
+        // print();
+        if (robot1Path2[k].first == i && robot1Path2[k].last == j) {
+          myColor = Colors.yellow;
+        }
+      }
+      for (int k = 0; k < robot2Path1.length; k++) {
+        // print();
+        if (robot2Path1[k].first == i && robot2Path1[k].last == j) {
+          myColor = Colors.yellow;
+        }
+      }
+      for (int k = 0; k < robot2Path2.length; k++) {
+        // print();
+        if (robot2Path2[k].first == i && robot2Path2[k].last == j) {
+          myColor = Colors.yellow;
+        }
+      }
+
+      /////////////////
+    } else if (list[i][j] == 1) {
+      myColor = Colors.black;
+    } else if (list[i][j] == 2) {
+      myColor = Colors.green;
+    } else {
+      myColor = Colors.red;
+    }
+    return myColor!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Monitoring',
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
@@ -50,16 +101,36 @@ class _MainPageState extends State<MainPage> {
               bloc: bloc,
               builder: (context, state) {
                 if (state is GetMonitoringLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Center(
+                          child: ShimmerWidget.rectangular(height: 32 * 10),
+                        ),
+                        Text(
+                          'Map loading...',
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        )
+                      ],
+                    ),
                   );
                 } else if (state is GetMonitoringSuccess) {
                   // robot 1
-                  int robot1X = state.model.robots[0].positionX;
-                  int robot1Y = state.model.robots[0].positiony;
+                  List<dynamic> robot1Path1 =
+                      state.model.robots[0].robotPath1 ?? [];
+                  List<dynamic> robot1Path2 =
+                      state.model.robots[0].robotPath2 ?? [];
+                  int robotPosition1X = state.model.robots[0].positionX;
+                  int robotPosition1Y = state.model.robots[0].positiony;
                   // robot 2
-                  int robot2X = state.model.robots[1].positionX;
-                  int robot2Y = state.model.robots[1].positiony;
+                  List<dynamic> robot2Path1 =
+                      state.model.robots[1].robotPath1 ?? [];
+                  List<dynamic> robot2Path2 =
+                      state.model.robots[1].robotPath2 ?? [];
+                  int robotPosition2X = state.model.robots[1].positionX;
+                  int robotPosition2Y = state.model.robots[1].positiony;
                   List<List<int>> list = state.model.map;
                   int sizex = state.model.map.length;
                   int sizey = state.model.map[0].length;
@@ -81,20 +152,23 @@ class _MainPageState extends State<MainPage> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.all(.2),
+                                              padding: const EdgeInsets.all(.1),
                                               child: Container(
-                                                width: 30,
-                                                color: list[i][j] == 0
-                                                    ? Colors.grey[100]
-                                                    : list[i][j] == 1
-                                                        ? Colors.black
-                                                        : list[i][j] == 2
-                                                            ? Colors.green
-                                                            : Colors.red,
-                                                child: (robot1X == j &&
-                                                            robot1Y == i) ||
-                                                        (robot2X == i &&
-                                                            robot2Y == j)
+                                                // width: 30,
+                                                color: selectedColor(
+                                                    robot1Path1: robot1Path1,
+                                                    robot1Path2: robot1Path2,
+                                                    robot2Path1: robot2Path1,
+                                                    robot2Path2: robot2Path2,
+                                                    i: i,
+                                                    j: j,
+                                                    list: list),
+                                                child: (robotPosition1X == j &&
+                                                            robotPosition1Y ==
+                                                                i) ||
+                                                        (robotPosition2X == i &&
+                                                            robotPosition2Y ==
+                                                                j)
                                                     ? const Center(
                                                         child: Icon(
                                                           Icons.car_rental,
@@ -122,10 +196,109 @@ class _MainPageState extends State<MainPage> {
                   );
                 }
               },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8),
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            DetailsItem(
+                              color: Colors.black,
+                              text: 'Storage shelves.',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DetailsItem(
+                              color: Colors.red,
+                              text: 'Errors.',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DetailsItem(
+                              color: Colors.green,
+                              text: 'Charge and waiting place.',
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            DetailsItem(
+                              color: Colors.yellow,
+                              text: 'Path of robot.',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DetailsItem(
+                              color: Color.fromARGB(208, 230, 226, 226),
+                              text: 'Maps.',
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class DetailsItem extends StatelessWidget {
+  const DetailsItem({
+    super.key,
+    required this.color,
+    required this.text,
+  });
+
+  final Color? color;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          color: color,
+          height: 13,
+          width: 13,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Text(
+          text,
+          style: const TextStyle(
+            fontSize: 11,
+            color: mainColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
