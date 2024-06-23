@@ -224,8 +224,8 @@ class _MainPageState extends State<MainPage> {
                               height: 10,
                             ),
                             DetailsItem(
-                              color: Colors.red,
-                              text: 'Errors.',
+                              color: Color.fromARGB(208, 230, 226, 226),
+                              text: 'can move place.',
                             ),
                             SizedBox(
                               height: 10,
@@ -248,8 +248,8 @@ class _MainPageState extends State<MainPage> {
                               height: 10,
                             ),
                             DetailsItem(
-                              color: Color.fromARGB(208, 230, 226, 226),
-                              text: 'Maps.',
+                              color: Colors.red,
+                              text: 'Errors.',
                             ),
                           ],
                         ),
