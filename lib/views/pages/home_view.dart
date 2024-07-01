@@ -167,6 +167,11 @@ class _HomePageState extends State<HomePage> {
                     width: 45.w,
                     child: FloatingActionButton(
                       onPressed: () {
+                        SystemChrome.setSystemUIOverlayStyle(
+                            const SystemUiOverlayStyle(
+                          statusBarColor: Colors.black,
+                          statusBarIconBrightness: Brightness.light,
+                        ));
                         navigateTo(toPage: const NotificationsView());
                       },
                       child: AppImage(

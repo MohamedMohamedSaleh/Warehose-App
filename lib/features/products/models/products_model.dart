@@ -1,9 +1,10 @@
+import 'package:intl/intl.dart';
+
 class ProductsData {
   late final List<ProductModel> list;
- late final String message;
+  late final String message;
 
   ProductsData.fromJson(Map<String, dynamic> json) {
-    
     list = List.from(json['product'] ?? [])
         .map((e) => ProductModel.fromJson(e))
         .toList();
@@ -24,6 +25,7 @@ class ProductModel {
   late final String getTimestamp;
   late final String description;
   late final String productid;
+  String? time;
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     image = json['propic'];
@@ -39,5 +41,10 @@ class ProductModel {
     getTimestamp = json['get_timestamp'];
     description = json['description'];
     productid = json['productid'];
+
+    int iii = double.parse(putTimestamp).round();
+    var date = DateTime.fromMillisecondsSinceEpoch(iii * 1000);
+
+    time = DateFormat.yMEd().add_jm().format(date);
   }
 }

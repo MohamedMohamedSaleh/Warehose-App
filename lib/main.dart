@@ -84,7 +84,8 @@ class _MyAppState extends State<MyApp> {
               fontFamily: 'Merriweather',
               appBarTheme: AppBarTheme(
                 elevation: 0,
-                systemOverlayStyle: const SystemUiOverlayStyle(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: getMaterialColor(),
                   statusBarIconBrightness:
                       Brightness.light, // For Android (dark icons)
                   statusBarBrightness: Brightness.light, // For iOS (dark icons)

@@ -8,5 +8,7 @@ static String getOrders = "MP_Send_Order";
 static String showProduct = "MP_DisplayProduct";
 static String requestProduct = "MP_RequestProduct";
 static String monitoring = "MP_monitoring";
+static String getErrors = "MP_Display_Error";
+static String fixErrors = "MP_Error_Handling";
 }
 

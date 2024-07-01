@@ -41,6 +41,7 @@ class _OrdersPageState extends State<OrdersPage>
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: CustomAppBar(
+            isOrder: true,
             title: 'Orders',
             bottom: CustomTabBar(
               controller: controller,

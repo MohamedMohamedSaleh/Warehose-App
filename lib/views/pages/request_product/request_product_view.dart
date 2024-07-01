@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/constants/my_colors.dart';
+import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/features/products/models/products_model.dart';
 import 'package:warehouse/features/products/show_request_product/show_request_product_bloc.dart';
 import 'package:warehouse/training/fake_list.dart';
+import 'package:warehouse/views/pages/request_product/product_view.dart';
 
 import '../widgets/shimmer_loading.dart';
 
@@ -95,120 +97,133 @@ class _ItemProductsState extends State<_ItemProducts> {
           ]),
       child: Padding(
         padding: const EdgeInsets.all(6.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(11)),
-              //TODO: this is image
-              child: AppImage(
-                widget.url,
-                fit: BoxFit.contain,
-                height: 100,
-                width: double.infinity,
-              ),
-            ),
-            const SizedBox(
-              height: 3,
-            ),
-            //TODO: this is name
-            Text(
-              widget.model.name * 2,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color: mainColor,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(
-              height: 3,
-            ),
-            //TODO: this is discription
-
-            Text(
-              widget.model.description * 20,
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w400,
-                color: mainColor,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            //TODO: this is cell id
-            Text(
-              "Cell Id: ${widget.model.cellid}",
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: mainColor,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-
-            const SizedBox(
-              height: 7,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: SizedBox(
-                height: 35,
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: () {
-                    widget.bloc
-                        .add(RequestProductEvent(id: widget.model.productid));
-                  },
-                  style: FilledButton.styleFrom(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
-                    fixedSize: const Size(double.infinity, 45),
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(9),
-                    ),
-                  ),
-                  child: BlocBuilder(
-                    bloc: widget.bloc,
-                    builder: (context, state) {
-                      if (state is RequestProductLoadingState &&
-                          state.id == widget.model.productid) {
-                        return const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: LinearProgressIndicator(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                          ),
-                        );
-                      }
-                      return const Text(
-                        'Request Product',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      );
-                    },
+        child: GestureDetector(
+          onTap: () {
+            navigateTo(
+                toPage: ProductView(
+              model: widget.model,
+              url: widget.url,
+            ));
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(11)),
+                //TODO: this is image
+                child: Hero(
+                  tag: widget.model.productid,
+                  child: AppImage(
+                    widget.url,
+                    fit: BoxFit.contain,
+                    height: 100,
+                    width: double.infinity,
                   ),
                 ),
-                //
-                // CustomFilledButton(
-                //   onPressed: () {},
-                //   title: 'Request Product',
-                //   fontSize: 11,
-                //   paddingBottom: 0,
-                //   radias: 9,
-                // ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 3,
+              ),
+              //TODO: this is name
+              Text(
+                widget.model.name * 2,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: mainColor,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              //TODO: this is discription
+
+              Text(
+                widget.model.description * 20,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w400,
+                  color: mainColor,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              //TODO: this is cell id
+              Text(
+                "Cell Id: ${widget.model.cellid}",
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: mainColor,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+
+              const SizedBox(
+                height: 7,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: SizedBox(
+                  height: 35,
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: () {
+                      widget.bloc
+                          .add(RequestProductEvent(id: widget.model.productid));
+                    },
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 3, vertical: 8),
+                      fixedSize: const Size(double.infinity, 45),
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(9),
+                      ),
+                    ),
+                    child: BlocBuilder(
+                      bloc: widget.bloc,
+                      builder: (context, state) {
+                        if (state is RequestProductLoadingState &&
+                            state.id == widget.model.productid) {
+                          return const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: LinearProgressIndicator(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                            ),
+                          );
+                        }
+                        return const Text(
+                          'Request Product',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  //
+                  // CustomFilledButton(
+                  //   onPressed: () {},
+                  //   title: 'Request Product',
+                  //   fontSize: 11,
+                  //   paddingBottom: 0,
+                  //   radias: 9,
+                  // ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

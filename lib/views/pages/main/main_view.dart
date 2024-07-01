@@ -200,8 +200,8 @@ class _MainPageState extends State<MainPage> {
             const SizedBox(
               height: 20,
             ),
-            const Padding(
-              padding: EdgeInsets.all(8),
+            Padding(
+              padding: const EdgeInsets.all(8),
               child: SizedBox(
                 width: double.infinity,
                 child: Column(
@@ -216,27 +216,27 @@ class _MainPageState extends State<MainPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            DetailsItem(
+                            const DetailsItem(
                               color: Colors.black,
                               text: 'Storage shelves.',
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             DetailsItem(
-                              color: Color.fromARGB(208, 230, 226, 226),
+                              color: Colors.grey[200],
                               text: 'can move place.',
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            DetailsItem(
+                            const DetailsItem(
                               color: Colors.green,
                               text: 'Charge and waiting place.',
                             ),
                           ],
                         ),
-                        Column(
+                        const Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -255,7 +255,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                   ],
