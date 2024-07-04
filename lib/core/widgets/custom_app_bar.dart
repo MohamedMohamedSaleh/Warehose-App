@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/views/pages/orders/errors_view.dart';
 
@@ -27,10 +26,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Stack(
         children: [
           AppBar(
-            systemOverlayStyle:
-                const SystemUiOverlayStyle(statusBarColor: mainColor, ),
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Theme.of(context).primaryColor,
+            ),
             forceMaterialTransparency: true,
-            iconTheme: const IconThemeData(color: mainColor, size: 22),
+            iconTheme:
+                IconThemeData(color: Theme.of(context).primaryColor, size: 22),
             // elevation: 2,
             backgroundColor: Colors.white,
             title: Padding(
@@ -38,7 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                    color: mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold),
               ),

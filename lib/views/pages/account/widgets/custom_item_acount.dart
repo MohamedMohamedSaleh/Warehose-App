@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 
 import '../../../../core/widgets/app_image.dart';
@@ -50,7 +49,7 @@ class CustomItemMyAccount extends StatelessWidget {
               title,
               style: TextStyle(
                   fontSize: 14.sp,
-                  color: mainColor,
+                  color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -63,7 +62,7 @@ class CustomItemMyAccount extends StatelessWidget {
                         : "(supply 2)",
                     style: TextStyle(
                         fontSize: 12,
-                        color: mainColor.withOpacity(.7),
+                        color: Theme.of(context).primaryColor.withOpacity(.7),
                         fontWeight: FontWeight.bold),
                   )
                 : const SizedBox(),

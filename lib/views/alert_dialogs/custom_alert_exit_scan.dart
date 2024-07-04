@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../constants/my_colors.dart';
 import '../../features/products/add_product/bloc/add_product_bloc.dart';
 
 class CustomAlertExitScanCode extends StatelessWidget {
@@ -28,7 +27,7 @@ class CustomAlertExitScanCode extends StatelessWidget {
         title: Text(
           "Are You Sure To Exit?",
           style: TextStyle(
-              color: mainColor, fontSize: 22.sp, fontWeight: FontWeight.bold),
+              color: Theme.of(context).primaryColor, fontSize: 22.sp, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         actions: [

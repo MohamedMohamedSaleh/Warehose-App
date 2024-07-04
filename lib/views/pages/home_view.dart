@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
@@ -96,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     topLeft: const Radius.circular(18).w,
                     topRight: const Radius.circular(18).w),
                 child: BottomNavigationBar(
-                  backgroundColor: mainColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   selectedItemColor: Colors.white,
                   unselectedItemColor: const Color.fromARGB(140, 255, 255, 255),
                   currentIndex: currentIndex,
@@ -167,11 +166,7 @@ class _HomePageState extends State<HomePage> {
                     width: 45.w,
                     child: FloatingActionButton(
                       onPressed: () {
-                        SystemChrome.setSystemUIOverlayStyle(
-                            const SystemUiOverlayStyle(
-                          statusBarColor: Colors.black,
-                          statusBarIconBrightness: Brightness.light,
-                        ));
+                        
                         navigateTo(toPage: const NotificationsView());
                       },
                       child: AppImage(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/views/auth/login/bloc/login_bloc.dart';
 import '../../../core/widgets/custom_filled_button.dart';
 import 'custom_textfield.dart';
@@ -30,7 +29,7 @@ class _FormInputAppState extends State<FormInputApp> {
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.w600,
-              color: mainColor,
+              color: Theme.of(context).primaryColor,
             ),
           ),
           SizedBox(
@@ -49,7 +48,7 @@ class _FormInputAppState extends State<FormInputApp> {
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.w600,
-              color: mainColor,
+              color: Theme.of(context).primaryColor,
             ),
           ),
           SizedBox(

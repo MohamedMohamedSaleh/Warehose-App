@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/views/pages/add_product/form_add_product_view.dart';
@@ -46,7 +45,7 @@ class _ItemQRCodeSend extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 26),
         padding: EdgeInsets.symmetric(vertical: 22.h),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20).w, color: mainColor),
+            borderRadius: BorderRadius.circular(20).w, color: Theme.of(context).primaryColor),
         child: Column(
           children: [
             ClipRRect(

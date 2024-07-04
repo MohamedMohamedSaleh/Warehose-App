@@ -7,11 +7,17 @@ import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/views/pages/account/screens/settings_view.dart';
 
 import '../../auth/logout/logout_bloc.dart';
+import 'widgets/custom_alert_dialog.dart';
 import 'widgets/custom_item_acount.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
+  @override
+  State<AccountPage> createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,18 +36,32 @@ class AccountPage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () => navigateTo(toPage: const SettingsPage()),
-                  child: const Hero(
-                    tag: 'hero',
-                    child: CustomItemMyAccount(
-                        title: 'Settings', icon: 'settings'),
-                  ),
+                  child: const CustomItemMyAccount(
+                      title: 'Settings', icon: 'settings'),
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                InkWell(
+                  onTap: () async {
+                    await showDialog(
+                      
+                      context: context,
+                      builder: (context) => const CustomAlertDialog(),
+                    ).then(
+                      (value) => setState(() {}),
+                    );
+                    setState(() {});
+                  },
+                  child:
+                      const CustomItemMyAccount(title: 'Theme', icon: 'theme'),
                 ),
                 SizedBox(
                   height: 16.h,
                 ),
                 GestureDetector(
                   onTap: () {
-                     KiwiContainer().resolve<LogoutBloc>().add(LogoutEvent());
+                    KiwiContainer().resolve<LogoutBloc>().add(LogoutEvent());
                   },
                   child: const CustomItemMyAccount(
                     title: 'Logout',

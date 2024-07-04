@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/features/errors/bloc/errors_bloc.dart';
 
@@ -63,7 +62,7 @@ class _CustomItemErrorState extends State<CustomItemError> {
         borderRadius: BorderRadius.circular(12),
         color: Colors.white,
         border: Border.all(
-          color: mainColor.withOpacity(.2),
+          color: Theme.of(context).primaryColor.withOpacity(.2),
         ),
         boxShadow: [
           BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.02))
@@ -80,16 +79,16 @@ class _CustomItemErrorState extends State<CustomItemError> {
                   widget.model.type == '0'
                       ? 'Location Error'
                       : 'Robot(${widget.model.robotId}) Error',
-                  style: const TextStyle(
-                      color: mainColor,
+                  style:  TextStyle(
+                      color: Theme.of(context).primaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 Text(
                   "#${widget.model.errorId}",
-                  style: const TextStyle(
-                      color: mainColor,
+                  style:  TextStyle(
+                      color: Theme.of(context).primaryColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold),
                 ),
@@ -108,8 +107,8 @@ class _CustomItemErrorState extends State<CustomItemError> {
                   children: [
                     Text(
                       "Location: ${widget.model.type == '0' ? widget.model.errorLocation : widget.model.location}",
-                      style: const TextStyle(
-                        color: mainColor,
+                      style:  TextStyle(
+                        color: Theme.of(context).primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -119,8 +118,8 @@ class _CustomItemErrorState extends State<CustomItemError> {
                     ),
                     Text(
                       widget.model.time,
-                      style: const TextStyle(
-                        color: mainColor,
+                      style:  TextStyle(
+                        color: Theme.of(context).primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -146,7 +145,7 @@ class _CustomItemErrorState extends State<CustomItemError> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: LinearProgressIndicator(
-                              color: mainColor.withOpacity(.8),
+                              color: Theme.of(context).primaryColor.withOpacity(.8),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(3)),
                             ),

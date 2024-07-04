@@ -3,8 +3,6 @@ import 'package:warehouse/features/notiffications/model.dart';
 import 'package:warehouse/views/auth/login/login_model.dart';
 import 'dart:convert';
 
-
-
 class CacheHelper {
   static late final SharedPreferences _prefs;
 
@@ -86,6 +84,13 @@ class CacheHelper {
 
   static String? getUserId() {
     return _prefs.getString('id');
+  }
+  static bool? getIsDark() {
+    return _prefs.getBool('isDark');
+  }
+
+  static Future<void> setIsDark({required bool isDark}) async {
+    _prefs.setBool("isDark", isDark);
   }
 
   static Future<bool> clearUserData() {

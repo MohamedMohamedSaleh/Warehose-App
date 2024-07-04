@@ -1,5 +1,5 @@
 List<String> productList = [
-  "https://m.media-amazon.com/images/I/513rNt-cvGL._AC_SX425_.jpg",
+  "https://m.media-amazon.com/images/I/81sbUz7ECWL._AC_SX679_.jpg",
   "https://m.media-amazon.com/images/I/81ZZ+2aDSXL._AC_SY355_.jpg",
   "https://m.media-amazon.com/images/I/610W8MRYLEL.__AC_SX300_SY300_QL70_ML2_.jpg",
   "https://m.media-amazon.com/images/I/41U-d4vMUqL._AC_SX425_.jpg",

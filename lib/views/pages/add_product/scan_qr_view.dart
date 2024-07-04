@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/custom_filled_button.dart';
 import 'package:warehouse/features/products/add_product/bloc/add_product_bloc.dart';
 
@@ -126,7 +125,7 @@ class _ScanQRCodeViewState extends State<ScanQRCodeView> {
                                   case CameraFacing.front:
                                     return const Icon(
                                       Icons.photo_camera_front_outlined,
-                                      color: mainColor,
+                                      color: Colors.yellow,
                                     );
                                   case CameraFacing.back:
                                     return const Icon(

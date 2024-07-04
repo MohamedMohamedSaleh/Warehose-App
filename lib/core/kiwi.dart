@@ -6,6 +6,7 @@ import 'package:warehouse/features/products/add_product/bloc/add_product_bloc.da
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/features/products/show_request_product/show_request_product_bloc.dart';
 import 'package:warehouse/features/select_supply/select_supply_bloc.dart';
+import 'package:warehouse/features/themes/themes_bloc.dart';
 import 'package:warehouse/views/auth/login/bloc/login_bloc.dart';
 import 'package:warehouse/views/auth/logout/logout_bloc.dart';
 
@@ -19,6 +20,7 @@ void initKiwi() {
   container.registerFactory((container) => OrdersBloc());
   container.registerFactory((container) => LogoutBloc());
   container.registerSingleton((container) => ErrorsBloc());
+  container.registerSingleton((container) => ThemesBloc());
   container.registerSingleton((container) => MonitoringBloc());
   container.registerSingleton((container) => NotificationsCubit());
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
@@ -92,9 +91,9 @@ class _ItemState extends State<_Item> {
                     color: const Color(0xff4C8613).withAlpha(13)),
                 child: Padding(
                   padding: const EdgeInsets.all(6).w,
-                  child: const AppImage(
+                  child:  AppImage(
                     'assets/images/svg/my_orders.svg',
-                    color: mainColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/features/select_supply/select_supply_bloc.dart';
 
@@ -51,16 +50,16 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                 Text(
                   "Select Supplier Cell",
                   style: TextStyle(
-                      color: mainColor,
+                      color: Theme.of(context).primaryColor,
                       fontSize: 17.sp,
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   width: 14.w,
                 ),
-                const Icon(
+                Icon(
                   Icons.check_box,
-                  color: mainColor,
+                  color: Theme.of(context).primaryColor,
                   size: 24,
                 ),
               ],
@@ -82,8 +81,8 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                             vertical: -2,
                           ),
                           checkColor: Colors.white,
-                          side: BorderSide(color: mainColor.withOpacity(.3)),
-                          activeColor: mainColor,
+                          side: BorderSide(color: Theme.of(context).primaryColor.withOpacity(.3)),
+                          activeColor: Theme.of(context).primaryColor,
                           value: bloc.isSupp1,
                           onChanged: (value) {
                             bloc.add(SelectSupp1Event());
@@ -96,7 +95,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                           child: Text(
                             'Supply 1',
                             style: TextStyle(
-                                color: mainColor,
+                                color: Theme.of(context).primaryColor,
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -111,13 +110,13 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                             vertical: -2,
                           ),
                           checkColor: Colors.white,
-                          side: BorderSide(color: mainColor.withOpacity(.3)),
+                          side: BorderSide(color: Theme.of(context).primaryColor.withOpacity(.3)),
                           value: !bloc.isSupp1,
                           onChanged: (value) {
                             bloc.add(SelectSupp2Event());
                           },
-                          activeColor: mainColor,
-                          hoverColor: mainColor,
+                          activeColor: Theme.of(context).primaryColor,
+                          hoverColor: Theme.of(context).primaryColor,
                         ),
                         InkWell(
                           onTap: () {
@@ -126,7 +125,7 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                           child: Text(
                             'Supply 2',
                             style: TextStyle(
-                                color: mainColor,
+                                color: Theme.of(context).primaryColor,
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.bold),
                           ),

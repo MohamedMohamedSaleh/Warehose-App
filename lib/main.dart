@@ -2,12 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
+import 'package:warehouse/features/themes/themes_bloc.dart';
 import 'package:warehouse/firebase_api.dart';
+import 'package:warehouse/themes.dart';
 import 'package:warehouse/views/splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,20 +23,23 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: getMaterialColor(),
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
   WidgetsFlutterBinding.ensureInitialized();
   initKiwi();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await CacheHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseApi.initNOti();
-  await CacheHelper.init();
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: getMaterialColor(
+          myColor: CacheHelper.getIsDark() == true
+              ? mainColorBlack
+              : mainColorOrange),
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -52,6 +58,7 @@ class _MyAppState extends State<MyApp> {
     await FirebaseMessaging.instance.getToken();
   }
 
+  final bloc = KiwiContainer().resolve<ThemesBloc>();
   @override
   void initState() {
     super.initState();
@@ -63,50 +70,27 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(330, 700),
-      builder: (context, child) => MaterialApp(
-          navigatorKey: navigatorKey,
-          debugShowCheckedModeBanner: false,
-          title: 'Warehouse',
-          theme: ThemeData(
-              colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: getMaterialColor(),
-                  backgroundColor: Colors.white),
-              scaffoldBackgroundColor: Colors.white,
-              filledButtonTheme: FilledButtonThemeData(
-                style: FilledButton.styleFrom(
-                  fixedSize: const Size(double.infinity, 45),
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-              fontFamily: 'Merriweather',
-              appBarTheme: AppBarTheme(
-                elevation: 0,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: getMaterialColor(),
-                  statusBarIconBrightness:
-                      Brightness.light, // For Android (dark icons)
-                  statusBarBrightness: Brightness.light, // For iOS (dark icons)
-                ),
-                centerTitle: true,
-                color: getMaterialColor(),
-                titleTextStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Merriweather',
-                ),
-              )),
-          home: child),
+      builder: (context, child) => BlocBuilder(
+        bloc: bloc,
+        builder: (context, state) {
+          return MaterialApp(
+            navigatorKey: navigatorKey,
+            debugShowCheckedModeBanner: false,
+            title: 'Warehouse',
+            themeMode: state as ThemeMode,
+            darkTheme: MyThemes.dartTheme,
+            theme: MyThemes.deepTheme,
+            home: child,
+          );
+        },
+      ),
       child: const SplashView(),
     );
   }
 }
 
-MaterialColor getMaterialColor() {
-  Color myColor = mainColor;
+MaterialColor getMaterialColor({required Color myColor}) {
+  // Color myColor = mainColor;
   return MaterialColor(
     myColor.value,
     {

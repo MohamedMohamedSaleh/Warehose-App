@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:warehouse/constants/my_colors.dart';
 
 class CustomTabBar extends StatefulWidget implements PreferredSizeWidget {
   const CustomTabBar({
@@ -43,7 +42,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 fontWeight: FontWeight.bold),
             labelColor: Colors.white,
             indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(12).w, color: mainColor),
+                borderRadius: BorderRadius.circular(12).w, color: Theme.of(context).primaryColor),
             tabs: [
               Tab(
                 height: 40.h,

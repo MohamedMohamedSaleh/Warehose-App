@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/features/monitoring/bloc/monitoring_bloc.dart';
 import 'package:warehouse/views/pages/widgets/shimmer_widget.dart';
 
@@ -292,9 +291,9 @@ class DetailsItem extends StatelessWidget {
         ),
         Text(
           text,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 11,
-            color: mainColor,
+            color: Theme.of(context).primaryColor,
             fontWeight: FontWeight.bold,
           ),
         ),

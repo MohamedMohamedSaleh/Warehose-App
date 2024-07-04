@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:warehouse/constants/my_colors.dart';
+import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/features/orders/model.dart';
 
 class CustomItemOrder extends StatefulWidget {
@@ -31,23 +31,25 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
             title: Row(
               children: [
                 Text(
-                  //TODO: orderid
                   'ID: ${widget.model.orderID}',
-                  style: _textStyle1,
+                  style: TextStyle(
+                      color:
+                          Theme.of(navigatorKey.currentContext!).primaryColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 DecoratedBox(
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(7)),
                       color: widget.model.orderStatus == 'processing'
-                          ? mainColor.withOpacity(.2)
+                          ? Theme.of(context).primaryColor.withOpacity(.2)
                           : widget.model.orderStatus == 'success'
                               ? Colors.green.withOpacity(.2)
                               : Colors.red.withOpacity(.8)),
                   child: Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                    //TODO: STATUS
                     child: Text(
                       widget.model.orderStatus,
                       style: TextStyle(color: Colors.black, fontSize: 14.sp),
@@ -62,23 +64,41 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                 children: [
                   Row(
                     children: [
-                      Text('Product:', style: _textStyle1),
+                      Text('Product:',
+                          style: TextStyle(
+                              color: Theme.of(navigatorKey.currentContext!)
+                                  .primaryColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold)),
                       SizedBox(
                         width: 130.w,
                         child: Text(
-                          ' ${widget.model.name}',
-                          style:
-                              _textStyle1.copyWith(fontWeight: FontWeight.w500),
+                          ' ${widget.model.name * 2}',
+                          style: TextStyle(
+                              color: Theme.of(navigatorKey.currentContext!)
+                                  .primaryColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       const Spacer(),
-                      Text('Id:', style: _textStyle1),
+                      Text(
+                        'Id:',
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
                       Text(
                         ' ${widget.model.productID}',
-                        style:
-                            _textStyle1.copyWith(fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -87,15 +107,37 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                   ),
                   Row(
                     children: [
-                      Text('Robot: ', style: _textStyle1),
-                      Text(widget.model.robotID,
-                          style: _textStyle1.copyWith(
-                              fontWeight: FontWeight.w500)),
+                      Text('Robot: ',
+                          style: TextStyle(
+                              color: Theme.of(navigatorKey.currentContext!)
+                                  .primaryColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold)),
+                      Text(
+                        widget.model.robotID,
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500),
+                      ),
                       const Spacer(),
-                      Text('Type: ', style: _textStyle1),
-                      Text(widget.model.type,
-                          style: _textStyle1.copyWith(
-                              fontWeight: FontWeight.w500)),
+                      Text(
+                        'Type: ',
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.model.type,
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -104,15 +146,37 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Time: ', style: _textStyle1),
-                      Text(widget.model.time,
-                          style: _textStyle1.copyWith(
-                              fontWeight: FontWeight.w500)),
+                      Text(
+                        'Time: ',
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.model.time,
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500),
+                      ),
                       const Spacer(),
-                      Text('Cell: ', style: _textStyle1),
-                      Text(widget.model.cellID,
-                          style: _textStyle1.copyWith(
-                              fontWeight: FontWeight.w500)),
+                      Text('Cell: ',
+                          style: TextStyle(
+                              color: Theme.of(navigatorKey.currentContext!)
+                                  .primaryColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold)),
+                      Text(
+                        widget.model.cellID,
+                        style: TextStyle(
+                            color: Theme.of(navigatorKey.currentContext!)
+                                .primaryColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -127,6 +191,3 @@ class _CustomItemOrderState extends State<CustomItemOrder> {
     );
   }
 }
-
-TextStyle _textStyle1 =
-    TextStyle(color: mainColor, fontSize: 16.sp, fontWeight: FontWeight.bold);

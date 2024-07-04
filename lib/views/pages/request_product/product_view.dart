@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/features/products/models/products_model.dart';
 
@@ -32,7 +31,7 @@ class ProductView extends StatelessWidget {
                     tag: model.productid,
                     child: AppImage(
                       url,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -53,8 +52,8 @@ class ProductView extends StatelessWidget {
                             flex: 100,
                             child: Text(
                               model.name * 2,
-                              style: const TextStyle(
-                                  color: mainColor,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
                                   fontSize: 16,
                                   overflow: TextOverflow.ellipsis,
                                   fontWeight: FontWeight.bold),
@@ -64,8 +63,8 @@ class ProductView extends StatelessWidget {
                           const Spacer(),
                           Text(
                             "#${model.productid}",
-                            style: const TextStyle(
-                                color: mainColor,
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
                                 fontSize: 14,
                                 overflow: TextOverflow.ellipsis,
                                 fontWeight: FontWeight.bold),
@@ -77,7 +76,14 @@ class ProductView extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    decorationBox(child: Text(model.description * 15)),
+                    decorationBox(
+                        child: Text(
+                      model.description * 15,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).primaryColor),
+                    )),
                     const SizedBox(
                       height: 10,
                     ),
@@ -136,7 +142,8 @@ class ProductView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Container(
             decoration: BoxDecoration(
-                color: mainColor, borderRadius: BorderRadius.circular(11)),
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(11)),
             alignment: Alignment.center,
             width: double.infinity,
             height: 45,
@@ -168,16 +175,16 @@ class Description extends StatelessWidget {
     return Text.rich(TextSpan(children: [
       TextSpan(
         text: "$title  ",
-        style: const TextStyle(
-            color: mainColor,
+        style: TextStyle(
+            color: Theme.of(context).primaryColor,
             fontSize: 14,
             overflow: TextOverflow.ellipsis,
             fontWeight: FontWeight.bold),
       ),
       TextSpan(
         text: descripe,
-        style: const TextStyle(
-            color: mainColor,
+        style: TextStyle(
+            color: Theme.of(context).primaryColor,
             fontSize: 14,
             overflow: TextOverflow.ellipsis,
             fontWeight: FontWeight.w500),
@@ -186,7 +193,7 @@ class Description extends StatelessWidget {
         // child: Text(
         //   "Weight:  ${model.weight} kg",
         //   style: const TextStyle(
-        //       color: mainColor,
+        //       color: Theme.of(context).primaryColor,
         //       fontSize: 14,
         //       overflow: TextOverflow.ellipsis,
         //       fontWeight: FontWeight.bold),

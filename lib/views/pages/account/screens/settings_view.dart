@@ -4,7 +4,6 @@ import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/views/alert_dialogs/select_supply_view.dart';
 import 'package:warehouse/views/pages/account/widgets/custom_item_acount.dart';
 
-import '../../../../constants/my_colors.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -37,12 +36,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   setState(() {});
                 }
               }),
-              child: const CustomItemMyAccount(
+              child: CustomItemMyAccount(
                 isAcount: false,
                 title: 'Sellect Supplier',
                 mainIcon: Icon(
                   Icons.check_box_outlined,
-                  color: mainColor,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),

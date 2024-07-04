@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
-import 'package:warehouse/constants/my_colors.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
@@ -42,11 +41,11 @@ class _RequestProductPageState extends State<RequestProductPage> {
               child: ShimmerLoadingProduct(),
             );
           } else if (bloc.list.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
                 'No Data',
                 style: TextStyle(
-                    color: mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontSize: 26,
                     fontWeight: FontWeight.bold),
               ),
@@ -108,10 +107,10 @@ class _ItemProductsState extends State<_ItemProducts> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(11)),
-                //TODO: this is image
                 child: Hero(
                   tag: widget.model.productid,
                   child: AppImage(
@@ -125,13 +124,12 @@ class _ItemProductsState extends State<_ItemProducts> {
               const SizedBox(
                 height: 3,
               ),
-              //TODO: this is name
               Text(
                 widget.model.name * 2,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
-                  color: mainColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -139,14 +137,13 @@ class _ItemProductsState extends State<_ItemProducts> {
               const SizedBox(
                 height: 3,
               ),
-              //TODO: this is discription
 
               Text(
                 widget.model.description * 20,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w400,
-                  color: mainColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -154,13 +151,12 @@ class _ItemProductsState extends State<_ItemProducts> {
               const SizedBox(
                 height: 5,
               ),
-              //TODO: this is cell id
               Text(
                 "Cell Id: ${widget.model.cellid}",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
-                  color: mainColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,

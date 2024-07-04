@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:warehouse/constants/my_colors.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -48,14 +47,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
             const EdgeInsets.symmetric(horizontal: 12, vertical: 8).r,
         prefixIcon: Icon(
           widget.prefixIcon,
-          color: mainColor,
+          color: Theme.of(context).primaryColor,
           size: 20,
         ),
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
                   isHiden ? Icons.visibility : Icons.visibility_off,
-                  color: mainColor,
+                  color: Theme.of(context).primaryColor,
                   size: 20,
                 ),
                 onPressed: () {

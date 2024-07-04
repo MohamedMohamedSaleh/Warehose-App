@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:warehouse/constants/my_colors.dart';
 
 class CategorySheet extends StatefulWidget {
   const CategorySheet({super.key});
@@ -32,7 +31,7 @@ class _CategorySheetState extends State<CategorySheet> {
           Text(
             "choose type of product",
             style: TextStyle(
-                color: mainColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
+                color: Theme.of(context).primaryColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 20.h,
