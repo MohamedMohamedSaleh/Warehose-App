@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
@@ -10,20 +11,23 @@ class AddProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: const CustomAppBar(
-        title: 'Add Product',
-      ),
-      body: ListView(
-        children: const [
-          _ItemQRCodeSend(
-            isTextField: false,
-          ),
-          _ItemQRCodeSend(
-            isTextField: true,
-          ),
-        ],
+    return FadeIn(
+      duration: const Duration(milliseconds: 500),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: const CustomAppBar(
+          title: 'Add Product',
+        ),
+        body: ListView(
+          children: const [
+            _ItemQRCodeSend(
+              isTextField: false,
+            ),
+            _ItemQRCodeSend(
+              isTextField: true,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -45,7 +49,8 @@ class _ItemQRCodeSend extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 35, vertical: 26),
         padding: EdgeInsets.symmetric(vertical: 22.h),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20).w, color: Theme.of(context).primaryColor),
+            borderRadius: BorderRadius.circular(20).w,
+            color: Theme.of(context).primaryColor),
         child: Column(
           children: [
             ClipRRect(

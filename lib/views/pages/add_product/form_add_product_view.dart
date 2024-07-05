@@ -36,112 +36,116 @@ class _FormAddProductState extends State<FormAddProduct> {
           body: Form(
             key: bloc.formKey,
             autovalidateMode: bloc.autovalidateMode,
-            child: ListView(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 20).r,
-              children: [
-                CustomTextFieldWithTitle(
-                  titelText: "Name",
-                  labelText: "product name",
-                  controller: bloc.nameController,
-                ),
-                CustomTextFieldWithTitle(
-                  titelText: "Description",
-                  labelText: "product description",
-                  maxLins: 3,
-                  controller: bloc.descriptionController,
-                ),
-                CustomTextFieldWithTitle(
-                  titelText: "ID",
-                  labelText: "product Id",
-                  controller: bloc.idController,
-                ),
-                CustomTextFieldWithTitle(
-                  isWeight: true,
-                  titelText: "Weight",
-                  labelText: "product weight",
-                  controller: bloc.weightController,
-                ),
-                Text(
-                  "Dimentions",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20).r,
+                children: [
+                  CustomTextFieldWithTitle(
+                    titelText: "Name",
+                    labelText: "product name",
+                    controller: bloc.nameController,
                   ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextFieldWithTitle(
-                        isText: false,
-                        labelText: "long",
-                        controller: bloc.longController,
-                      ),
+                  CustomTextFieldWithTitle(
+                    titelText: "Description",
+                    labelText: "product description",
+                    maxLins: 3,
+                    controller: bloc.descriptionController,
+                  ),
+                  CustomTextFieldWithTitle(
+                    titelText: "ID",
+                    labelText: "product Id",
+                    controller: bloc.idController,
+                  ),
+                  CustomTextFieldWithTitle(
+                    isWeight: true,
+                    titelText: "Weight",
+                    labelText: "product weight",
+                    controller: bloc.weightController,
+                  ),
+                  Text(
+                    "Dimentions",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      "*",
-                      style: TextStyle(fontSize: 30.sp),
-                    ),
-                    Expanded(
-                      child: CustomTextFieldWithTitle(
-                        isText: false,
-                        labelText: "width",
-                        controller: bloc.widthController,
-                      ),
-                    ),
-                    Text(
-                      "*",
-                      style: TextStyle(fontSize: 30.sp),
-                    ),
-                    Expanded(
-                      child: CustomTextFieldWithTitle(
-                        isText: false,
-                        labelText: "height",
-                        controller: bloc.heightController,
-                      ),
-                    ),
-                  ],
-                ),
-                BlocBuilder(
-                  bloc: bloc,
-                  builder: (context, state) {
-                    return Column(
-                      children: [
-                        CustomSelectCategory(bloc: bloc),
-                        SizedBox(
-                          height: 18.h,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextFieldWithTitle(
+                          isText: false,
+                          labelText: "long",
+                          controller: bloc.longController,
                         ),
-                        state is AddProductLoadingState
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : SizedBox(
-                                width: double.infinity,
-                                child: CustomFilledButton(
-                                  onPressed: () {
-                                    FocusScope.of(context).unfocus();
-                                    ScaffoldMessenger.of(context)
-                                        .removeCurrentSnackBar();
-                                    if (bloc.formKey.currentState!.validate()) {
-                                      bloc.add(
-                                          AddProductEvent(isTextfield: true));
-                                      bloc.autovalidateMode =
-                                          AutovalidateMode.disabled;
-                                      setState(() {});
-                                    } else {
-                                      bloc.autovalidateMode =
-                                          AutovalidateMode.onUserInteraction;
-                                      setState(() {});
-                                    }
-                                  },
-                                  title: "Add Product",
+                      ),
+                      Text(
+                        "*",
+                        style: TextStyle(fontSize: 30.sp),
+                      ),
+                      Expanded(
+                        child: CustomTextFieldWithTitle(
+                          isText: false,
+                          labelText: "width",
+                          controller: bloc.widthController,
+                        ),
+                      ),
+                      Text(
+                        "*",
+                        style: TextStyle(fontSize: 30.sp),
+                      ),
+                      Expanded(
+                        child: CustomTextFieldWithTitle(
+                          isText: false,
+                          labelText: "height",
+                          controller: bloc.heightController,
+                        ),
+                      ),
+                    ],
+                  ),
+                  BlocBuilder(
+                    bloc: bloc,
+                    builder: (context, state) {
+                      return Column(
+                        children: [
+                          CustomSelectCategory(bloc: bloc),
+                          SizedBox(
+                            height: 18.h,
+                          ),
+                          state is AddProductLoadingState
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : SizedBox(
+                                  width: double.infinity,
+                                  child: CustomFilledButton(
+                                    onPressed: () {
+                                      FocusScope.of(context).unfocus();
+                                      ScaffoldMessenger.of(context)
+                                          .removeCurrentSnackBar();
+                                      if (bloc.formKey.currentState!
+                                          .validate()) {
+                                        bloc.add(
+                                            AddProductEvent(isTextfield: true));
+                                        bloc.autovalidateMode =
+                                            AutovalidateMode.disabled;
+                                        setState(() {});
+                                      } else {
+                                        bloc.autovalidateMode =
+                                            AutovalidateMode.onUserInteraction;
+                                        setState(() {});
+                                      }
+                                    },
+                                    title: "Add Product",
+                                  ),
                                 ),
-                              ),
-                      ],
-                    );
-                  },
-                ),
-              ],
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

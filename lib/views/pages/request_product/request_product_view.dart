@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
@@ -6,7 +7,6 @@ import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/features/products/models/products_model.dart';
 import 'package:warehouse/features/products/show_request_product/show_request_product_bloc.dart';
-import 'package:warehouse/training/fake_list.dart';
 import 'package:warehouse/views/pages/request_product/product_view.dart';
 
 import '../widgets/shimmer_loading.dart';
@@ -29,55 +29,57 @@ class _RequestProductPageState extends State<RequestProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(title: 'Products'),
-      body: BlocBuilder(
-        bloc: bloc,
-        builder: (context, state) {
-          if (state is ShowProductLoadingState ||
-              state is ShowRequestProductInitial) {
-            return const Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: ShimmerLoadingProduct(),
-            );
-          } else if (bloc.list.isEmpty) {
-            return Center(
-              child: Text(
-                'No Data',
-                style: TextStyle(
+    return FadeIn(
+      duration: const Duration(milliseconds: 500),
+      child: Scaffold(
+        appBar: const CustomAppBar(title: 'Products'),
+        body: BlocBuilder(
+          bloc: bloc,
+          builder: (context, state) {
+            if (state is ShowProductLoadingState ||
+                state is ShowRequestProductInitial) {
+              return const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: ShimmerLoadingProduct(),
+              );
+            } else if (bloc.list.isEmpty) {
+              return Center(
+                child: Text(
+                  'No Data',
+                  style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 26,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            }
+            return GridView.builder(
+              padding: const EdgeInsets.only(
+                  bottom: 60, right: 16, left: 16, top: 16),
+              itemCount: bloc.list.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                childAspectRatio: 150 / 250,
+                mainAxisSpacing: 12,
+              ),
+              itemBuilder: (context, index) => _ItemProducts(
+                bloc: bloc,
+                model: bloc.list[index],
               ),
             );
-          }
-          return GridView.builder(
-            padding:
-                const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 16),
-            itemCount: bloc.list.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              childAspectRatio: 150 / 250,
-              mainAxisSpacing: 12,
-            ),
-            itemBuilder: (context, index) => _ItemProducts(
-              bloc: bloc,
-              url: productList[index],
-              model: bloc.list[index],
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }
 }
 
 class _ItemProducts extends StatefulWidget {
-  const _ItemProducts(
-      {required this.model, required this.url, required this.bloc});
+  const _ItemProducts({required this.model, required this.bloc});
   final ProductModel model;
-  final String url;
+
   final ShowRequestProductBloc bloc;
 
   @override
@@ -101,7 +103,6 @@ class _ItemProductsState extends State<_ItemProducts> {
             navigateTo(
                 toPage: ProductView(
               model: widget.model,
-              url: widget.url,
             ));
           },
           child: Column(
@@ -114,7 +115,7 @@ class _ItemProductsState extends State<_ItemProducts> {
                 child: Hero(
                   tag: widget.model.productid,
                   child: AppImage(
-                    widget.url,
+                    widget.model.image,
                     fit: BoxFit.contain,
                     height: 100,
                     width: double.infinity,
@@ -125,7 +126,7 @@ class _ItemProductsState extends State<_ItemProducts> {
                 height: 3,
               ),
               Text(
-                widget.model.name * 2,
+                widget.model.name,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
@@ -137,9 +138,8 @@ class _ItemProductsState extends State<_ItemProducts> {
               const SizedBox(
                 height: 3,
               ),
-
               Text(
-                widget.model.description * 20,
+                widget.model.description,
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w400,
@@ -161,10 +161,10 @@ class _ItemProductsState extends State<_ItemProducts> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
-
               const SizedBox(
-                height: 7,
+                height: 4,
               ),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: SizedBox(
@@ -204,6 +204,8 @@ class _ItemProductsState extends State<_ItemProducts> {
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         );
                       },
                     ),
@@ -217,6 +219,9 @@ class _ItemProductsState extends State<_ItemProducts> {
                   //   radias: 9,
                   // ),
                 ),
+              ),
+              const SizedBox(
+                height: 3,
               ),
             ],
           ),

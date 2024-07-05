@@ -24,35 +24,19 @@ class _FormInputAppState extends State<FormInputApp> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Username",
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
+          const SizedBox(
+            height: 20,
           ),
           CustomTextField(
             labelText: "Enter your username",
             prefixIcon: Icons.account_circle_rounded,
             controller: bloc.userNameController,
           ),
-          SizedBox(
-            height: 10.h,
+          const SizedBox(
+            height: 10,
           ),
-          Text(
-            "Password",
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
+          const SizedBox(
+            height: 5,
           ),
           CustomTextField(
             labelText: "Enter your Password",
@@ -64,18 +48,7 @@ class _FormInputAppState extends State<FormInputApp> {
             height: 3,
           ),
           SizedBox(
-            width: double.infinity,
-            child: Text(
-              "Forget Password?",
-              style: TextStyle(
-                  fontSize: 11.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.blue),
-              textAlign: TextAlign.end,
-            ),
-          ),
-          SizedBox(
-            height: 16.h,
+            height: 180.h,
           ),
           BlocBuilder(
             bloc: bloc,

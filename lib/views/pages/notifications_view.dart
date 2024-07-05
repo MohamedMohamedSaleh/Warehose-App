@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,28 +23,35 @@ class _NotificationsViewState extends State<NotificationsView> {
   @override
   Widget build(BuildContext context) {
     bloc.openedNoti();
-    return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'Notifications',
-        isAcount: true,
-      ),
-      body: BlocListener(
-        bloc: bloc,
-        listener: (context, state) {
-          if (state is DeleteNotificationSuccessState ||
-              state is GetNotificationSuccessState) {
-            setState(() {});
-          }
-        },
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          padding:
-              const EdgeInsets.only(top: 22, bottom: 15, left: 16, right: 24).r,
-          itemBuilder: (context, index) => _Item(
-            model: bloc.noti.reversed.toList()[index],
-            index: index,
+    return ColoredBox(
+      color: Colors.white,
+      child: FadeIn(
+        duration: const Duration(milliseconds: 500),
+        child: Scaffold(
+          appBar: const CustomAppBar(
+            title: 'Notifications',
+            isAcount: true,
           ),
-          itemCount: bloc.noti.length,
+          body: BlocListener(
+            bloc: bloc,
+            listener: (context, state) {
+              if (state is DeleteNotificationSuccessState ||
+                  state is GetNotificationSuccessState) {
+                setState(() {});
+              }
+            },
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(
+                      top: 22, bottom: 15, left: 16, right: 24)
+                  .r,
+              itemBuilder: (context, index) => _Item(
+                model: bloc.noti.reversed.toList()[index],
+                index: index,
+              ),
+              itemCount: bloc.noti.length,
+            ),
+          ),
         ),
       ),
     );
@@ -91,7 +99,7 @@ class _ItemState extends State<_Item> {
                     color: const Color(0xff4C8613).withAlpha(13)),
                 child: Padding(
                   padding: const EdgeInsets.all(6).w,
-                  child:  AppImage(
+                  child: AppImage(
                     'assets/images/svg/my_orders.svg',
                     color: Theme.of(context).primaryColor,
                   ),

@@ -1,4 +1,6 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
@@ -18,61 +20,86 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  final bloc = KiwiContainer().resolve<LogoutBloc>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    bloc.close();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        physics: const PageScrollPhysics(),
-        children: [
-          const _CustomAppBarAccount(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22).r,
-            child: Column(
-              children: [
-                const CustomItemMyAccount(
-                    title: 'Personal Info', icon: 'account'),
-                SizedBox(
-                  height: 16.h,
-                ),
-                InkWell(
-                  onTap: () => navigateTo(toPage: const SettingsPage()),
-                  child: const CustomItemMyAccount(
-                      title: 'Settings', icon: 'settings'),
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                InkWell(
-                  onTap: () async {
-                    await showDialog(
-                      
-                      context: context,
-                      builder: (context) => const CustomAlertDialog(),
-                    ).then(
-                      (value) => setState(() {}),
-                    );
-                    setState(() {});
-                  },
-                  child:
-                      const CustomItemMyAccount(title: 'Theme', icon: 'theme'),
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    KiwiContainer().resolve<LogoutBloc>().add(LogoutEvent());
-                  },
-                  child: const CustomItemMyAccount(
-                    title: 'Logout',
-                    icon: 'logout',
-                    isLogout: true,
+    return FadeIn(
+      duration: const Duration(milliseconds: 500),
+      child: Scaffold(
+        body: ListView(
+          physics: const PageScrollPhysics(),
+          children: [
+            const _CustomAppBarAccount(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 22).r,
+              child: Column(
+                children: [
+                  const CustomItemMyAccount(
+                      title: 'Personal Info', icon: 'account'),
+                  SizedBox(
+                    height: 16.h,
                   ),
-                ),
-              ],
+                  InkWell(
+                    onTap: () => navigateTo(toPage: const SettingsPage()),
+                    child: const CustomItemMyAccount(
+                        title: 'Settings', icon: 'settings'),
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) => const CustomAlertDialog(),
+                      ).then(
+                        (value) => setState(() {}),
+                      );
+                      setState(() {});
+                    },
+                    child: const CustomItemMyAccount(
+                        title: 'Theme', icon: 'theme'),
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      bloc.add(LogoutEvent());
+                    },
+                    child: BlocBuilder(
+                      bloc: bloc,
+                      builder: (context, state) {
+                        if (state is LogoutLoading) {
+                          return const Center(
+                            child: SizedBox(
+                              height: 35,
+                              width: 35,
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+                        return const CustomItemMyAccount(
+                          title: 'Logout',
+                          icon: 'logout',
+                          isLogout: true,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

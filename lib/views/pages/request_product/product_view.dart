@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/features/products/models/products_model.dart';
 
 class ProductView extends StatelessWidget {
-  const ProductView({super.key, required this.model, required this.url});
+  const ProductView({
+    super.key,
+    required this.model,
+  });
 
   final ProductModel model;
-  final String url;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,7 +34,7 @@ class ProductView extends StatelessWidget {
                   child: Hero(
                     tag: model.productid,
                     child: AppImage(
-                      url,
+                      model.image,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -47,28 +51,42 @@ class ProductView extends StatelessWidget {
                     decorationBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Flexible(
                             flex: 100,
                             child: Text(
-                              model.name * 2,
+                              model.name,
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor,
                                   fontSize: 16,
                                   overflow: TextOverflow.ellipsis,
                                   fontWeight: FontWeight.bold),
-                              maxLines: 2,
+                              maxLines: 4,
                             ),
                           ),
                           const Spacer(),
-                          Text(
-                            "#${model.productid}",
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 14,
-                                overflow: TextOverflow.ellipsis,
-                                fontWeight: FontWeight.bold),
-                            maxLines: 1,
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(.05),
+                                      blurRadius: 5)
+                                ],
+                                borderRadius: BorderRadius.circular(3),
+                                color: Colors.grey.withOpacity(.1)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text(
+                                "#${model.productid}",
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 14,
+                                    overflow: TextOverflow.ellipsis,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 1,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -78,7 +96,7 @@ class ProductView extends StatelessWidget {
                     ),
                     decorationBox(
                         child: Text(
-                      model.description * 15,
+                      model.description,
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,

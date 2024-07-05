@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
@@ -86,182 +87,189 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'Monitoring',
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            BlocBuilder(
-              bloc: bloc,
-              builder: (context, state) {
-                if (state is GetMonitoringLoading) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Center(
-                          child: ShimmerWidget.rectangular(height: 32 * 10),
-                        ),
-                        Text(
-                          'Map loading...',
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  );
-                } else if (state is GetMonitoringSuccess) {
-                  // robot 1
-                  List<dynamic> robot1Path1 =
-                      state.model.robots[0].robotPath1 ?? [];
-                  List<dynamic> robot1Path2 =
-                      state.model.robots[0].robotPath2 ?? [];
-                  int robotPosition1X = state.model.robots[0].positionX;
-                  int robotPosition1Y = state.model.robots[0].positiony;
-                  // robot 2
-                  List<dynamic> robot2Path1 =
-                      state.model.robots[1].robotPath1 ?? [];
-                  List<dynamic> robot2Path2 =
-                      state.model.robots[1].robotPath2 ?? [];
-                  int robotPosition2X = state.model.robots[1].positionX;
-                  int robotPosition2Y = state.model.robots[1].positiony;
-                  List<List<int>> list = state.model.map;
-                  int sizex = state.model.map.length;
-                  int sizey = state.model.map[0].length;
-                  return SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < sizex; i++)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: SizedBox(
-                              height: 32,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  for (int j = 0; j < sizey; j++)
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(.1),
-                                              child: Container(
-                                                // width: 30,
-                                                color: selectedColor(
-                                                    robot1Path1: robot1Path1,
-                                                    robot1Path2: robot1Path2,
-                                                    robot2Path1: robot2Path1,
-                                                    robot2Path2: robot2Path2,
-                                                    i: i,
-                                                    j: j,
-                                                    list: list),
-                                                child: (robotPosition1X == j &&
-                                                            robotPosition1Y ==
-                                                                i) ||
-                                                        (robotPosition2X == i &&
-                                                            robotPosition2Y ==
-                                                                j)
-                                                    ? const Center(
-                                                        child: Icon(
-                                                          Icons.car_rental,
-                                                          size: 22,
-                                                          color: Colors.black,
-                                                        ),
-                                                      )
-                                                    : null,
+    return FadeIn(
+      duration: const Duration(milliseconds: 500),
+      child: Scaffold(
+        appBar: const CustomAppBar(
+          title: 'Monitoring',
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              BlocBuilder(
+                bloc: bloc,
+                builder: (context, state) {
+                  if (state is GetMonitoringLoading) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Center(
+                            child: ShimmerWidget.rectangular(height: 32 * 10),
+                          ),
+                          Text(
+                            'Map loading...',
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          )
+                        ],
+                      ),
+                    );
+                  } else if (state is GetMonitoringSuccess) {
+                    // robot 1
+                    List<dynamic> robot1Path1 =
+                        state.model.robots[0].robotPath1 ?? [];
+                    List<dynamic> robot1Path2 =
+                        state.model.robots[0].robotPath2 ?? [];
+                    int robotPosition1X = state.model.robots[0].positionX;
+                    int robotPosition1Y = state.model.robots[0].positiony;
+                    // robot 2
+                    List<dynamic> robot2Path1 =
+                        state.model.robots[1].robotPath1 ?? [];
+                    List<dynamic> robot2Path2 =
+                        state.model.robots[1].robotPath2 ?? [];
+                    int robotPosition2X = state.model.robots[1].positionX;
+                    int robotPosition2Y = state.model.robots[1].positiony;
+                    List<List<int>> list = state.model.map;
+                    int sizex = state.model.map.length;
+                    int sizey = state.model.map[0].length;
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          for (int i = 0; i < sizex; i++)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: SizedBox(
+                                height: 32,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    for (int j = 0; j < sizey; j++)
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(.1),
+                                                child: Container(
+                                                  // width: 30,
+                                                  color: selectedColor(
+                                                      robot1Path1: robot1Path1,
+                                                      robot1Path2: robot1Path2,
+                                                      robot2Path1: robot2Path1,
+                                                      robot2Path2: robot2Path2,
+                                                      i: i,
+                                                      j: j,
+                                                      list: list),
+                                                  child: (robotPosition1X ==
+                                                                  j &&
+                                                              robotPosition1Y ==
+                                                                  i) ||
+                                                          (robotPosition2X ==
+                                                                  i &&
+                                                              robotPosition2Y ==
+                                                                  j)
+                                                      ? const Center(
+                                                          child: Icon(
+                                                            Icons.car_rental,
+                                                            size: 22,
+                                                            color: Colors.black,
+                                                          ),
+                                                        )
+                                                      : null,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return const Center(
-                    child: SizedBox(),
-                  );
-                }
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: SizedBox(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const DetailsItem(
-                              color: Colors.black,
-                              text: 'Storage shelves.',
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            DetailsItem(
-                              color: Colors.grey[200],
-                              text: 'can move place.',
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const DetailsItem(
-                              color: Colors.green,
-                              text: 'Charge and waiting place.',
-                            ),
-                          ],
-                        ),
-                        const Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DetailsItem(
-                              color: Colors.yellow,
-                              text: 'Path of robot.',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            DetailsItem(
-                              color: Colors.red,
-                              text: 'Errors.',
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: SizedBox(),
+                    );
+                  }
+                },
               ),
-            )
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const DetailsItem(
+                                color: Colors.black,
+                                text: 'Storage shelves.',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              DetailsItem(
+                                color: Colors.grey[200],
+                                text: 'can move place.',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const DetailsItem(
+                                color: Colors.green,
+                                text: 'Charge and waiting place.',
+                              ),
+                            ],
+                          ),
+                          const Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              DetailsItem(
+                                color: Colors.yellow,
+                                text: 'Path of robot.',
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              DetailsItem(
+                                color: Colors.red,
+                                text: 'Errors.',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

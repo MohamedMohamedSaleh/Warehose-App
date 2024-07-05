@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
@@ -14,33 +15,41 @@ class ErrorsView extends StatefulWidget {
 }
 
 class _ErrorsViewState extends State<ErrorsView> {
-  final bloc = KiwiContainer().resolve<ErrorsBloc>()..add(GetErrorsEvent(isLoading: true));
+  final bloc = KiwiContainer().resolve<ErrorsBloc>()
+    ..add(GetErrorsEvent(isLoading: true));
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(title: "Errors"),
-      body: BlocBuilder(
-        bloc: bloc,
-        builder: (context, state) {
-          if (state is GetErrrorsLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 16,
-              ),
-              itemCount: bloc.list.length,
-              itemBuilder: (context, index) => CustomItemError(
-                bloc: bloc,
-                model: bloc.list[index],
-              ),
-            );
-          }
-        },
+    return ColoredBox(
+      color: Colors.white,
+      child: FadeIn(
+        duration: const Duration(milliseconds: 500),
+        child: Scaffold(
+          appBar: const CustomAppBar(title: "Errors"),
+          body: BlocBuilder(
+            bloc: bloc,
+            builder: (context, state) {
+              if (state is GetErrrorsLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return ListView.separated(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 16,
+                  ),
+                  itemCount: bloc.list.length,
+                  itemBuilder: (context, index) => CustomItemError(
+                    bloc: bloc,
+                    model: bloc.list[index],
+                  ),
+                );
+              }
+            },
+          ),
+        ),
       ),
     );
   }
@@ -65,7 +74,7 @@ class _CustomItemErrorState extends State<CustomItemError> {
           color: Theme.of(context).primaryColor.withOpacity(.2),
         ),
         boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.02))
+          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.03))
         ],
       ),
       child: Padding(
@@ -79,7 +88,7 @@ class _CustomItemErrorState extends State<CustomItemError> {
                   widget.model.type == '0'
                       ? 'Location Error'
                       : 'Robot(${widget.model.robotId}) Error',
-                  style:  TextStyle(
+                  style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
@@ -87,7 +96,7 @@ class _CustomItemErrorState extends State<CustomItemError> {
                 const Spacer(),
                 Text(
                   "#${widget.model.errorId}",
-                  style:  TextStyle(
+                  style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold),
@@ -107,7 +116,7 @@ class _CustomItemErrorState extends State<CustomItemError> {
                   children: [
                     Text(
                       "Location: ${widget.model.type == '0' ? widget.model.errorLocation : widget.model.location}",
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -118,7 +127,7 @@ class _CustomItemErrorState extends State<CustomItemError> {
                     ),
                     Text(
                       widget.model.time,
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -145,7 +154,9 @@ class _CustomItemErrorState extends State<CustomItemError> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: LinearProgressIndicator(
-                              color: Theme.of(context).primaryColor.withOpacity(.8),
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(.8),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(3)),
                             ),
