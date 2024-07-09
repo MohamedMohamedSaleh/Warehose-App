@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
@@ -9,6 +10,7 @@ import 'package:warehouse/features/products/models/products_model.dart';
 import 'package:warehouse/features/products/show_request_product/show_request_product_bloc.dart';
 import 'package:warehouse/views/pages/request_product/product_view.dart';
 
+import '../../../core/logic/cache_helper.dart';
 import '../widgets/shimmer_loading.dart';
 
 class RequestProductPage extends StatefulWidget {
@@ -44,13 +46,27 @@ class _RequestProductPageState extends State<RequestProductPage> {
               );
             } else if (bloc.list.isEmpty) {
               return Center(
-                child: Text(
-                  'No Data',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'No Products',
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    AppImage(
+                      CacheHelper.getIsDark() == true
+                          ? "assets/images/not_found_black2.png"
+                          : 'assets/images/not_found.png',
+                      width: 250,
+                      fit: BoxFit.scaleDown,
+                    )
+                  ],
                 ),
               );
             }
@@ -189,11 +205,15 @@ class _ItemProductsState extends State<_ItemProducts> {
                       builder: (context, state) {
                         if (state is RequestProductLoadingState &&
                             state.id == widget.model.productid) {
-                          return const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: LinearProgressIndicator(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
+                                  const BorderRadius.all(Radius.circular(3)),
+                              backgroundColor: Colors.white,
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(.85),
                             ),
                           );
                         }

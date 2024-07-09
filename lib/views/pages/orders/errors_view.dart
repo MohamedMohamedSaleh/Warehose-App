@@ -1,10 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/features/errors/bloc/errors_bloc.dart';
 
+import '../../../core/logic/cache_helper.dart';
+import '../../../core/widgets/app_image.dart';
 import '../../../features/errors/errors_model.dart';
 
 class ErrorsView extends StatefulWidget {
@@ -32,6 +35,31 @@ class _ErrorsViewState extends State<ErrorsView> {
               if (state is GetErrrorsLoading) {
                 return const Center(
                   child: CircularProgressIndicator(),
+                );
+              } else if (bloc.list.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'No Errors',
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 26.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      AppImage(
+                        CacheHelper.getIsDark() == true
+                            ? "assets/images/smile_face_black.png"
+                            : 'assets/images/smile_face.png',
+                        width: 250,
+                        fit: BoxFit.scaleDown,
+                      )
+                    ],
+                  ),
                 );
               } else {
                 return ListView.separated(

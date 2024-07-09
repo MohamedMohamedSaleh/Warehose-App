@@ -21,7 +21,7 @@ class DioHelper {
           response: response);
     } on DioException catch (ex) {
       return ResponseData(
-          message: ex.response!.data.toString(),
+          message: ex.response?.data.toString()?? "NOt Connected!",
           isSuccess: false,
           response: ex.response);
     }
@@ -36,7 +36,7 @@ class DioHelper {
       return ResponseData(message: '', isSuccess: true, response: response);
     } on DioException catch (ex) {
       return ResponseData(
-          message: ex.response!.data.toString(),
+          message: ex.response?.data.toString()?? "Not Connected!",
           isSuccess: false,
           response: ex.response);
     }

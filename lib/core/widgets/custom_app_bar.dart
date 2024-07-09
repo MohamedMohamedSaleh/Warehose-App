@@ -12,14 +12,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.bottom,
     this.height = 60,
     this.isAcount = false,
-    this.isOrder = false,
+    this.isMain = false,
   });
   final String title;
   final bool thereIsIcon;
   final PreferredSizeWidget? bottom;
   final double height;
   final bool isAcount;
-  final bool isOrder;
+  final bool isMain;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,7 +44,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            actions: isOrder
+            actions: isMain
                 ? [
                     GestureDetector(
                       onTap: () {

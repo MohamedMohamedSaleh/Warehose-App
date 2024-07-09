@@ -8,6 +8,7 @@ import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/views/pages/widgets/custom_icon.dart';
 
+import '../../core/logic/cache_helper.dart';
 import '../../features/notiffications/model.dart';
 
 class NotificationsView extends StatefulWidget {
@@ -40,7 +41,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                 setState(() {});
               }
             },
-            child: ListView.builder(
+            child:bloc.noti.isNotEmpty? ListView.builder(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(
                       top: 22, bottom: 15, left: 16, right: 24)
@@ -50,7 +51,31 @@ class _NotificationsViewState extends State<NotificationsView> {
                 index: index,
               ),
               itemCount: bloc.noti.length,
-            ),
+            ) : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'No Notifications',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          AppImage(
+                            CacheHelper.getIsDark() == true
+                                ? "assets/images/not_found_black2.png"
+                                : 'assets/images/not_found.png',
+                            width: 250,
+                            fit: BoxFit.scaleDown,
+                          )
+                        ],
+                      ),
+                    )
+                  ,
           ),
         ),
       ),

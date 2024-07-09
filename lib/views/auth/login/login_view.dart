@@ -62,6 +62,5 @@ class LoginView extends StatelessWidget {
       ),
     );
   }
-   //TODO: this is token 
-   //c076921e-9a2c-464f-9e1b-23b350bae19c
+
 }

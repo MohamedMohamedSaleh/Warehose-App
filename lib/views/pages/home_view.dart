@@ -1,12 +1,15 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
+import 'package:warehouse/core/widgets/custom_app_bar.dart';
 import 'package:warehouse/features/notiffications/notifications_cubit.dart';
 import 'package:warehouse/views/pages/account/account_view.dart';
 import 'package:warehouse/views/pages/add_product/add_product_view.dart';
@@ -88,7 +91,37 @@ class _HomePageState extends State<HomePage> {
         child: ZoomIn(
           duration: const Duration(milliseconds: 1500),
           child: Scaffold(
-            body: pages[currentIndex],
+            body: StreamBuilder<List<ConnectivityResult>>(
+                stream: Connectivity().onConnectivityChanged,
+                builder: (context, snapshot) {
+                  if (snapshot.data?.last == ConnectivityResult.none) {
+                    return Scaffold(
+                      appBar: const CustomAppBar(title: "Connection"),
+                      body: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              child: AppImage(CacheHelper.getIsDark() == true
+                                  ? "assets/images/no_connected_black.png"
+                                  : "assets/images/no_connected_light.png"),
+                            ),
+                            Text(
+                              "No Internet Connection!",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  return pages[currentIndex];
+                }),
             bottomNavigationBar: SafeArea(
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
@@ -102,6 +135,7 @@ class _HomePageState extends State<HomePage> {
                   elevation: 10,
                   type: BottomNavigationBarType.fixed,
                   onTap: (value) {
+                    print(CacheHelper.getUserToken());
                     currentIndex = value;
                     if (!mounted) return;
                     setState(() {});
@@ -166,7 +200,6 @@ class _HomePageState extends State<HomePage> {
                     width: 45.w,
                     child: FloatingActionButton(
                       onPressed: () {
-                        
                         navigateTo(toPage: const NotificationsView());
                       },
                       child: AppImage(

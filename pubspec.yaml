@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animate_do: ^3.1.2
+  connectivity_plus: ^6.0.3
   cupertino_icons: ^1.0.2
   dio: ^5.4.0
   firebase_core: ^2.24.2
@@ -47,9 +48,16 @@ dependencies:
   shimmer: ^3.0.0
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.2
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/wh4.png"
+  min_sdk_android: 21
 
 flutter_native_splash:
   color: "#ffffff"

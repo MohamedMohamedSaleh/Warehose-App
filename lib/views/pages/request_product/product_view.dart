@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/features/products/models/products_model.dart';
+import 'package:warehouse/features/products/show_request_product/show_request_product_bloc.dart';
 
-class ProductView extends StatelessWidget {
+class ProductView extends StatefulWidget {
   const ProductView({
     super.key,
     required this.model,
@@ -11,6 +13,12 @@ class ProductView extends StatelessWidget {
 
   final ProductModel model;
 
+  @override
+  State<ProductView> createState() => _ProductViewState();
+}
+
+class _ProductViewState extends State<ProductView> {
+  final bloc = KiwiContainer().resolve<ShowRequestProductBloc>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,9 +40,9 @@ class ProductView extends StatelessWidget {
                     bottomRight: Radius.circular(15),
                   ),
                   child: Hero(
-                    tag: model.productid,
+                    tag: widget.model.productid,
                     child: AppImage(
-                      model.image,
+                      widget.model.image,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -56,7 +64,7 @@ class ProductView extends StatelessWidget {
                           Flexible(
                             flex: 100,
                             child: Text(
-                              model.name,
+                              widget.model.name,
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor,
                                   fontSize: 16,
@@ -78,7 +86,7 @@ class ProductView extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
-                                "#${model.productid}",
+                                "#${widget.model.productid}",
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColor,
                                     fontSize: 14,
@@ -95,12 +103,15 @@ class ProductView extends StatelessWidget {
                       height: 10,
                     ),
                     decorationBox(
-                        child: Text(
-                      model.description,
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).primaryColor),
+                        child: SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        widget.model.description,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).primaryColor),
+                      ),
                     )),
                     const SizedBox(
                       height: 10,
@@ -109,10 +120,10 @@ class ProductView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          model.time != null
+                          widget.model.time != null
                               ? Description(
                                   title: "Addition Time:",
-                                  descripe: model.time!,
+                                  descripe: widget.model.time!,
                                 )
                               : const SizedBox(),
                           const SizedBox(
@@ -123,11 +134,11 @@ class ProductView extends StatelessWidget {
                             children: [
                               Description(
                                 title: "Weight:",
-                                descripe: "${model.weight}kg",
+                                descripe: "${widget.model.weight}kg",
                               ),
                               Description(
                                 title: "Cell Id:",
-                                descripe: model.cellid,
+                                descripe: widget.model.cellid,
                               ),
                             ],
                           ),
@@ -139,11 +150,11 @@ class ProductView extends StatelessWidget {
                             children: [
                               Description(
                                 title: "Type:",
-                                descripe: model.category,
+                                descripe: widget.model.category,
                               ),
                               Description(
                                 title: "Status:",
-                                descripe: model.status,
+                                descripe: widget.model.status,
                               ),
                             ],
                           ),
@@ -158,19 +169,41 @@ class ProductView extends StatelessWidget {
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(11)),
-            alignment: Alignment.center,
-            width: double.infinity,
-            height: 45,
-            child: const Text(
-              "Request Product",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
+          child: GestureDetector(
+            onTap: () {
+              bloc.add(RequestProductEvent(id: widget.model.productid));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(11)),
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: 45,
+              child: BlocBuilder(
+                bloc: bloc,
+                builder: (context, state) {
+                  if (state is RequestProductLoadingState &&
+                      state.id == widget.model.productid) {
+                    return SizedBox(
+                      width: 140,
+                      child: LinearProgressIndicator(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(3)),
+                        backgroundColor: Colors.white,
+                        color: Theme.of(context).primaryColor.withOpacity(.85),
+                      ),
+                    );
+                  }
+                  return const Text(
+                    "Request Product",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  );
+                },
+              ),
             ),
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/features/monitoring/bloc/monitoring_bloc.dart';
 import 'package:warehouse/views/pages/widgets/shimmer_widget.dart';
 
@@ -91,6 +92,7 @@ class _MainPageState extends State<MainPage> {
       duration: const Duration(milliseconds: 500),
       child: Scaffold(
         appBar: const CustomAppBar(
+          isMain: true,
           title: 'Monitoring',
         ),
         body: SingleChildScrollView(
@@ -176,10 +178,11 @@ class _MainPageState extends State<MainPage> {
                                                               robotPosition2Y ==
                                                                   j)
                                                       ? const Center(
-                                                          child: Icon(
-                                                            Icons.car_rental,
-                                                            size: 22,
-                                                            color: Colors.black,
+                                                          child: AppImage(
+                                                            "assets/images/sort.png",
+                                                            height: 35,
+                                                            fit: BoxFit
+                                                                .scaleDown,
                                                           ),
                                                         )
                                                       : null,

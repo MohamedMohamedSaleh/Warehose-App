@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:warehouse/core/logic/cache_helper.dart';
+import 'package:warehouse/core/widgets/app_image.dart';
 import 'package:warehouse/features/orders/orders_bloc.dart';
 import 'package:warehouse/views/pages/orders/widgets/custom_item_order.dart';
 import 'package:warehouse/views/pages/orders/widgets/custom_tab_bar.dart';
@@ -43,7 +45,6 @@ class _OrdersPageState extends State<OrdersPage>
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: CustomAppBar(
-              isOrder: true,
               title: 'Orders',
               bottom: CustomTabBar(
                 controller: controller,
@@ -61,12 +62,27 @@ class _OrdersPageState extends State<OrdersPage>
                   } else if (bloc.putList.isEmpty) {
                     //TODO: this is handle empty list
                     return Center(
-                      child: Text(
-                        'no Data',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.bold),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'No Orders',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          AppImage(
+                            CacheHelper.getIsDark() == true
+                                ? "assets/images/not_found_black2.png"
+                                : 'assets/images/not_found.png',
+                            width: 250,
+                            fit: BoxFit.scaleDown,
+                          )
+                        ],
                       ),
                     );
                   } else {
@@ -91,14 +107,27 @@ class _OrdersPageState extends State<OrdersPage>
                       child: CircularProgressIndicator(),
                     );
                   } else if (bloc.requestList.isEmpty) {
-                    //TODO: this is handle empty list
                     return Center(
-                      child: Text(
-                        'no Data',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.bold),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'No Orders',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          AppImage(
+                            CacheHelper.getIsDark() == true
+                                ? "assets/images/not_found_black2.png"
+                                : 'assets/images/not_found.png',
+                            width: 250,
+                          )
+                        ],
                       ),
                     );
                   } else {

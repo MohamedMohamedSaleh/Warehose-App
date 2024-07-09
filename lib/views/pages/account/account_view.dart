@@ -32,88 +32,86 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return FadeIn(
       duration: const Duration(milliseconds: 500),
-      child: Scaffold(
-        body: ListView(
-          physics: const PageScrollPhysics(),
-          children: [
-            const _CustomAppBarAccount(),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 22).r,
-              child: Column(
-                children: [
-                  const CustomItemMyAccount(
-                      title: 'Personal Info', icon: 'account'),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  InkWell(
-                    onTap: () => navigateTo(toPage: const SettingsPage()),
-                    child: const CustomItemMyAccount(
-                        title: 'Settings', icon: 'settings'),
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (context) => const CustomAlertDialog(),
-                      ).then(
-                        (value) => setState(() {}),
-                      );
-                      setState(() {});
-                    },
-                    child: const CustomItemMyAccount(
-                        title: 'Theme', icon: 'theme'),
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      bloc.add(LogoutEvent());
-                    },
-                    child: BlocBuilder(
-                      bloc: bloc,
-                      builder: (context, state) {
-                        if (state is LogoutLoading) {
-                          return const Center(
-                            child: SizedBox(
-                              height: 35,
-                              width: 35,
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-                        return const CustomItemMyAccount(
-                          title: 'Logout',
-                          icon: 'logout',
-                          isLogout: true,
-                        );
-                      },
+      child: SafeArea(
+        child: Scaffold(
+          body: ListView(
+            physics: const PageScrollPhysics(),
+            children: [
+              const _CustomAppBarAccount(),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
+                child: Column(
+                  children: [
+                    const CustomItemMyAccount(
+                        title: 'Personal Info', icon: 'account'),
+                    const SizedBox(
+                      height: 16,
                     ),
-                  ),
-                ],
+                    InkWell(
+                      onTap: () => navigateTo(toPage: const SettingsPage()),
+                      child: const CustomItemMyAccount(
+                          title: 'Settings', icon: 'settings'),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (context) => const CustomAlertDialog(),
+                        ).then(
+                          (value) => setState(() {}),
+                        );
+                        setState(() {});
+                      },
+                      child: const CustomItemMyAccount(
+                          title: 'Theme', icon: 'theme'),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        bloc.add(LogoutEvent());
+                      },
+                      child: BlocBuilder(
+                        bloc: bloc,
+                        builder: (context, state) {
+                          if (state is LogoutLoading) {
+                            return const Center(
+                              child: SizedBox(
+                                height: 35,
+                                width: 35,
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          }
+                          return const CustomItemMyAccount(
+                            title: 'Logout',
+                            icon: 'logout',
+                            isLogout: true,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _CustomAppBarAccount extends StatefulWidget
-    implements PreferredSizeWidget {
+class _CustomAppBarAccount extends StatefulWidget {
   const _CustomAppBarAccount();
 
   @override
   State<_CustomAppBarAccount> createState() => _CustomAppBarAccountState();
-
-  @override
-  Size get preferredSize => const Size.fromHeight(210);
 }
 
 class _CustomAppBarAccountState extends State<_CustomAppBarAccount> {
@@ -126,46 +124,53 @@ class _CustomAppBarAccountState extends State<_CustomAppBarAccount> {
             bottomRight: const Radius.circular(40).w),
         child: Stack(
           children: [
-            AppBar(
-              automaticallyImplyLeading: false,
-              toolbarHeight: 210,
-              backgroundColor: Theme.of(context).primaryColor,
-              centerTitle: true,
-              title: Column(
-                children: [
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Text(
-                    'my account',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15).w,
-                    child: AppImage(
-                      'assets/images/man.jpg',
-                      height: 70.w,
-                      width: 70.w,
-                      fit: BoxFit.cover,
+            ColoredBox(
+              color: Theme.of(context).primaryColor,
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 40,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Text(
-                    "${CacheHelper.getUsername()}",
-                    style: TextStyle(
+                    const Text(
+                      'my account',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15).w,
+                      child: const AppImage(
+                        'assets/images/man.jpg',
+                        height: 70,
+                        width: 70,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "${CacheHelper.getUsername()}",
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
               ),
             ),
             Positioned(
