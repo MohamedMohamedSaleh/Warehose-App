@@ -41,6 +41,16 @@ class _ErrorsViewState extends State<ErrorsView> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      AppImage(
+                        CacheHelper.getIsDark() == true
+                            ? "assets/images/smile_face_black.png"
+                            : 'assets/images/smile_face.png',
+                        width: 250,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
                       Text(
                         'No Errors',
                         style: TextStyle(
@@ -48,16 +58,6 @@ class _ErrorsViewState extends State<ErrorsView> {
                             fontSize: 26.sp,
                             fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      AppImage(
-                        CacheHelper.getIsDark() == true
-                            ? "assets/images/smile_face_black.png"
-                            : 'assets/images/smile_face.png',
-                        width: 250,
-                        fit: BoxFit.scaleDown,
-                      )
                     ],
                   ),
                 );

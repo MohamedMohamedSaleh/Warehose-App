@@ -73,64 +73,80 @@ class _SelectSupplyViewState extends State<SelectSupplyView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Checkbox(
-                          visualDensity: const VisualDensity(
-                            // horizontal: -4,
-                            vertical: -2,
+                    InkWell(
+                      onTap: () {
+                        bloc.add(SelectSupp1Event());
+                      },
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            visualDensity: const VisualDensity(
+                              // horizontal: -4,
+                              vertical: -2,
+                            ),
+                            checkColor: Colors.white,
+                            side: BorderSide(
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(.3)),
+                            activeColor: Theme.of(context).primaryColor,
+                            value: bloc.isSupp1,
+                            onChanged: (value) {
+                              bloc.add(SelectSupp1Event());
+                            },
                           ),
-                          checkColor: Colors.white,
-                          side: BorderSide(color: Theme.of(context).primaryColor.withOpacity(.3)),
-                          activeColor: Theme.of(context).primaryColor,
-                          value: bloc.isSupp1,
-                          onChanged: (value) {
-                            bloc.add(SelectSupp1Event());
-                          },
-                        ),
-                        InkWell(
-                          onTap: () {
-                            bloc.add(SelectSupp1Event());
-                          },
-                          child: Text(
-                            'Supply 1',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold),
+                          InkWell(
+                            onTap: () {
+                              bloc.add(SelectSupp1Event());
+                            },
+                            child: Text(
+                              'Supply 1',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          visualDensity: const VisualDensity(
-                            // horizontal: -4,
-                            vertical: -2,
+                    InkWell(
+                      onTap: () {
+                        bloc.add(SelectSupp2Event());
+                      },
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            visualDensity: const VisualDensity(
+                              // horizontal: -4,
+                              vertical: -2,
+                            ),
+                            checkColor: Colors.white,
+                            side: BorderSide(
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(.3)),
+                            value: !bloc.isSupp1,
+                            onChanged: (value) {
+                              bloc.add(SelectSupp2Event());
+                            },
+                            activeColor: Theme.of(context).primaryColor,
+                            hoverColor: Theme.of(context).primaryColor,
                           ),
-                          checkColor: Colors.white,
-                          side: BorderSide(color: Theme.of(context).primaryColor.withOpacity(.3)),
-                          value: !bloc.isSupp1,
-                          onChanged: (value) {
-                            bloc.add(SelectSupp2Event());
-                          },
-                          activeColor: Theme.of(context).primaryColor,
-                          hoverColor: Theme.of(context).primaryColor,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            bloc.add(SelectSupp2Event());
-                          },
-                          child: Text(
-                            'Supply 2',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold),
+                          InkWell(
+                            onTap: () {
+                              bloc.add(SelectSupp2Event());
+                            },
+                            child: Text(
+                              'Supply 2',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

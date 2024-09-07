@@ -29,6 +29,8 @@ class MonitoringBloc extends Bloc<MonitoringEvents, MonitoringStates> {
     if (respose.isSuccess) {
       final model = MonitoringData.fromJson(respose.response!.data);
       print(model.map);
+      print(model.robots[0].robotPosition);
+      print(model.robots[1].robotPosition);
       emit(GetMonitoringSuccess(model: model));
       isLoading = false;
     } else {

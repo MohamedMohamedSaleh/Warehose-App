@@ -18,6 +18,7 @@ class CacheHelper {
     await _prefs.setString('department', model.department);
     await _prefs.setString('token_expire', model.tokenExpire);
     await _prefs.setString('role', model.role);
+    await _prefs.setString('image', model.image);
   }
 
   static Future<void> deletUserData() async {
@@ -29,6 +30,7 @@ class CacheHelper {
     await _prefs.remove('token_expire');
     await _prefs.remove('role');
     await _prefs.remove('supply');
+    await _prefs.remove('image');
   }
 
   static bool isAuth() {
@@ -62,6 +64,10 @@ class CacheHelper {
     _prefs.setString('supply', supply);
   }
 
+  static Future<void> setTokenFirebase({required String tokenFirebase}) async {
+    _prefs.setString('tokenFirebase', tokenFirebase);
+  }
+
   static Future<void> setNumNoti({int num = 0}) async {
     _prefs.setInt('num_nuti', num);
   }
@@ -73,10 +79,30 @@ class CacheHelper {
   static String? getSupply() {
     return _prefs.getString('supply');
   }
+  static String? getDepartment() {
+    return _prefs.getString('department');
+  }
+
+  static String? getUserImage() {
+    return _prefs.getString('image');
+  }
+
+  static String? getUserRole() {
+    return _prefs.getString('role');
+  }
+
+  static String? getUserExpiration() {
+    return _prefs.getString('token_expire');
+  }
 
   static String? getUserToken() {
     return _prefs.getString('token');
   }
+  static String? getUserTokenFirebase() {
+    return _prefs.getString('tokenFirebase');
+  }
+
+
 
   static String? getUsername() {
     return _prefs.getString('name');
@@ -85,6 +111,7 @@ class CacheHelper {
   static String? getUserId() {
     return _prefs.getString('id');
   }
+
   static bool? getIsDark() {
     return _prefs.getBool('isDark');
   }

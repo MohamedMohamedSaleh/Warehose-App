@@ -43,8 +43,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-//token app =>    7412ca7e-6f89-47fa-a8ca-c182e7ad78df
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -55,7 +53,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String? myToken;
   void getToken() async {
-    await FirebaseMessaging.instance.getToken();
+    String token = await FirebaseMessaging.instance.getToken()?? '';
+    CacheHelper.setTokenFirebase(tokenFirebase: token);
   }
 
   final bloc = KiwiContainer().resolve<ThemesBloc>();
@@ -69,7 +68,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(330, 700),
+      // designSize: const Size(330, 700),
+      minTextAdapt: true,
       builder: (context, child) => BlocBuilder(
         bloc: bloc,
         builder: (context, state) {

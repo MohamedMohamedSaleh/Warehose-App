@@ -1,5 +1,4 @@
 class UserData {
-
   late final String username;
   late final String id;
   late final String name;
@@ -7,8 +6,9 @@ class UserData {
   late final String role;
   late final String token;
   late final String tokenExpire;
-  
-  UserData.fromJson(Map<String, dynamic> json){
+  late final String image;
+
+  UserData.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     id = json['id'];
     name = json['name'];
@@ -16,7 +16,6 @@ class UserData {
     role = json['role'];
     token = json['token'];
     tokenExpire = json['token_expire'];
+    image = json['image_url']?? "assets/images/image_man.png";
   }
-
-
 }

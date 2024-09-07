@@ -136,6 +136,8 @@ class _HomePageState extends State<HomePage> {
                   type: BottomNavigationBarType.fixed,
                   onTap: (value) {
                     print(CacheHelper.getUserToken());
+                    print(MediaQuery.of(context).size.width);
+                    print(MediaQuery.of(context).size.height);
                     currentIndex = value;
                     if (!mounted) return;
                     setState(() {});
@@ -196,8 +198,8 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.red,
                   alignment: Alignment.topLeft,
                   child: SizedBox(
-                    height: 45.w,
-                    width: 45.w,
+                    height: 45,
+                    width: 45,
                     child: FloatingActionButton(
                       onPressed: () {
                         navigateTo(toPage: const NotificationsView());

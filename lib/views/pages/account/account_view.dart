@@ -6,6 +6,8 @@ import 'package:kiwi/kiwi.dart';
 import 'package:warehouse/core/logic/cache_helper.dart';
 import 'package:warehouse/core/logic/helper_mothods.dart';
 import 'package:warehouse/core/widgets/app_image.dart';
+import 'package:warehouse/views/pages/account/screens/about_app_view.dart';
+import 'package:warehouse/views/pages/account/screens/personal_info.dart';
 import 'package:warehouse/views/pages/account/screens/settings_view.dart';
 
 import '../../auth/logout/logout_bloc.dart';
@@ -43,8 +45,13 @@ class _AccountPageState extends State<AccountPage> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
                 child: Column(
                   children: [
-                    const CustomItemMyAccount(
-                        title: 'Personal Info', icon: 'account'),
+                    InkWell(
+                      onTap: () {
+                        navigateTo(toPage: const PersonalInfoView());
+                      },
+                      child: const CustomItemMyAccount(
+                          title: 'Personal Info', icon: 'account'),
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -68,6 +75,16 @@ class _AccountPageState extends State<AccountPage> {
                       },
                       child: const CustomItemMyAccount(
                           title: 'Theme', icon: 'theme'),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    GestureDetector(
+                      onTap: () => navigateTo(toPage: const AboutAppView()),
+                      child: const CustomItemMyAccount(
+                        title: "About App",
+                        icon: "about_app",
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
@@ -105,7 +122,13 @@ class _AccountPageState extends State<AccountPage> {
       ),
     );
   }
-}
+} /* 
+
+Our Mobile Application was part of my bacheloer degree graduation project. The application works as 
+the interface for the project 
+
+*/
+//
 
 class _CustomAppBarAccount extends StatefulWidget {
   const _CustomAppBarAccount();
@@ -134,7 +157,7 @@ class _CustomAppBarAccountState extends State<_CustomAppBarAccount> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 40,
+                      height: 45,
                     ),
                     const Text(
                       'my account',
@@ -146,13 +169,24 @@ class _CustomAppBarAccountState extends State<_CustomAppBarAccount> {
                     const SizedBox(
                       height: 16,
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15).w,
-                      child: const AppImage(
-                        'assets/images/man.jpg',
-                        height: 70,
-                        width: 70,
-                        fit: BoxFit.cover,
+                    FadeIn(
+                      duration: const Duration(milliseconds: 500),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15).w,
+                        child: Hero(
+                          tag: "11",
+                          child: GestureDetector(
+                            onTap: () =>
+                                navigateTo(toPage: const PersonalInfoView()),
+                            child: AppImage(
+                              CacheHelper.getUserId() == "1" ? "assets/images/my_image.jpg":
+                                  "assets/images/image_man.png",
+                              height: 70,
+                              width: 80,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -167,7 +201,7 @@ class _CustomAppBarAccountState extends State<_CustomAppBarAccount> {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 30,
                     )
                   ],
                 ),

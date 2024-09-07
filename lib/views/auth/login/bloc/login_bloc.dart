@@ -33,8 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginStates> {
         data: {
           'username': userNameController.text.trim(),
           'password': passwordController.text,
-          'token':
-              "d0pzeAnWRhC37Kqd-3KIUc:APA91bGyw_qtBgmp08BWo1wyfFwCFKKURdYMd1u4oEKq39OLqD-0nKBcD4gWWa0hj6ElCS8OitwzgqI1D-pvREYG8LMkaA40h-e5zr4x76_cvRKtqUIeLCwynaqJWRd9mxprpQu7xp28",
+          'token': CacheHelper.getUserTokenFirebase() ,
         },
       );
 

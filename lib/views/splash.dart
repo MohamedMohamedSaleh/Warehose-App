@@ -62,39 +62,39 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth = MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
-        Positioned(
-          top: screenHeight / 2 - 130,
-          child: JelloIn(
-            delay: const Duration(seconds: 2),
-            duration: const Duration(seconds: 1),
-            child: FadeIn(
-              delay: const Duration(seconds: 2),
-              duration: const Duration(seconds: 1),
-              child: SizedBox(
-                width: screenWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Welcome to Warehouse",
-                      style: TextStyle(
-                          fontSize: 26.sp,
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        Positioned(top: 344, right: 166, child: blur()),
-        Positioned(top: 300, right: 100, child: blur()),
+        // Positioned(
+        //   top: screenHeight / 2 - 130,
+        //   child: JelloIn(
+        //     delay: const Duration(seconds: 2),
+        //     duration: const Duration(seconds: 1),
+        //     child: FadeIn(
+        //       delay: const Duration(seconds: 2),
+        //       duration: const Duration(seconds: 1),
+        //       child: SizedBox(
+        //         width: screenWidth,
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Text(
+        //               "Welcome to Warehouse",
+        //               style: TextStyle(
+        //                   fontSize: 26.sp,
+        //                   color: Theme.of(context).primaryColor,
+        //                   fontWeight: FontWeight.bold),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // Positioned(top: 344, right: 166, child: blur()),
+        // Positioned(top: 300, right: 100, child: blur()),
         Center(
           child: JelloIn(
             delay: const Duration(seconds: 1),
@@ -114,33 +114,33 @@ class _SplashViewState extends State<SplashView> {
             ),
           ),
         ),
-        Positioned(top: 10, bottom: 200, child: blur()),
-        Positioned(top: 250, right: 35, child: blur()),
-        Positioned(top: 55, right: 50, child: blur()),
-        Positioned(top: 60, right: 200, child: blur()),
-        Positioned(top: 12, right: 100, child: blur()),
-        Positioned(top: 100, right: 120, child: blur()),
-        Positioned(top: 200, right: 100, child: blur()),
-        Positioned(top: 150, right: 200, child: blur()),
-        Positioned(top: 100, left: -20, child: blur()),
-        Positioned(top: 110, right: -15, child: blur()),
-        Positioned(top: 180, right: 10, child: blur()),
-        Positioned(top: 220, left: 100, child: blur()),
-        Positioned(top: 20, left: 5, child: blur()),
-        Positioned(bottom: 12, right: 100, child: blur()),
-        Positioned(bottom: 100, right: 100, child: blur()),
-        Positioned(bottom: 200, right: 100, child: blur()),
-        Positioned(bottom: 150, right: 200, child: blur()),
-        Positioned(bottom: 100, left: -20, child: blur()),
-        Positioned(bottom: 110, right: -15, child: blur()),
-        Positioned(bottom: 180, right: 10, child: blur()),
-        Positioned(bottom: 220, left: 100, child: blur()),
-        Positioned(bottom: 20, left: 5, child: blur()),
-        Positioned(bottom: 250, left: 5, child: blur()),
-        Positioned(bottom: 30, left: 250, child: blur()),
-        Positioned(bottom: 340, left: -15, child: blur()),
-        Positioned(bottom: 270, left: 255, child: blur()),
-        Positioned(bottom: 80, left: 70, child: blur()),
+        // Positioned(top: 10, bottom: 200, child: blur()),
+        // Positioned(top: 250, right: 35, child: blur()),
+        // Positioned(top: 55, right: 50, child: blur()),
+        // Positioned(top: 60, right: 200, child: blur()),
+        // Positioned(top: 12, right: 100, child: blur()),
+        // Positioned(top: 100, right: 120, child: blur()),
+        // Positioned(top: 200, right: 100, child: blur()),
+        // Positioned(top: 150, right: 200, child: blur()),
+        // Positioned(top: 100, left: -20, child: blur()),
+        // Positioned(top: 110, right: -15, child: blur()),
+        // Positioned(top: 180, right: 10, child: blur()),
+        // Positioned(top: 220, left: 100, child: blur()),
+        // Positioned(top: 20, left: 5, child: blur()),
+        // Positioned(bottom: 12, right: 100, child: blur()),
+        // Positioned(bottom: 100, right: 100, child: blur()),
+        // Positioned(bottom: 200, right: 100, child: blur()),
+        // Positioned(bottom: 150, right: 200, child: blur()),
+        // Positioned(bottom: 100, left: -20, child: blur()),
+        // Positioned(bottom: 110, right: -15, child: blur()),
+        // Positioned(bottom: 180, right: 10, child: blur()),
+        // Positioned(bottom: 220, left: 100, child: blur()),
+        // Positioned(bottom: 20, left: 5, child: blur()),
+        // Positioned(bottom: 250, left: 5, child: blur()),
+        // Positioned(bottom: 30, left: 250, child: blur()),
+        // Positioned(bottom: 340, left: -15, child: blur()),
+        // Positioned(bottom: 270, left: 255, child: blur()),
+        // Positioned(bottom: 80, left: 70, child: blur()),
       ]),
     );
   }

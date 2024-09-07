@@ -37,9 +37,7 @@ class CustomItemMyAccount extends StatelessWidget {
                     height: 18.w,
                     width: 18.w,
                     fit: BoxFit.scaleDown,
-                    color: !isLogout
-                        ? Colors.black.withOpacity(.5)
-                        : Colors.black.withOpacity(.35),
+                    color: Theme.of(context).primaryColor,
                   )
                 : mainIcon!,
             SizedBox(

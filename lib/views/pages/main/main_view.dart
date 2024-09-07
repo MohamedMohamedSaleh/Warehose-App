@@ -25,9 +25,9 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 1500), (timer) {
       print('Refersh');
-      // bloc.add(GetMonitoringEvent());
+      bloc.add(GetMonitoringEvent());
     });
   }
 
@@ -174,9 +174,9 @@ class _MainPageState extends State<MainPage> {
                                                               robotPosition1Y ==
                                                                   i) ||
                                                           (robotPosition2X ==
-                                                                  i &&
+                                                                  j &&
                                                               robotPosition2Y ==
-                                                                  j)
+                                                                  i)
                                                       ? const Center(
                                                           child: AppImage(
                                                             "assets/images/sort.png",
@@ -200,8 +200,18 @@ class _MainPageState extends State<MainPage> {
                       ),
                     );
                   } else {
-                    return const Center(
-                      child: SizedBox(),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        color: Colors.red[200],
+                        height: 32 * 10,
+                        width: double.infinity,
+                        child: const Text(
+                          "Loading Error!",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
                     );
                   }
                 },

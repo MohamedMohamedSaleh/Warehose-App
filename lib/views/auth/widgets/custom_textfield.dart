@@ -9,8 +9,10 @@ class CustomTextField extends StatefulWidget {
     this.passwordIcon,
     required this.prefixIcon,
     this.controller,
+    this.isPersonal = false,
   });
 
+  final bool isPersonal;
   final bool isPassword;
   final String labelText;
   final IconData? passwordIcon;
@@ -65,7 +67,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
             : null,
         fillColor: const Color(0xfff1f1f5),
         filled: true,
-        labelStyle: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w100),
+        labelStyle: TextStyle(
+            fontSize: widget.isPersonal ? 16 : 10,
+            fontWeight: widget.isPersonal ? FontWeight.bold : FontWeight.w100),
         labelText: widget.labelText,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(11).w,
