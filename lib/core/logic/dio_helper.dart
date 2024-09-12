@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 
 class DioHelper {
+  // delete base url
   static final Dio _dio = Dio(BaseOptions(
-    baseUrl: "https://5d8pkv7x4f.execute-api.us-east-1.amazonaws.com/sta1/",
+    baseUrl: "",
   ));
 
   static Future<ResponseData> sendData(
