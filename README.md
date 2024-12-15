@@ -99,7 +99,7 @@ manage their purchases, and stay updated on their order status.
 
 Thank you for exploring the **Warehouse App**! We hope you enjoy discovering.
 
-If you have any feedback, suggestions, or encounter any issues, please don't hesitate to reach out. Your input is valuable and helps us make the app even better.
+If you have any feedback, suggestions, or encounter any issues, please don't hesitate to reach out. Your input is valuable and helps us make the app even better..
 
 
 ---
